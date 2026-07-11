@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Frbonplan — Bons plans Hacoo sélectionnés</title>
+<meta name="description" content="Frbonplan repère, vérifie et publie les meilleures opportunités Hacoo : codes promo, sélections produit et offres limitées, en toute transparence.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0f14">
+<meta property="og:title" content="Frbonplan — Bons plans Hacoo sélectionnés">
+<meta property="og:description" content="Codes promo, sélections et offres Hacoo, vérifiés et publiés sur notre canal Telegram.">
+<meta property="og:image" content="assets/unnamed.png">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="assets/unnamed.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -38,14 +45,34 @@
     font-family:'Inter', system-ui, sans-serif;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
+    position:relative;
+  }
+  /* grain texture overlay */
+  body::after{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:1; opacity:0.035; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   h1,h2,h3{font-family:'Space Grotesk', sans-serif; margin:0;}
   code, .mono{font-family:'JetBrains Mono', monospace;}
   a{color:inherit;}
   img{max-width:100%;display:block;}
   .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
-
   :focus-visible{outline:2px solid var(--gold-soft); outline-offset:3px; border-radius:6px;}
+
+  .skip-link{
+    position:absolute; left:-999px; top:0; background:var(--gold); color:#181206; padding:10px 16px;
+    border-radius:0 0 10px 0; z-index:200; font-weight:600; text-decoration:none;
+  }
+  .skip-link:focus{left:0;}
+
+  /* CURSOR SPOTLIGHT */
+  .spotlight{
+    position:fixed; width:420px; height:420px; border-radius:50%; pointer-events:none; z-index:0;
+    background:radial-gradient(circle, rgba(217,164,65,0.10), transparent 70%);
+    transform:translate(-50%,-50%); left:50%; top:20%;
+    transition:opacity 0.3s; opacity:0; will-change:left, top;
+  }
+  @media (hover:hover){ .spotlight.active{opacity:1;} }
 
   /* SCROLL PROGRESS */
   .progress-bar{position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg, var(--gold), var(--coral)); z-index:100; width:0%; transition:width 0.1s linear;}
@@ -57,6 +84,24 @@
   .reveal-delay-2.in-view{transition-delay:0.16s;}
   .reveal-delay-3.in-view{transition-delay:0.24s;}
 
+  /* SCROLLSPY DOTS (desktop) */
+  .spy-dots{
+    position:fixed; right:22px; top:50%; transform:translateY(-50%); z-index:55;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .spy-dots a{
+    width:9px; height:9px; border-radius:50%; background:var(--border); border:1px solid var(--border);
+    position:relative; transition:0.25s; display:block;
+  }
+  .spy-dots a::after{
+    content:attr(data-label); position:absolute; right:20px; top:50%; transform:translateY(-50%);
+    background:var(--card); border:1px solid var(--border); padding:4px 10px; border-radius:8px;
+    font-size:0.75rem; white-space:nowrap; opacity:0; pointer-events:none; transition:0.2s;
+  }
+  .spy-dots a:hover::after{opacity:1;}
+  .spy-dots a.active{background:var(--gold-soft); border-color:var(--gold-soft); transform:scale(1.3);}
+  @media (max-width:1180px){ .spy-dots{display:none;} }
+
   /* HEADER */
   header{
     position:sticky; top:0; z-index:60;
@@ -64,20 +109,26 @@
     backdrop-filter:blur(14px);
     border-bottom:1px solid var(--border);
   }
-  .header-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 24px; max-width:1120px; margin:0 auto;}
-  .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
-  .logo-mark{
-    width:34px; height:34px; border-radius:9px;
-    background:linear-gradient(135deg, var(--gold), var(--coral));
-    background-size:200% 200%;
+  .header-inner{display:flex; align-items:center; justify-content:space-between; padding:12px 24px; max-width:1120px; margin:0 auto;}
+  .brand{display:flex; align-items:center; gap:11px; text-decoration:none;}
+
+  .logo-wrap{position:relative; width:42px; height:42px; flex-shrink:0;}
+  .logo-photo{
+    width:100%; height:100%; border-radius:12px; object-fit:cover;
+    border:1px solid var(--border); background:var(--card);
+  }
+  .logo-seal{
+    position:absolute; bottom:-5px; right:-5px; width:19px; height:19px; border-radius:50%;
+    background:linear-gradient(135deg, var(--gold), var(--coral)); background-size:200% 200%;
     animation:logoShift 5s ease-in-out infinite;
     display:flex; align-items:center; justify-content:center;
-    font-family:'Space Grotesk', sans-serif; font-weight:700; color:#0b0f14; font-size:17px;
-    flex-shrink:0;
+    font-family:'Space Grotesk', sans-serif; font-weight:700; color:#0b0f14; font-size:10px;
+    border:2px solid var(--bg);
   }
   @keyframes logoShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
   .brand-name{font-family:'Space Grotesk', sans-serif; font-weight:700; letter-spacing:0.01em; font-size:1.05rem;}
   .brand-name span{color:var(--gold-soft);}
+  .brand-name small{display:block; font-family:'Inter',sans-serif; font-weight:500; font-size:0.68rem; color:var(--text-dim); letter-spacing:0.03em;}
 
   nav.main-nav{display:flex; align-items:center; gap:4px;}
   nav.main-nav a{
@@ -109,9 +160,9 @@
   .mobile-nav a:last-child{border-bottom:none;}
 
   /* HERO */
-  .hero{padding:64px 0 40px; position:relative;}
+  .hero{padding:60px 0 40px; position:relative;}
   .hero-bg{position:absolute; inset:-60px 0 auto 0; height:640px; z-index:-1; pointer-events:none; overflow:hidden;}
-  .blob{position:absolute; border-radius:50%; filter:blur(70px); opacity:0.35; animation:float 14s ease-in-out infinite;}
+  .blob{position:absolute; border-radius:50%; filter:blur(70px); opacity:0.35; animation:float 14s ease-in-out infinite; will-change:transform;}
   .blob-1{width:340px; height:340px; background:var(--gold); top:-80px; left:-60px; animation-delay:0s;}
   .blob-2{width:280px; height:280px; background:var(--coral); top:60px; right:-40px; animation-delay:-4s;}
   .blob-3{width:220px; height:220px; background:#5ac8fa; opacity:0.14; top:220px; left:38%; animation-delay:-8s;}
@@ -123,7 +174,7 @@
   .sparkle{position:absolute; width:5px; height:5px; background:var(--gold-soft); border-radius:50%; opacity:0; animation:sparkle 3.4s ease-in-out infinite;}
   @keyframes sparkle{0%,100%{opacity:0; transform:scale(0.4);}50%{opacity:0.8; transform:scale(1.2);}}
 
-  .hero-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:48px; align-items:center;}
+  .hero-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:48px; align-items:center; position:relative; z-index:2;}
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
     font-size:0.78rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
@@ -142,15 +193,16 @@
     animation:shine 5s linear infinite;
   }
   @keyframes shine{to{background-position:200% center;}}
-  .hero p.lede{color:var(--text-soft); font-size:1.08rem; line-height:1.6; max-width:46ch; margin-bottom:30px;}
+  .hero p.lede{color:var(--text-soft); font-size:1.08rem; line-height:1.6; max-width:46ch; margin-bottom:26px;}
 
-  .cta-row{display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-bottom:22px;}
+  .cta-row{display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-bottom:20px;}
   .btn-primary{
     position:relative; overflow:hidden;
     display:inline-flex; align-items:center; gap:9px;
     background:linear-gradient(135deg, var(--gold), #c48a2e); color:#181206;
     font-weight:600; font-size:0.98rem; padding:14px 26px; border-radius:999px; text-decoration:none;
-    box-shadow:0 10px 30px rgba(217,164,65,0.3); transition:0.22s;
+    box-shadow:0 10px 30px rgba(217,164,65,0.3); transition:0.22s; border:none; cursor:pointer;
+    font-family:'Inter', sans-serif;
   }
   .btn-primary::before{
     content:""; position:absolute; top:0; left:-60%; width:40%; height:100%;
@@ -163,12 +215,17 @@
     display:inline-flex; align-items:center; gap:8px;
     background:transparent; border:1px solid var(--border); color:var(--text-soft);
     font-weight:500; font-size:0.95rem; padding:13px 22px; border-radius:999px; text-decoration:none; transition:0.22s;
+    cursor:pointer; font-family:'Inter', sans-serif;
   }
   .btn-ghost:hover{border-color:var(--gold-soft); color:var(--text);}
 
-  .microtrust{display:flex; flex-wrap:wrap; gap:18px; font-size:0.83rem; color:var(--text-dim);}
-  .microtrust span{display:flex; align-items:center; gap:6px;}
-  .microtrust svg{width:14px;height:14px; flex-shrink:0;}
+  .microtrust{display:flex; flex-wrap:wrap; gap:18px; font-size:0.83rem; color:var(--text-dim); margin-bottom:18px;}
+
+  .countdown{
+    display:inline-flex; align-items:center; gap:10px; font-size:0.82rem; color:var(--text-dim);
+    background:var(--card); border:1px solid var(--border); padding:8px 14px; border-radius:999px;
+  }
+  .countdown b{color:var(--gold-soft); font-family:'JetBrains Mono',monospace; font-weight:700;}
 
   /* TICKET */
   .ticket{
@@ -215,7 +272,7 @@
   .stat-box span{font-size:0.72rem; color:var(--text-dim);}
 
   /* SECTIONS */
-  section{padding:56px 0;}
+  section{padding:56px 0; position:relative; z-index:2;}
   .section-head{text-align:center; max-width:640px; margin:0 auto 40px;}
   .section-head .eyebrow{margin-bottom:14px;}
   .section-head h2{font-size:clamp(1.5rem,3vw,2rem); margin-bottom:12px;}
@@ -242,6 +299,7 @@
   .card p{color:var(--text-soft); font-size:0.92rem; line-height:1.55; margin:0;}
 
   /* COUPON GRID */
+  .coupon-head-row{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; margin-bottom:24px;}
   .coupon-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
   .coupon{
     position:relative; background:var(--card); border:1px solid var(--border); border-radius:16px;
@@ -259,12 +317,23 @@
   .coupon-name{font-size:0.85rem; color:var(--text-soft);}
   .coupon-code-line{display:flex; align-items:center; justify-content:space-between; border:1px dashed var(--border); border-radius:10px; padding:12px 14px;}
 
-  /* TESTIMONIALS */
-  .testi{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:24px; transition:transform 0.3s ease, box-shadow 0.3s ease;}
-  .testi:hover{transform:translateY(-4px) rotate(-0.4deg); box-shadow:0 16px 34px rgba(0,0,0,0.3);}
-  .testi p{color:var(--text-soft); font-size:0.95rem; line-height:1.6; margin:0 0 14px;}
+  /* TESTIMONIAL CAROUSEL */
+  .testi-carousel{position:relative; max-width:640px; margin:0 auto;}
+  .testi-track{position:relative; min-height:168px;}
+  .testi{
+    background:var(--card); border:1px solid var(--border); border-radius:16px; padding:26px;
+    position:absolute; inset:0; opacity:0; transform:translateX(24px); transition:opacity 0.45s ease, transform 0.45s ease;
+    pointer-events:none;
+  }
+  .testi.active{opacity:1; transform:translateX(0); pointer-events:auto; position:relative;}
+  .testi p{color:var(--text-soft); font-size:1rem; line-height:1.65; margin:0 0 14px;}
   .testi-name{font-size:0.85rem; color:var(--text-dim); font-weight:600;}
-  .stars{color:var(--gold-soft); font-size:0.85rem; margin-bottom:10px; letter-spacing:2px;}
+  .stars{color:var(--gold-soft); font-size:0.9rem; margin-bottom:12px; letter-spacing:2px;}
+  .testi-dots{display:flex; justify-content:center; gap:8px; margin-top:20px;}
+  .testi-dots button{
+    width:8px; height:8px; border-radius:50%; background:var(--border); border:none; cursor:pointer; padding:0; transition:0.2s;
+  }
+  .testi-dots button.active{background:var(--gold-soft); width:22px; border-radius:5px;}
 
   /* FAQ ACCORDION */
   .faq-item{border-bottom:1px solid var(--border);}
@@ -278,6 +347,12 @@
   .faq-a{max-height:0; overflow:hidden; transition:max-height 0.35s ease, padding 0.35s ease;}
   .faq-item.open .faq-a{max-height:200px; padding-bottom:20px;}
   .faq-a p{color:var(--text-soft); font-size:0.92rem; line-height:1.6; margin:0;}
+  .faq-search{
+    width:100%; background:var(--card); border:1px solid var(--border); color:var(--text);
+    padding:12px 16px; border-radius:12px; font-size:0.92rem; margin-bottom:24px; font-family:'Inter',sans-serif;
+  }
+  .faq-search::placeholder{color:var(--text-dim);}
+  .faq-item.hidden{display:none;}
 
   /* SOCIALS */
   .social-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:14px;}
@@ -300,8 +375,10 @@
   .final-cta h2{font-size:clamp(1.5rem,3vw,2.1rem); margin-bottom:14px;}
   .final-cta p{color:var(--text-soft); margin-bottom:26px; max-width:50ch; margin-left:auto; margin-right:auto;}
 
-  footer{border-top:1px solid var(--border); padding:32px 0; text-align:center; color:var(--text-dim); font-size:0.85rem;}
+  footer{border-top:1px solid var(--border); padding:32px 0; text-align:center; color:var(--text-dim); font-size:0.85rem; position:relative; z-index:2;}
   footer a{color:var(--text-dim); text-decoration:underline; text-underline-offset:3px;}
+  .footer-badge{display:inline-flex; align-items:center; gap:6px; margin-top:8px; font-size:0.78rem;}
+  .footer-badge img{width:16px; height:16px; border-radius:4px;}
 
   /* MOBILE STICKY BAR */
   .sticky-cta{
@@ -321,6 +398,16 @@
   }
   .back-top.show{opacity:1; pointer-events:auto; transform:translateY(0);}
   .back-top:hover{border-color:var(--gold-soft); transform:translateY(-2px);}
+
+  /* TOAST */
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translate(-50%, 20px); z-index:90;
+    background:var(--card); border:1px solid var(--gold-soft); color:var(--text);
+    padding:12px 20px; border-radius:12px; font-size:0.88rem; display:flex; align-items:center; gap:8px;
+    opacity:0; pointer-events:none; transition:0.3s; box-shadow:0 14px 34px rgba(0,0,0,0.4);
+  }
+  .toast.show{opacity:1; transform:translate(-50%, 0);}
+  .toast .tick{color:var(--gold-soft); font-weight:700;}
 
   @media (max-width: 900px){
     .hero-grid{grid-template-columns:1fr;}
@@ -344,19 +431,33 @@
     .btn-primary, .btn-ghost{justify-content:center;}
   }
   @media (hover:none){
-    .card:hover, .coupon:hover, .testi:hover{transform:none;}
+    .card:hover, .coupon:hover{transform:none;}
   }
 </style>
 </head>
 <body>
 
+<a class="skip-link" href="#accueil">Aller au contenu</a>
+<div class="spotlight" id="spotlight"></div>
 <div class="progress-bar" id="progressBar"></div>
+
+<nav class="spy-dots" id="spyDots" aria-label="Navigation rapide">
+  <a href="#accueil" data-section="accueil" data-label="Accueil" class="active"></a>
+  <a href="#mission" data-section="mission" data-label="Mission"></a>
+  <a href="#offres" data-section="offres" data-label="Offres"></a>
+  <a href="#codes" data-section="codes" data-label="Codes"></a>
+  <a href="#avis" data-section="avis" data-label="Avis"></a>
+  <a href="#faq" data-section="faq" data-label="FAQ"></a>
+</nav>
 
 <header>
   <div class="header-inner">
     <a class="brand" href="#accueil">
-      <div class="logo-mark">F</div>
-      <div class="brand-name">FR<span>BONPLAN</span></div>
+      <div class="logo-wrap">
+        <img class="logo-photo" src="assets/unnamed.png" alt="Logo Frbonplan">
+        <div class="logo-seal">F</div>
+      </div>
+      <div class="brand-name">FR<span>BONPLAN</span><small>Sélection Hacoo</small></div>
     </a>
     <nav class="main-nav" id="mainNav">
       <a href="#mission" data-section="mission">Mission</a>
@@ -381,9 +482,9 @@
 <main>
   <section id="accueil" class="hero">
     <div class="hero-bg" aria-hidden="true">
-      <div class="blob blob-1"></div>
-      <div class="blob blob-2"></div>
-      <div class="blob blob-3"></div>
+      <div class="blob blob-1" id="blob1"></div>
+      <div class="blob blob-2" id="blob2"></div>
+      <div class="blob blob-3" id="blob3"></div>
       <div class="sparkle" style="top:12%; left:22%; animation-delay:0s;"></div>
       <div class="sparkle" style="top:34%; left:68%; animation-delay:1.1s;"></div>
       <div class="sparkle" style="top:58%; left:12%; animation-delay:2.2s;"></div>
@@ -391,7 +492,7 @@
     </div>
     <div class="wrap hero-grid">
       <div class="reveal in-view">
-        <div class="eyebrow"><span class="dot"></span>Sélection mise à jour cette semaine</div>
+        <div class="eyebrow"><span class="dot"></span>Sélection mise à jour chaque semaine</div>
         <h1>Le tri est fait. Les <em>bons plans Hacoo</em> restent.</h1>
         <p class="lede">Frbonplan repère, vérifie et publie les meilleures opportunités Hacoo — codes promo, sélections produit, offres limitées — pour éviter de fouiller pendant des heures.</p>
         <div class="cta-row">
@@ -399,13 +500,16 @@
             Rejoindre le canal Telegram
           </a>
           <a class="btn-ghost" href="https://www.hacoo.pl/@frbonplan" target="_blank" rel="noopener">
-            Voir la page Hacoo
+            Voir notre page Hacoo
           </a>
         </div>
         <div class="microtrust">
           <span>Gratuit, sans engagement</span>
           <span>Aucune promesse de gain</span>
-          <span>Mis à jour régulièrement</span>
+        </div>
+        <div class="countdown" id="countdown">
+          <span>Prochaine sélection dans</span>
+          <b id="countdownValue">—</b>
         </div>
       </div>
 
@@ -481,10 +585,12 @@
 
   <section id="codes">
     <div class="wrap">
-      <div class="section-head reveal">
-        <div class="eyebrow"><span class="dot"></span>Réservé aux membres</div>
-        <h2>Codes promo en cours</h2>
-        <p>À utiliser directement sur Hacoo au moment du paiement.</p>
+      <div class="coupon-head-row">
+        <div class="section-head reveal" style="text-align:left; margin:0; max-width:none;">
+          <div class="eyebrow"><span class="dot"></span>Réservé aux membres</div>
+          <h2>Codes promo en cours</h2>
+        </div>
+        <button class="btn-ghost" style="padding:10px 18px; font-size:0.85rem;" onclick="copyAllCodes(this)">Copier tous les codes</button>
       </div>
       <div class="coupon-grid">
         <div class="coupon reveal">
@@ -516,24 +622,27 @@
       <div class="section-head reveal">
         <div class="eyebrow"><span class="dot"></span>Retours de la communauté</div>
         <h2>Ce qu'en disent les membres</h2>
-        <p>Retours partagés par des membres du canal — à mettre à jour au fil des vrais témoignages reçus.</p>
+        <p>À mettre à jour au fil des vrais témoignages reçus sur le canal.</p>
       </div>
-      <div class="grid-3">
-        <div class="testi reveal">
-          <div class="stars">★★★★★</div>
-          <p>“Sélection claire, pas de spam, j'ouvre le canal deux fois par semaine et ça suffit.”</p>
-          <div class="testi-name">— M.L.</div>
+      <div class="testi-carousel reveal">
+        <div class="testi-track" id="testiTrack">
+          <div class="testi active">
+            <div class="stars">★★★★★</div>
+            <p>“Sélection claire, pas de spam, j'ouvre le canal deux fois par semaine et ça suffit.”</p>
+            <div class="testi-name">— M.L.</div>
+          </div>
+          <div class="testi">
+            <div class="stars">★★★★★</div>
+            <p>“Les codes fonctionnent, les explications sont simples. Rien à redire.”</p>
+            <div class="testi-name">— A.R.</div>
+          </div>
+          <div class="testi">
+            <div class="stars">★★★★★</div>
+            <p>“Enfin un canal qui ne survend pas les choses.”</p>
+            <div class="testi-name">— S.D.</div>
+          </div>
         </div>
-        <div class="testi reveal reveal-delay-1">
-          <div class="stars">★★★★★</div>
-          <p>“Les codes fonctionnent, les explications sont simples. Rien à redire.”</p>
-          <div class="testi-name">— A.R.</div>
-        </div>
-        <div class="testi reveal reveal-delay-2">
-          <div class="stars">★★★★★</div>
-          <p>“Enfin un canal qui ne survend pas les choses.”</p>
-          <div class="testi-name">— S.D.</div>
-        </div>
+        <div class="testi-dots" id="testiDots"></div>
       </div>
     </div>
   </section>
@@ -544,22 +653,28 @@
         <div class="eyebrow"><span class="dot"></span>Questions fréquentes</div>
         <h2>Tout ce qu'il faut savoir</h2>
       </div>
-      <div class="faq-item reveal open">
+      <input class="faq-search reveal" type="text" placeholder="Rechercher une question…" id="faqSearch" oninput="filterFaq(this.value)">
+      <div class="faq-item reveal open" data-q="frbonplan gratuit prix coût">
         <button class="faq-q" onclick="toggleFaq(this)">Frbonplan est-il gratuit ?<span class="plus">+</span></button>
         <div class="faq-a"><p>Oui. Le canal Telegram est entièrement gratuit et sans engagement.</p></div>
       </div>
-      <div class="faq-item reveal">
+      <div class="faq-item reveal" data-q="promesses gains argent revenus">
         <button class="faq-q" onclick="toggleFaq(this)">Faites-vous des promesses de gains ?<span class="plus">+</span></button>
         <div class="faq-a"><p>Non. Frbonplan met en avant des offres, pas des résultats garantis.</p></div>
       </div>
-      <div class="faq-item reveal">
+      <div class="faq-item reveal" data-q="sélection choix offres critères">
         <button class="faq-q" onclick="toggleFaq(this)">Comment les offres sont-elles choisies ?<span class="plus">+</span></button>
         <div class="faq-a"><p>Repérage, vérification, puis publication sur le canal Telegram et la page Hacoo associée.</p></div>
       </div>
-      <div class="faq-item reveal">
+      <div class="faq-item reveal" data-q="codes promo utiliser paiement">
         <button class="faq-q" onclick="toggleFaq(this)">Où utiliser les codes promo ?<span class="plus">+</span></button>
         <div class="faq-a"><p>Directement sur l'application ou le site Hacoo, au moment du paiement.</p></div>
       </div>
+      <div class="faq-item reveal" data-q="fréquence mise à jour souvent">
+        <button class="faq-q" onclick="toggleFaq(this)">À quelle fréquence la sélection est-elle mise à jour ?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Chaque semaine, avec des ajustements ponctuels si une offre intéressante sort entre-temps.</p></div>
+      </div>
+      <p id="faqEmpty" style="display:none; color:var(--text-dim); text-align:center; padding:20px 0;">Aucune question ne correspond à votre recherche.</p>
     </div>
   </section>
 
@@ -608,6 +723,7 @@
 <footer>
   <div class="wrap">
     <p>© 2026 Frbonplan — Sélection indépendante d'opportunités Hacoo. Aucun résultat garanti. <a href="https://t.me/promohacoo" target="_blank" rel="noopener">Contact via Telegram</a></p>
+    <div class="footer-badge"><img src="assets/unnamed.png" alt=""> Site officiel Frbonplan</div>
   </div>
 </footer>
 
@@ -616,6 +732,7 @@
 </div>
 
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">↑</button>
+<div class="toast" id="toast"><span class="tick">✓</span><span id="toastText">Code copié</span></div>
 
 <script>
   // Mobile menu
@@ -624,7 +741,17 @@
     nav.style.display = (nav.style.display === 'flex') ? 'none' : 'flex';
   }
 
-  // Copy handlers with confetti
+  // Toast
+  let toastTimer;
+  function showToast(msg){
+    const toast = document.getElementById('toast');
+    document.getElementById('toastText').textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  // Confetti
   function burstConfetti(btn){
     const colors = ['#d9a441','#ff6952','#f0c368'];
     const rect = btn.getBoundingClientRect();
@@ -651,6 +778,7 @@
       btn.textContent = 'Copié !';
       btn.classList.add('copied');
       burstConfetti(btn);
+      showToast('Code "' + text + '" copié');
       setTimeout(() => { btn.textContent = 'Copier'; btn.classList.remove('copied'); }, 1800);
     });
   }
@@ -661,7 +789,18 @@
       btn.textContent = 'Copié !';
       btn.classList.add('copied');
       burstConfetti(btn);
+      showToast('Code "' + text + '" copié');
       setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1800);
+    });
+  }
+
+  function copyAllCodes(btn){
+    const codes = ['Promofinance','Frbonplan'];
+    navigator.clipboard.writeText(codes.join(' / ')).then(() => {
+      const original = btn.textContent;
+      btn.textContent = 'Codes copiés !';
+      showToast('Tous les codes ont été copiés');
+      setTimeout(() => { btn.textContent = original; }, 1800);
     });
   }
 
@@ -671,6 +810,20 @@
     const wasOpen = item.classList.contains('open');
     document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
     if(!wasOpen) item.classList.add('open');
+  }
+
+  // FAQ search filter
+  function filterFaq(query){
+    const q = query.trim().toLowerCase();
+    const items = document.querySelectorAll('.faq-item');
+    let visibleCount = 0;
+    items.forEach(item => {
+      const haystack = (item.textContent + ' ' + (item.dataset.q || '')).toLowerCase();
+      const match = haystack.includes(q);
+      item.classList.toggle('hidden', !match);
+      if(match) visibleCount++;
+    });
+    document.getElementById('faqEmpty').style.display = visibleCount === 0 ? 'block' : 'none';
   }
 
   // Scroll reveal
@@ -724,14 +877,17 @@
     backTop.classList.toggle('show', window.scrollY > 600);
   }, { passive:true });
 
-  // Active nav link on scroll
-  const sections = ['mission','offres','codes','avis','faq'].map(id => document.getElementById(id)).filter(Boolean);
+  // Active nav + scrollspy dots
+  const sectionIds = ['accueil','mission','offres','codes','avis','faq'];
+  const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
   const navLinks = document.querySelectorAll('nav.main-nav a');
+  const spyLinks = document.querySelectorAll('.spy-dots a');
   const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
         const id = entry.target.id;
         navLinks.forEach(link => link.classList.toggle('active', link.dataset.section === id));
+        spyLinks.forEach(link => link.classList.toggle('active', link.dataset.section === id));
       }
     });
   }, { rootMargin:'-40% 0px -50% 0px' });
@@ -739,7 +895,8 @@
 
   // Subtle tilt on hero ticket (pointer devices only)
   const tiltCard = document.getElementById('tiltCard');
-  if(window.matchMedia('(hover:hover)').matches && tiltCard){
+  const canHover = window.matchMedia('(hover:hover)').matches;
+  if(canHover && tiltCard){
     tiltCard.addEventListener('mousemove', (e) => {
       const rect = tiltCard.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
@@ -750,6 +907,67 @@
       tiltCard.style.transform = 'perspective(700px) rotateY(0deg) rotateX(0deg)';
     });
   }
+
+  // Cursor spotlight + parallax blobs (desktop only)
+  if(canHover){
+    const spotlight = document.getElementById('spotlight');
+    const blobs = [document.getElementById('blob1'), document.getElementById('blob2'), document.getElementById('blob3')];
+    window.addEventListener('mousemove', (e) => {
+      spotlight.classList.add('active');
+      spotlight.style.left = e.clientX + 'px';
+      spotlight.style.top = e.clientY + 'px';
+      const cx = (e.clientX / window.innerWidth - 0.5);
+      const cy = (e.clientY / window.innerHeight - 0.5);
+      blobs.forEach((b, i) => {
+        if(!b) return;
+        const strength = (i+1) * 8;
+        b.style.marginLeft = (cx * strength) + 'px';
+        b.style.marginTop = (cy * strength) + 'px';
+      });
+    });
+    window.addEventListener('mouseleave', () => spotlight.classList.remove('active'));
+  }
+
+  // Testimonial carousel
+  const testis = document.querySelectorAll('.testi');
+  const dotsWrap = document.getElementById('testiDots');
+  let testiIndex = 0;
+  testis.forEach((_, i) => {
+    const dot = document.createElement('button');
+    if(i === 0) dot.classList.add('active');
+    dot.setAttribute('aria-label', 'Avis ' + (i+1));
+    dot.addEventListener('click', () => goToTesti(i));
+    dotsWrap.appendChild(dot);
+  });
+  function goToTesti(i){
+    testis[testiIndex].classList.remove('active');
+    dotsWrap.children[testiIndex].classList.remove('active');
+    testiIndex = i;
+    testis[testiIndex].classList.add('active');
+    dotsWrap.children[testiIndex].classList.add('active');
+  }
+  let testiAuto = setInterval(() => goToTesti((testiIndex + 1) % testis.length), 5000);
+  document.querySelector('.testi-carousel').addEventListener('mouseenter', () => clearInterval(testiAuto));
+  document.querySelector('.testi-carousel').addEventListener('mouseleave', () => {
+    testiAuto = setInterval(() => goToTesti((testiIndex + 1) % testis.length), 5000);
+  });
+
+  // Countdown to next Monday 00:00 (next weekly selection)
+  function updateCountdown(){
+    const now = new Date();
+    const next = new Date(now);
+    const day = now.getDay();
+    const daysUntilMonday = (8 - day) % 7 || 7;
+    next.setDate(now.getDate() + daysUntilMonday);
+    next.setHours(0,0,0,0);
+    const diff = next - now;
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    document.getElementById('countdownValue').textContent = `${d}j ${h}h ${m}min`;
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 60000);
 </script>
 
 </body>
