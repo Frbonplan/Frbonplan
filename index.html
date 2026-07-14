@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -298,6 +299,72 @@
   .card h3{font-size:1.05rem; margin-bottom:8px;}
   .card p{color:var(--text-soft); font-size:0.92rem; line-height:1.55; margin:0;}
 
+  /* RECENT OFFERS (data-driven) */
+  .offer-item{
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    padding:22px; display:flex; flex-direction:column; gap:10px; transition:0.25s;
+  }
+  .offer-item:hover{border-color:rgba(217,164,65,0.35); transform:translateY(-3px); box-shadow:0 16px 34px rgba(0,0,0,0.3);}
+  .offer-item-head{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+  .offer-new{
+    font-size:0.68rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
+    color:var(--coral); background:rgba(255,105,82,0.12); border:1px solid rgba(255,105,82,0.3);
+    padding:3px 9px; border-radius:999px;
+  }
+  .offer-date{font-size:0.75rem; color:var(--text-dim);}
+  .offer-item h3{font-size:1.02rem;}
+  .offer-item p{color:var(--text-soft); font-size:0.9rem; line-height:1.5; margin:0;}
+  .offer-item a{
+    align-self:flex-start; margin-top:4px; font-size:0.85rem; font-weight:600; color:var(--gold-soft);
+    text-decoration:none;
+  }
+  .offer-item a:hover{text-decoration:underline;}
+  .offers-empty{text-align:center; color:var(--text-dim); font-size:0.9rem; padding:20px 0;}
+
+  /* SKELETON LOADING */
+  .skeleton-card{
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:22px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .skeleton-line{
+    height:12px; border-radius:6px; background:linear-gradient(90deg, var(--card-hi) 25%, #232b37 37%, var(--card-hi) 63%);
+    background-size:400% 100%; animation:shimmer 1.6s ease infinite;
+  }
+  .skeleton-line.w60{width:60%; height:16px;}
+  .skeleton-line.w90{width:90%;}
+  .skeleton-line.w40{width:40%;}
+  @keyframes shimmer{0%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+
+  /* PRELOADER */
+  #preloader{
+    position:fixed; inset:0; z-index:300; background:var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    transition:opacity 0.5s ease, visibility 0.5s ease;
+  }
+  #preloader.hide{opacity:0; visibility:hidden; pointer-events:none;}
+  .preloader-mark{
+    width:52px; height:52px; border-radius:14px;
+    background:linear-gradient(135deg, var(--gold), var(--coral)); background-size:200% 200%;
+    animation:logoShift 1.4s ease-in-out infinite, preloaderPulse 1.4s ease-in-out infinite;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; color:#0b0f14;
+  }
+  @keyframes preloaderPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+
+  /* DOT GRID TEXTURE */
+  .dot-grid{
+    position:absolute; inset:0; z-index:-1; opacity:0.5; pointer-events:none;
+    background-image:radial-gradient(rgba(217,164,65,0.16) 1px, transparent 1px);
+    background-size:26px 26px;
+    -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 75%);
+    mask-image:radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 75%);
+  }
+  section{position:relative;}
+
+  /* RIPPLE */
+  .ripple{position:absolute; border-radius:50%; background:rgba(255,255,255,0.5); transform:scale(0); animation:rippleAnim 0.6s ease-out; pointer-events:none;}
+  @keyframes rippleAnim{to{transform:scale(3); opacity:0;}}
+
   /* COUPON GRID */
   .coupon-head-row{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; margin-bottom:24px;}
   .coupon-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
@@ -437,6 +504,10 @@
 </head>
 <body>
 
+<div id="preloader" aria-hidden="true">
+  <div class="preloader-mark">F</div>
+</div>
+
 <a class="skip-link" href="#accueil">Aller au contenu</a>
 <div class="spotlight" id="spotlight"></div>
 <div class="progress-bar" id="progressBar"></div>
@@ -533,6 +604,7 @@
   </section>
 
   <section id="mission">
+    <div class="dot-grid" aria-hidden="true"></div>
     <div class="wrap">
       <div class="section-head reveal">
         <div class="eyebrow"><span class="dot"></span>Pourquoi Frbonplan</div>
@@ -578,6 +650,15 @@
           <h3>Canal Telegram</h3>
           <p style="margin-bottom:16px;">Les nouveautés, codes et alertes sont publiés en premier sur le canal — c'est là que ça se passe.</p>
           <a class="btn-ghost" style="padding:10px 18px; font-size:0.88rem;" href="https://t.me/promohacoo" target="_blank" rel="noopener">Rejoindre le canal →</a>
+        </div>
+      </div>
+
+      <div style="margin-top:36px;">
+        <h3 style="font-size:1.1rem; margin-bottom:16px; color:var(--gold-soft);">Dernières offres ajoutées</h3>
+        <div class="grid-3" id="recentOffers">
+          <div class="skeleton-card"><div class="skeleton-line w60"></div><div class="skeleton-line w90"></div><div class="skeleton-line w40"></div></div>
+          <div class="skeleton-card"><div class="skeleton-line w60"></div><div class="skeleton-line w90"></div><div class="skeleton-line w40"></div></div>
+          <div class="skeleton-card"><div class="skeleton-line w60"></div><div class="skeleton-line w90"></div><div class="skeleton-line w40"></div></div>
         </div>
       </div>
     </div>
@@ -968,6 +1049,75 @@
   }
   updateCountdown();
   setInterval(updateCountdown, 60000);
+
+  // Recent offers, loaded from offers.json — edit that file to add/remove offers
+  fetch('offers.json?_=' + Date.now())
+    .then(r => { if(!r.ok) throw new Error('no file'); return r.json(); })
+    .then(offers => {
+      const container = document.getElementById('recentOffers');
+      if(!Array.isArray(offers) || offers.length === 0){
+        container.innerHTML = '<p class="offers-empty">Aucune offre récente pour le moment — retrouvez tout sur le canal Telegram.</p>';
+        return;
+      }
+      container.innerHTML = offers.slice(0, 6).map(o => `
+        <div class="offer-item reveal in-view">
+          <div class="offer-item-head">
+            ${o.new ? '<span class="offer-new">Nouveau</span>' : '<span></span>'}
+            <span class="offer-date">${o.date ? o.date : ''}</span>
+          </div>
+          <h3>${escapeHtml(o.title || 'Offre Hacoo')}</h3>
+          <p>${escapeHtml(o.description || '')}</p>
+          <a href="${o.link || 'https://t.me/promohacoo'}" target="_blank" rel="noopener">Voir sur Telegram →</a>
+        </div>
+      `).join('');
+    })
+    .catch(() => {
+      // Silently keep the site fully functional even if offers.json is missing or unreachable
+      const container = document.getElementById('recentOffers');
+      if(container) container.innerHTML = '<p class="offers-empty">Retrouvez toutes les offres sur le canal Telegram.</p>';
+    });
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // Preloader
+  window.addEventListener('load', () => {
+    const pre = document.getElementById('preloader');
+    setTimeout(() => pre.classList.add('hide'), 350);
+  });
+
+  // Ripple effect on primary/ghost buttons
+  document.querySelectorAll('.btn-primary, .btn-ghost, .copy-btn').forEach(btn => {
+    btn.style.position = btn.style.position || 'relative';
+    btn.style.overflow = 'hidden';
+    btn.addEventListener('click', function(e){
+      const rect = this.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      const size = Math.max(rect.width, rect.height);
+      ripple.className = 'ripple';
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+      this.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 650);
+    });
+  });
+
+  // Touch swipe for testimonial carousel
+  const testiCarousel = document.querySelector('.testi-carousel');
+  let touchStartX = 0;
+  testiCarousel.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive:true });
+  testiCarousel.addEventListener('touchend', e => {
+    const delta = e.changedTouches[0].screenX - touchStartX;
+    if(Math.abs(delta) > 40){
+      const total = document.querySelectorAll('.testi').length;
+      if(delta < 0) goToTesti((testiIndex + 1) % total);
+      else goToTesti((testiIndex - 1 + total) % total);
+    }
+  }, { passive:true });
 </script>
 
 </body>
