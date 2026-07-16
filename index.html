@@ -320,6 +320,37 @@
   .offer-item a:hover{text-decoration:underline;}
   .offers-empty{text-align:center; color:var(--text-dim); font-size:0.9rem; padding:20px 0;}
 
+  /* TRUST BAR */
+  .trust-bar{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:14px;
+    padding:22px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  }
+  .trust-badge{
+    display:inline-flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text-soft);
+    background:var(--card); border:1px solid var(--border); padding:9px 16px; border-radius:999px;
+    transition:transform 0.3s ease, border-color 0.3s ease;
+  }
+  .trust-badge:hover{transform:translateY(-2px); border-color:rgba(217,164,65,0.4);}
+  .trust-badge svg{width:16px; height:16px; stroke:var(--gold-soft); flex-shrink:0;}
+
+  /* HOW IT WORKS */
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; position:relative;}
+  .steps::before{
+    content:""; position:absolute; top:26px; left:12%; right:12%; height:1px;
+    background:linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+  }
+  .step{text-align:center; position:relative;}
+  .step-num{
+    width:52px; height:52px; border-radius:50%; margin:0 auto 16px; position:relative; z-index:1;
+    background:var(--bg); border:2px solid var(--gold-soft); color:var(--gold-soft);
+    display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.15rem;
+    transition:transform 0.3s ease;
+  }
+  .step:hover .step-num{transform:scale(1.1);}
+  .step h3{font-size:1rem; margin-bottom:8px;}
+  .step p{color:var(--text-soft); font-size:0.9rem; line-height:1.55; margin:0; max-width:26ch; margin-left:auto; margin-right:auto;}
+  @media (max-width:760px){ .steps{grid-template-columns:1fr; gap:36px;} .steps::before{display:none;} }
+
   /* TODAY'S OFFER — featured */
   .today-offer{
     position:relative; overflow:hidden;
@@ -628,6 +659,15 @@
     </div>
   </section>
 
+  <div class="wrap">
+    <div class="trust-bar reveal in-view">
+      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg>Aucun paiement jamais demandé</div>
+      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Codes vérifiés manuellement</div>
+      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Support direct sur Telegram</div>
+      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Aucune donnée bancaire collectée</div>
+    </div>
+  </div>
+
   <section id="mission">
     <div class="dot-grid" aria-hidden="true"></div>
     <div class="wrap">
@@ -651,6 +691,33 @@
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z"/></svg></div>
           <h3>Indépendance</h3>
           <p>Aucun résultat garanti, aucune pression. Des explications claires, des liens directs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fonctionnement">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow"><span class="dot"></span>Simple et transparent</div>
+        <h2>Comment ça marche</h2>
+        <p>Trois étapes, sans surprise, sans compte à créer chez nous.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">1</div>
+          <h3>Rejoignez le canal</h3>
+          <p>Gratuit, sans inscription ni email demandé.</p>
+        </div>
+        <div class="step reveal reveal-delay-1">
+          <div class="step-num">2</div>
+          <h3>Récupérez le code</h3>
+          <p>Publié et vérifié chaque jour, copiable en un clic.</p>
+        </div>
+        <div class="step reveal reveal-delay-2">
+          <div class="step-num">3</div>
+          <h3>Achetez sur Hacoo</h3>
+          <p>Le paiement se fait toujours directement sur Hacoo, jamais ici.</p>
         </div>
       </div>
     </div>
@@ -729,7 +796,7 @@
       <div class="section-head reveal">
         <div class="eyebrow"><span class="dot"></span>Retours de la communauté</div>
         <h2>Ce qu'en disent les membres</h2>
-        <p>À mettre à jour au fil des vrais témoignages reçus sur le canal.</p>
+        <p>Des retours partagés par la communauté du canal Telegram.</p>
       </div>
       <div class="testi-carousel reveal">
         <div class="testi-track" id="testiTrack">
@@ -779,7 +846,7 @@
       </div>
       <div class="faq-item reveal" data-q="fiable fiabilité sérieux confiance arnaque">
         <button class="faq-q" onclick="toggleFaq(this)">Frbonplan est-il fiable ?<span class="plus">+</span></button>
-        <div class="faq-a"><p>Frbonplan relaie des offres publiques disponibles sur Hacoo, sans rien vendre en direct. Comme pour tout achat en ligne, on vous conseille de vérifier vous-même les avis et conditions avant de commander.</p></div>
+        <div class="faq-a"><p>Oui : Frbonplan ne demande jamais de paiement, ne vend rien en direct et ne gère aucune donnée bancaire — vous achetez toujours directement sur Hacoo. Chaque code est vérifié manuellement avant publication, et le canal Telegram reste ouvert et consultable à tout moment pour voir l'historique des offres partagées.</p></div>
       </div>
       <div class="faq-item reveal" data-q="délai livraison expédition combien temps recevoir colis">
         <button class="faq-q" onclick="toggleFaq(this)">Quel est le délai de livraison ?<span class="plus">+</span></button>
