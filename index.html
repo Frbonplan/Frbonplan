@@ -56,7 +56,7 @@
   code, .mono{font-family:'JetBrains Mono', monospace;}
   a{color:inherit;}
   img{max-width:100%;display:block;}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+  .wrap{max-width:1360px;margin:0 auto;padding:0 24px;}
   :focus-visible{outline:2px solid var(--gold-soft); outline-offset:3px; border-radius:6px;}
 
   .skip-link{
@@ -109,7 +109,7 @@
     backdrop-filter:blur(14px);
     border-bottom:1px solid var(--border);
   }
-  .header-inner{display:flex; align-items:center; justify-content:space-between; padding:12px 24px; max-width:1120px; margin:0 auto;}
+  .header-inner{display:flex; align-items:center; justify-content:space-between; padding:12px 24px; max-width:1360px; margin:0 auto;}
   .brand{display:flex; align-items:center; gap:11px; text-decoration:none;}
 
   .logo-wrap{position:relative; width:42px; height:42px; flex-shrink:0;}
@@ -319,6 +319,119 @@
   }
   .offer-item a:hover{text-decoration:underline;}
   .offers-empty{text-align:center; color:var(--text-dim); font-size:0.9rem; padding:20px 0;}
+
+  /* STATS "EN CHIFFRES" */
+  .stats-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  .stat-card{
+    text-align:center; background:var(--card); border:1px solid var(--border); border-radius:16px;
+    padding:28px 16px; transition:transform 0.3s ease, border-color 0.3s ease;
+  }
+  .stat-card:hover{transform:translateY(-4px); border-color:rgba(217,164,65,0.35);}
+  .stat-card b{display:block; font-family:'Space Grotesk',sans-serif; font-size:2rem; color:var(--gold-soft); margin-bottom:6px;}
+  .stat-card span{font-size:0.85rem; color:var(--text-soft);}
+
+  /* CATEGORIES */
+  .cat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .cat-card{
+    position:relative; overflow:hidden; border-radius:16px; border:1px solid var(--border);
+    padding:26px 18px; text-align:center; text-decoration:none; color:var(--text); transition:0.3s;
+  }
+  .cat-card span.cat-emoji{font-size:1.8rem; display:block; margin-bottom:10px;}
+  .cat-card h3{font-size:0.98rem; margin-bottom:4px;}
+  .cat-card p{font-size:0.8rem; color:var(--text-soft); margin:0;}
+  .cat-card:hover{transform:translateY(-4px); border-color:rgba(217,164,65,0.4); box-shadow:0 14px 30px rgba(0,0,0,0.3);}
+  .cat-1{background:linear-gradient(160deg, rgba(217,164,65,0.14), var(--card));}
+  .cat-2{background:linear-gradient(160deg, rgba(255,105,82,0.13), var(--card));}
+  .cat-3{background:linear-gradient(160deg, rgba(90,200,250,0.10), var(--card));}
+  .cat-4{background:linear-gradient(160deg, rgba(160,140,255,0.12), var(--card));}
+
+  /* SAVINGS CALCULATOR */
+  .calc-box{
+    background:var(--card); border:1px solid var(--border); border-radius:18px; padding:28px;
+    display:grid; grid-template-columns:1fr 1fr; gap:26px; align-items:center;
+  }
+  .calc-input-group label{display:block; font-size:0.85rem; color:var(--text-soft); margin-bottom:8px;}
+  .calc-input-wrap{display:flex; align-items:center; gap:10px; background:var(--bg-alt); border:1px solid var(--border); border-radius:12px; padding:12px 16px;}
+  .calc-input-wrap input{
+    background:none; border:none; color:var(--text); font-size:1.1rem; font-family:'JetBrains Mono',monospace; width:100%; outline:none;
+  }
+  .calc-input-wrap span{color:var(--text-dim); font-size:0.95rem;}
+  .calc-result{text-align:center; padding:20px; background:var(--bg-alt); border-radius:14px; border:1px dashed var(--border);}
+  .calc-result .save-amount{font-family:'Space Grotesk',sans-serif; font-size:2rem; color:var(--gold-soft); font-weight:700;}
+  .calc-result .final-price{font-size:0.9rem; color:var(--text-soft); margin-top:6px;}
+  @media (max-width:760px){ .calc-box{grid-template-columns:1fr;} }
+
+  /* TIMELINE */
+  .timeline{position:relative; max-width:640px; margin:0 auto; padding-left:28px;}
+  .timeline::before{content:""; position:absolute; left:6px; top:6px; bottom:6px; width:2px; background:var(--border);}
+  .timeline-item{position:relative; padding-bottom:32px;}
+  .timeline-item:last-child{padding-bottom:0;}
+  .timeline-dot{
+    position:absolute; left:-28px; top:2px; width:14px; height:14px; border-radius:50%;
+    background:var(--gold-soft); border:3px solid var(--bg); box-shadow:0 0 0 2px var(--border);
+  }
+  .timeline-item h3{font-size:0.98rem; margin-bottom:4px;}
+  .timeline-item p{font-size:0.88rem; color:var(--text-soft); margin:0;}
+  .timeline-date{font-size:0.75rem; color:var(--gold-soft); font-weight:600; text-transform:uppercase; letter-spacing:0.04em;}
+
+  /* FOOTER EXPANDED */
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:32px; text-align:left; padding-bottom:28px;}
+  .footer-col h4{font-size:0.9rem; color:var(--text); margin-bottom:14px;}
+  .footer-col ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:9px;}
+  .footer-col a{color:var(--text-dim); text-decoration:none; font-size:0.87rem; transition:0.2s;}
+  .footer-col a:hover{color:var(--gold-soft);}
+  .footer-legal{border-top:1px solid var(--border); padding-top:20px; font-size:0.78rem; color:var(--text-dim); line-height:1.6;}
+  @media (max-width:760px){ .footer-grid{grid-template-columns:1fr; text-align:center;} .footer-col ul{align-items:center;} }
+
+  /* HEADER SHRINK ON SCROLL */
+  header{transition:padding 0.25s ease;}
+  header.shrink .header-inner{padding-top:8px; padding-bottom:8px;}
+  header.shrink .logo-wrap{transform:scale(0.88);}
+
+  /* WAVE DIVIDER */
+  .wave-divider{display:block; width:100%; height:44px; margin:-1px 0;}
+  .wave-divider path{fill:var(--bg-alt);}
+
+  /* SCROLL CUE */
+  .scroll-cue{
+    position:absolute; bottom:6px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:4px; color:var(--text-dim); font-size:0.7rem;
+    animation:bounceCue 2.2s ease-in-out infinite;
+  }
+  .scroll-cue svg{width:16px; height:16px; stroke:var(--gold-soft);}
+  @keyframes bounceCue{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,6px);}}
+
+  /* FAB QUICK ACTIONS */
+  .fab-wrap{position:fixed; left:22px; bottom:22px; z-index:65;}
+  .fab-main{
+    width:52px; height:52px; border-radius:50%; border:none; cursor:pointer;
+    background:linear-gradient(135deg, var(--gold), var(--coral)); color:#181206;
+    display:flex; align-items:center; justify-content:center; font-size:1.3rem;
+    box-shadow:0 12px 28px rgba(217,164,65,0.35); transition:transform 0.3s ease;
+  }
+  .fab-wrap.open .fab-main{transform:rotate(45deg);}
+  .fab-menu{
+    position:absolute; bottom:64px; left:0; display:flex; flex-direction:column; gap:10px;
+    opacity:0; pointer-events:none; transform:translateY(10px); transition:0.25s;
+  }
+  .fab-wrap.open .fab-menu{opacity:1; pointer-events:auto; transform:translateY(0);}
+  .fab-item{
+    display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border);
+    color:var(--text); text-decoration:none; padding:10px 16px; border-radius:999px; font-size:0.85rem; font-weight:500;
+    white-space:nowrap; cursor:pointer; transition:0.2s;
+  }
+  .fab-item:hover{border-color:var(--gold-soft); transform:translateX(3px);}
+  .fab-item svg{width:16px; height:16px; stroke:var(--gold-soft); flex-shrink:0;}
+  @media (max-width:760px){ .fab-wrap{bottom:88px;} }
+
+  /* TESTIMONIAL AVATARS */
+  .testi-avatar{
+    width:38px; height:38px; border-radius:50%; margin-bottom:12px;
+    background:linear-gradient(135deg, var(--gold), var(--coral)); color:#181206;
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.85rem;
+    font-family:'Space Grotesk',sans-serif;
+  }
+  .testi-top{display:flex; align-items:center; gap:10px; margin-bottom:6px;}
 
   /* TRUST BAR */
   .trust-bar{
@@ -532,16 +645,20 @@
   .toast.show{opacity:1; transform:translate(-50%, 0);}
   .toast .tick{color:var(--gold-soft); font-weight:700;}
 
+  @media (max-width: 1024px){
+    nav.main-nav{display:none;}
+    .menu-toggle{display:block;}
+  }
   @media (max-width: 900px){
     .hero-grid{grid-template-columns:1fr;}
     .grid-3{grid-template-columns:1fr 1fr;}
     .coupon-grid{grid-template-columns:1fr;}
     .social-grid{grid-template-columns:repeat(3,1fr);}
+    .stats-grid{grid-template-columns:1fr 1fr;}
+    .cat-grid{grid-template-columns:1fr 1fr;}
   }
   @media (max-width: 760px){
-    nav.main-nav{display:none;}
     .header-cta{display:none;}
-    .menu-toggle{display:block;}
     .grid-3, .grid-2{grid-template-columns:1fr;}
     .social-grid{grid-template-columns:repeat(2,1fr);}
     .sticky-cta{display:flex;}
@@ -657,6 +774,10 @@
         </div>
       </div>
     </div>
+    <div class="scroll-cue" aria-hidden="true">
+      Découvrir
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
   </section>
 
   <div class="wrap">
@@ -719,6 +840,54 @@
           <h3>Achetez sur Hacoo</h3>
           <p>Le paiement se fait toujours directement sur Hacoo, jamais ici.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="chiffres">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow"><span class="dot"></span>En bref</div>
+        <h2>Frbonplan en chiffres</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card reveal"><b id="statMembers">120+</b><span>Membres Telegram</span></div>
+        <div class="stat-card reveal reveal-delay-1"><b id="statOffers">455+</b><span>Offres partagées</span></div>
+        <div class="stat-card reveal reveal-delay-2"><b>14%</b><span>Réduction moyenne</span></div>
+        <div class="stat-card reveal reveal-delay-3"><b>2026</b><span>Actif depuis</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="categories">
+    <div class="dot-grid" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow"><span class="dot"></span>Un aperçu du catalogue</div>
+        <h2>Catégories populaires sur Hacoo</h2>
+        <p>Un aperçu de ce que vous retrouverez en suivant nos sélections.</p>
+      </div>
+      <div class="cat-grid">
+        <a class="cat-card cat-1 reveal" href="https://www.hacoo.pl/@frbonplan" target="_blank" rel="noopener">
+          <span class="cat-emoji">🧥</span>
+          <h3>Outerwear</h3>
+          <p>Vestes &amp; manteaux</p>
+        </a>
+        <a class="cat-card cat-2 reveal reveal-delay-1" href="https://www.hacoo.pl/@frbonplan" target="_blank" rel="noopener">
+          <span class="cat-emoji">👗</span>
+          <h3>Casual &amp; Soirée</h3>
+          <p>Tenues du quotidien</p>
+        </a>
+        <a class="cat-card cat-3 reveal reveal-delay-2" href="https://www.hacoo.pl/@frbonplan" target="_blank" rel="noopener">
+          <span class="cat-emoji">👟</span>
+          <h3>Athleisure</h3>
+          <p>Confort &amp; sport</p>
+        </a>
+        <a class="cat-card cat-4 reveal reveal-delay-3" href="https://www.hacoo.pl/@frbonplan" target="_blank" rel="noopener">
+          <span class="cat-emoji">👜</span>
+          <h3>Accessoires</h3>
+          <p>Sacs &amp; petits articles</p>
+        </a>
       </div>
     </div>
   </section>
@@ -788,6 +957,53 @@
           </div>
         </div>
       </div>
+
+      <div style="margin-top:36px;">
+        <h3 style="font-size:1.1rem; margin-bottom:4px; color:var(--gold-soft);">Calculez votre économie</h3>
+        <p style="color:var(--text-soft); font-size:0.88rem; margin:0 0 16px;">Basé sur le montant total de votre panier, pas sur un article isolé.</p>
+        <div class="calc-box reveal">
+          <div class="calc-input-group">
+            <label for="calcPrice">Montant total de votre commande (€)</label>
+            <div class="calc-input-wrap">
+              <input type="number" id="calcPrice" placeholder="Ex: 65" min="0" oninput="updateCalc()">
+              <span>EUR</span>
+            </div>
+          </div>
+          <div class="calc-result">
+            <div class="save-amount" id="calcSave">0,00 €</div>
+            <div class="final-price">économisés avec <span class="mono">-14%</span> sur le total du panier — montant final : <b id="calcFinal">0,00 €</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="histoire">
+    <div class="wrap" style="max-width:700px;">
+      <div class="section-head reveal">
+        <div class="eyebrow"><span class="dot"></span>Notre parcours</div>
+        <h2>Notre histoire</h2>
+      </div>
+      <div class="timeline reveal">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2026</div>
+          <h3>Lancement de Frbonplan</h3>
+          <p>Création du canal Telegram pour centraliser les meilleures offres Hacoo repérées.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">Quelques semaines plus tard</div>
+          <h3>Premiers codes exclusifs</h3>
+          <p>Mise en place de codes promo dédiés aux membres du canal.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">Aujourd'hui</div>
+          <h3>Sélection quotidienne</h3>
+          <p>Plus de 100 membres et une offre du jour publiée chaque jour, vérifiée avant diffusion.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -801,19 +1017,19 @@
       <div class="testi-carousel reveal">
         <div class="testi-track" id="testiTrack">
           <div class="testi active">
+            <div class="testi-top"><div class="testi-avatar">ML</div><div class="testi-name">M.L.</div></div>
             <div class="stars"><span style="animation-delay:0.00s">★</span><span style="animation-delay:0.08s">★</span><span style="animation-delay:0.16s">★</span><span style="animation-delay:0.24s">★</span><span style="animation-delay:0.32s">★</span></div>
             <p>“Sélection claire, pas de spam, j'ouvre le canal deux fois par semaine et ça suffit.”</p>
-            <div class="testi-name">— M.L.</div>
           </div>
           <div class="testi">
+            <div class="testi-top"><div class="testi-avatar">AR</div><div class="testi-name">A.R.</div></div>
             <div class="stars"><span style="animation-delay:0.00s">★</span><span style="animation-delay:0.08s">★</span><span style="animation-delay:0.16s">★</span><span style="animation-delay:0.24s">★</span><span style="animation-delay:0.32s">★</span></div>
             <p>“Les codes fonctionnent, les explications sont simples. Rien à redire.”</p>
-            <div class="testi-name">— A.R.</div>
           </div>
           <div class="testi">
+            <div class="testi-top"><div class="testi-avatar">SD</div><div class="testi-name">S.D.</div></div>
             <div class="stars"><span style="animation-delay:0.00s">★</span><span style="animation-delay:0.08s">★</span><span style="animation-delay:0.16s">★</span><span style="animation-delay:0.24s">★</span><span style="animation-delay:0.32s">★</span></div>
             <p>“Enfin un canal qui ne survend pas les choses.”</p>
-            <div class="testi-name">— S.D.</div>
           </div>
         </div>
         <div class="testi-dots" id="testiDots"></div>
@@ -904,8 +1120,41 @@
 
 <footer>
   <div class="wrap">
-    <p>© 2026 Frbonplan — Sélection indépendante d'opportunités Hacoo. Aucun résultat garanti. <a href="https://t.me/promohacoo" target="_blank" rel="noopener">Contact via Telegram</a></p>
-    <div class="footer-badge"><img src="unnamed.png" alt=""> Site officiel Frbonplan</div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="brand" style="margin-bottom:14px;">
+          <div class="logo-wrap" style="width:34px; height:34px;">
+            <img class="logo-photo" src="unnamed.png" alt="Logo Frbonplan">
+            <div class="logo-seal" style="width:16px; height:16px; font-size:9px;">F</div>
+          </div>
+          <div class="brand-name" style="font-size:0.95rem;">FR<span>BONPLAN</span></div>
+        </div>
+        <p style="color:var(--text-dim); font-size:0.85rem; line-height:1.6; margin:0; max-width:32ch;">Sélection indépendante d'opportunités Hacoo, publiée chaque jour sur Telegram.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#mission">Mission</a></li>
+          <li><a href="#offres">Offres</a></li>
+          <li><a href="#codes">Codes promo</a></li>
+          <li><a href="#avis">Avis</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Réseaux</h4>
+        <ul>
+          <li><a href="https://t.me/promohacoo" target="_blank" rel="noopener">Telegram</a></li>
+          <li><a href="https://tiktok.com/@frbonplan" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="https://www.instagram.com/frbonplan77?igsh=MXFzcDhleW11cmhrbA==" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.youtube.com/@Promofinance-o2r" target="_blank" rel="noopener">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <p>© 2026 Frbonplan. Frbonplan est une sélection indépendante et n'est pas un site officiel Hacoo — il ne vend rien directement et ne demande jamais de paiement. Tout achat s'effectue exclusivement sur Hacoo. Aucun résultat ni gain n'est garanti.</p>
+      <div class="footer-badge" style="margin-top:10px;"><img src="unnamed.png" alt=""> Site officiel Frbonplan · <a href="https://t.me/promohacoo" target="_blank" rel="noopener" style="margin-left:4px;">Contact via Telegram</a></div>
+    </div>
   </div>
 </footer>
 
@@ -914,6 +1163,24 @@
 </div>
 
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">↑</button>
+
+<div class="fab-wrap" id="fabWrap">
+  <div class="fab-menu">
+    <a class="fab-item" href="https://t.me/promohacoo" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Telegram
+    </a>
+    <a class="fab-item" href="https://www.hacoo.pl/@frbonplan" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/></svg>
+      Page Hacoo
+    </a>
+    <button class="fab-item" onclick="shareSite()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg>
+      Partager le site
+    </button>
+  </div>
+  <button class="fab-main" onclick="toggleFab()" aria-label="Actions rapides">+</button>
+</div>
 <div class="toast" id="toast"><span class="tick">✓</span><span id="toastText">Code copié</span></div>
 
 <script>
@@ -1027,7 +1294,7 @@
     entries.forEach(entry => {
       if(entry.isIntersecting && !counted){
         counted = true;
-        const target = 100;
+        const target = 120;
         const duration = 1400;
         const start = performance.now();
         function step(now){
@@ -1149,6 +1416,45 @@
   }
   updateCountdown();
   setInterval(updateCountdown, 60000);
+
+  // FAB quick actions
+  function toggleFab(){
+    document.getElementById('fabWrap').classList.toggle('open');
+  }
+  document.addEventListener('click', (e) => {
+    const fab = document.getElementById('fabWrap');
+    if(fab.classList.contains('open') && !fab.contains(e.target)) fab.classList.remove('open');
+  });
+
+  // Native share with clipboard fallback
+  function shareSite(){
+    const shareData = {
+      title: 'Frbonplan — Bons plans Hacoo',
+      text: 'Les meilleurs bons plans Hacoo, sélectionnés chaque jour.',
+      url: window.location.href
+    };
+    if(navigator.share){
+      navigator.share(shareData).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(shareData.url).then(() => showToast('Lien du site copié !'));
+    }
+    document.getElementById('fabWrap').classList.remove('open');
+  }
+
+  // Header shrink on scroll
+  const headerEl = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    headerEl.classList.toggle('shrink', window.scrollY > 80);
+  }, { passive:true });
+
+  // Savings calculator
+  function updateCalc(){
+    const price = parseFloat(document.getElementById('calcPrice').value) || 0;
+    const save = price * 0.14;
+    const final = price - save;
+    document.getElementById('calcSave').textContent = save.toLocaleString('fr-FR', { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' €';
+    document.getElementById('calcFinal').textContent = final.toLocaleString('fr-FR', { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' €';
+  }
 
   // Recent offers, loaded from offers.json — edit that file to add/remove offers
   fetch('offers.json?_=' + Date.now())
