@@ -383,6 +383,115 @@
   .footer-legal{border-top:1px solid var(--border); padding-top:20px; font-size:0.78rem; color:var(--text-dim); line-height:1.6;}
   @media (max-width:760px){ .footer-grid{grid-template-columns:1fr; text-align:center;} .footer-col ul{align-items:center;} }
 
+  /* PREMIUM SCROLLBAR & SELECTION */
+  ::selection{background:var(--gold); color:#181206;}
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:linear-gradient(var(--gold), var(--coral)); border-radius:10px; border:2px solid var(--bg);}
+  html{scrollbar-color:var(--gold) var(--bg); scrollbar-width:thin;}
+
+  /* COUPON DOWNLOAD */
+  .download-code-btn{
+    display:inline-flex; align-items:center; gap:6px; margin-top:10px; background:none; border:none;
+    color:var(--text-dim); font-size:0.78rem; cursor:pointer; padding:4px 0; transition:0.2s; font-family:'Inter',sans-serif;
+  }
+  .download-code-btn:hover{color:var(--gold-soft);}
+  .download-code-btn svg{width:13px; height:13px; stroke:currentColor;}
+
+  /* KEYBOARD HINT */
+  .kbd-hint{
+    position:fixed; bottom:24px; right:80px; z-index:64;
+    display:flex; align-items:center; gap:8px; background:var(--card); border:1px solid var(--border);
+    padding:8px 14px; border-radius:999px; font-size:0.76rem; color:var(--text-dim);
+    opacity:0; transform:translateY(8px); transition:0.4s; pointer-events:none;
+  }
+  .kbd-hint.show{opacity:1; transform:translateY(0);}
+  .kbd-hint kbd{background:var(--card-hi); border:1px solid var(--border); border-radius:5px; padding:1px 6px; font-family:'JetBrains Mono',monospace; color:var(--gold-soft);}
+  @media (max-width:900px){ .kbd-hint{display:none;} }
+
+  /* ORDER GUIDE */
+  .order-steps{display:flex; flex-direction:column; gap:14px; max-width:640px; margin:0 auto;}
+  .order-step{
+    display:flex; align-items:flex-start; gap:16px; background:var(--card); border:1px solid var(--border);
+    border-radius:14px; padding:18px 20px; transition:0.25s;
+  }
+  .order-step:hover{border-color:rgba(217,164,65,0.35); transform:translateX(4px);}
+  .order-step-num{
+    width:30px; height:30px; border-radius:50%; background:rgba(217,164,65,0.14); border:1px solid rgba(217,164,65,0.35);
+    color:var(--gold-soft); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.85rem; flex-shrink:0;
+    font-family:'Space Grotesk',sans-serif;
+  }
+  .order-step h3{font-size:0.96rem; margin-bottom:4px;}
+  .order-step p{font-size:0.87rem; color:var(--text-soft); margin:0; line-height:1.5;}
+
+  /* PARTICLE CANVAS */
+  #particleCanvas{position:absolute; inset:0; z-index:-1; opacity:0.55;}
+
+  /* CONFETTI OVERLAY */
+  #confettiCanvas{position:fixed; inset:0; z-index:200; pointer-events:none;}
+
+  /* STAMP SEAL */
+  .stamp{
+    position:absolute; top:-14px; right:18px; width:74px; height:74px; border-radius:50%;
+    border:3px solid var(--coral); color:var(--coral); display:flex; align-items:center; justify-content:center;
+    flex-direction:column; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.62rem; text-align:center;
+    transform:scale(0) rotate(-18deg); transition:transform 0.6s cubic-bezier(.34,1.56,.64,1);
+    background:rgba(255,105,82,0.06); letter-spacing:0.02em; z-index:3;
+  }
+  .stamp.stamped{transform:scale(1) rotate(-12deg);}
+  .stamp span{display:block; font-size:0.9rem;}
+
+  /* BEFORE/AFTER SLIDER */
+  .compare-box{position:relative; max-width:520px; margin:0 auto; border-radius:16px; overflow:hidden; border:1px solid var(--border); user-select:none;}
+  .compare-panel{display:flex; align-items:center; justify-content:center; flex-direction:column; height:180px; gap:6px;}
+  .compare-after{background:linear-gradient(135deg, rgba(217,164,65,0.18), rgba(255,105,82,0.1));}
+  .compare-before{background:var(--card);}
+  .compare-price{font-family:'Space Grotesk',sans-serif; font-size:2.2rem; font-weight:700;}
+  .compare-before .compare-price{color:var(--text-dim); text-decoration:line-through;}
+  .compare-after .compare-price{color:var(--gold-soft);}
+  .compare-label{font-size:0.8rem; color:var(--text-soft); text-transform:uppercase; letter-spacing:0.04em;}
+  .compare-overlay{position:absolute; inset:0; width:50%; overflow:hidden; border-right:2px solid var(--gold-soft);}
+  .compare-handle{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:40px; border-radius:50%;
+    background:var(--gold-soft); display:flex; align-items:center; justify-content:center; color:#181206; font-size:0.9rem; z-index:4;
+    box-shadow:0 6px 16px rgba(0,0,0,0.4);
+  }
+  .compare-slider{position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:ew-resize; margin:0;}
+
+  /* AUTO SHOWCASE (zero-maintenance "best of") */
+  .showcase-box{
+    position:relative; background:linear-gradient(135deg, rgba(217,164,65,0.1), rgba(255,105,82,0.05));
+    border:1px solid rgba(217,164,65,0.25); border-radius:18px; padding:28px; min-height:160px;
+  }
+  .showcase-track{position:relative; min-height:150px;}
+  .showcase-slide{
+    position:absolute; inset:0; opacity:0; transform:translateX(16px); transition:opacity 0.5s ease, transform 0.5s ease; pointer-events:none;
+    display:flex; align-items:center; gap:22px;
+  }
+  .showcase-slide.active{opacity:1; transform:translateX(0); pointer-events:auto; position:relative;}
+  .showcase-visual{
+    flex-shrink:0; width:96px; height:96px; border-radius:16px; display:flex; align-items:center; justify-content:center;
+    flex-direction:column; position:relative; overflow:hidden;
+  }
+  .showcase-visual.v-code{background:var(--bg-alt); border:2px dashed rgba(217,164,65,0.4);}
+  .showcase-visual.v-code b{font-family:'Space Grotesk',sans-serif; font-size:1.7rem; color:var(--gold-soft);}
+  .showcase-visual.v-code span{font-size:0.62rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.04em;}
+  .showcase-visual.v-cat{background:linear-gradient(160deg, rgba(90,200,250,0.18), var(--card)); border:1px solid var(--border); font-size:2.2rem;}
+  .showcase-visual.v-tg{background:linear-gradient(160deg, rgba(217,164,65,0.2), rgba(255,105,82,0.12)); border:1px solid rgba(217,164,65,0.35);}
+  .showcase-visual.v-tg svg{width:38px; height:38px; fill:var(--gold-soft);}
+  .showcase-content{flex:1; min-width:0;}
+  .showcase-tag{
+    display:inline-block; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;
+    color:var(--gold-soft); background:rgba(217,164,65,0.12); border:1px solid rgba(217,164,65,0.3);
+    padding:4px 12px; border-radius:999px; margin-bottom:10px;
+  }
+  .showcase-content h3{font-size:1.1rem; margin-bottom:6px;}
+  .showcase-content p{color:var(--text-soft); font-size:0.88rem; margin:0 0 12px; max-width:52ch;}
+  @media (max-width:600px){ .showcase-slide{flex-direction:column; text-align:center; align-items:center;} .showcase-content p{max-width:none;} }
+  .showcase-dots{display:flex; gap:8px; margin-top:18px;}
+  .showcase-dots button{width:8px; height:8px; border-radius:50%; background:var(--border); border:none; cursor:pointer; padding:0; transition:0.2s;}
+  .showcase-dots button.active{background:var(--gold-soft); width:22px; border-radius:5px;}
+
   /* HEADER SHRINK ON SCROLL */
   header{transition:padding 0.25s ease;}
   header.shrink .header-inner{padding-top:8px; padding-bottom:8px;}
@@ -726,6 +835,7 @@
 <main>
   <section id="accueil" class="hero">
     <div class="hero-bg" aria-hidden="true">
+      <canvas id="particleCanvas"></canvas>
       <div class="blob blob-1" id="blob1"></div>
       <div class="blob blob-2" id="blob2"></div>
       <div class="blob blob-3" id="blob3"></div>
@@ -758,6 +868,7 @@
       </div>
 
       <div class="ticket reveal in-view reveal-delay-1" id="tiltCard">
+        <div class="stamp" id="stampSeal"><span>✓</span>VÉRIFIÉ</div>
         <div class="ticket-top">
           <div class="ticket-label">Code du moment</div>
           <div class="ticket-badge">Membres Telegram</div>
@@ -766,6 +877,10 @@
           <span class="ticket-code mono" id="codeText">Frbonplan</span>
           <button class="copy-btn" onclick="copyCode(this)" id="copyBtn">Copier</button>
         </div>
+        <button class="download-code-btn" onclick="downloadCouponImage()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"/></svg>
+          Télécharger le code en image
+        </button>
         <div class="ticket-perf"></div>
         <div class="stat-strip">
           <div class="stat-box"><b><span id="counterMembers">0</span>+</b><span>Membres</span></div>
@@ -915,12 +1030,47 @@
       </div>
 
       <div style="margin-top:36px;">
-        <div id="todayOfferWrap"></div>
-        <h3 style="font-size:1.1rem; margin:28px 0 16px; color:var(--gold-soft);">Dernières offres ajoutées</h3>
-        <div class="grid-3" id="recentOffers">
-          <div class="skeleton-card"><div class="skeleton-line w60"></div><div class="skeleton-line w90"></div><div class="skeleton-line w40"></div></div>
-          <div class="skeleton-card"><div class="skeleton-line w60"></div><div class="skeleton-line w90"></div><div class="skeleton-line w40"></div></div>
-          <div class="skeleton-card"><div class="skeleton-line w60"></div><div class="skeleton-line w90"></div><div class="skeleton-line w40"></div></div>
+        <h3 style="font-size:1.1rem; margin-bottom:16px; color:var(--gold-soft);">Le meilleur du moment</h3>
+        <div class="showcase-box reveal">
+          <div class="showcase-track" id="showcaseTrack">
+            <div class="showcase-slide active">
+              <div class="showcase-visual v-code"><b>-14%</b><span>Code</span></div>
+              <div class="showcase-content">
+                <div class="showcase-tag">Le plus utilisé</div>
+                <h3>Promofinance</h3>
+                <p>Notre code le plus partagé, valable sur l'ensemble de votre panier.</p>
+                <a class="btn-ghost" style="padding:9px 18px; font-size:0.85rem;" href="https://www.hacoo.pl/@frbonplan" target="_blank" rel="noopener">Utiliser sur Hacoo →</a>
+              </div>
+            </div>
+            <div class="showcase-slide">
+              <div class="showcase-visual v-code"><b>-14%</b><span>Code</span></div>
+              <div class="showcase-content">
+                <div class="showcase-tag">Spécial premier achat</div>
+                <h3>Frbonplan</h3>
+                <p>Pensé pour celles et ceux qui commandent pour la première fois sur Hacoo.</p>
+                <a class="btn-ghost" style="padding:9px 18px; font-size:0.85rem;" href="https://www.hacoo.pl/@frbonplan" target="_blank" rel="noopener">Utiliser sur Hacoo →</a>
+              </div>
+            </div>
+            <div class="showcase-slide">
+              <div class="showcase-visual v-cat">👟</div>
+              <div class="showcase-content">
+                <div class="showcase-tag">Repéré cette semaine</div>
+                <h3>Athleisure &amp; confort</h3>
+                <p>La catégorie qui revient le plus souvent dans les retours de la communauté.</p>
+                <a class="btn-ghost" style="padding:9px 18px; font-size:0.85rem;" href="https://www.hacoo.pl/@frbonplan" target="_blank" rel="noopener">Voir la sélection →</a>
+              </div>
+            </div>
+            <div class="showcase-slide">
+              <div class="showcase-visual v-tg"><svg viewBox="0 0 24 24"><path d="M21.5 4.5 2.7 11.8c-1.2.5-1.2 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.1c.3-1.3-.4-1.9-1.4-1.6ZM8.3 13.9l9-5.7c.4-.3.8 0 .5.4l-7.4 6.7-.3 3.1-1.4-4.5Z"/></svg></div>
+              <div class="showcase-content">
+                <div class="showcase-tag">Toujours en premier</div>
+                <h3>Le reste, c'est sur Telegram</h3>
+                <p>Nouveautés, alertes et codes à venir sont partagés là-bas avant d'arriver ici.</p>
+                <a class="btn-primary" style="padding:9px 18px; font-size:0.85rem;" href="https://t.me/promohacoo" target="_blank" rel="noopener">Rejoindre le canal →</a>
+              </div>
+            </div>
+          </div>
+          <div class="showcase-dots" id="showcaseDots"></div>
         </div>
       </div>
     </div>
@@ -973,6 +1123,53 @@
             <div class="save-amount" id="calcSave">0,00 €</div>
             <div class="final-price">économisés avec <span class="mono">-14%</span> sur le total du panier — montant final : <b id="calcFinal">0,00 €</b></div>
           </div>
+        </div>
+      </div>
+
+      <div style="margin-top:36px;">
+        <h3 style="font-size:1.1rem; margin-bottom:4px; color:var(--gold-soft);">Faites glisser pour voir la différence</h3>
+        <p style="color:var(--text-soft); font-size:0.88rem; margin:0 0 16px;">Exemple sur une commande de 65 €.</p>
+        <div class="compare-box reveal">
+          <div class="compare-panel compare-after">
+            <div class="compare-label">Avec le code</div>
+            <div class="compare-price">55,90 €</div>
+          </div>
+          <div class="compare-overlay" id="compareOverlay">
+            <div class="compare-panel compare-before" id="compareBeforePanel">
+              <div class="compare-label">Sans code</div>
+              <div class="compare-price">65,00 €</div>
+            </div>
+          </div>
+          <div class="compare-handle" id="compareHandle">⇔</div>
+          <input type="range" class="compare-slider" id="compareSlider" min="0" max="100" value="50" oninput="updateCompare(this.value)" aria-label="Comparer avec et sans code">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="guide-commande">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow"><span class="dot"></span>Zéro hésitation</div>
+        <h2>Comment utiliser le code sur Hacoo</h2>
+        <p>Pour ceux qui n'ont jamais utilisé de code promo sur l'app.</p>
+      </div>
+      <div class="order-steps">
+        <div class="order-step reveal">
+          <div class="order-step-num">1</div>
+          <div><h3>Ajoutez vos articles au panier</h3><p>Sur l'app ou le site Hacoo, comme un achat classique.</p></div>
+        </div>
+        <div class="order-step reveal reveal-delay-1">
+          <div class="order-step-num">2</div>
+          <div><h3>Allez à l'étape paiement</h3><p>Un champ "code promo" ou "coupon" apparaît avant la validation finale.</p></div>
+        </div>
+        <div class="order-step reveal reveal-delay-2">
+          <div class="order-step-num">3</div>
+          <div><h3>Collez le code</h3><p>Utilisez le bouton "Copier" plus haut, puis collez-le dans ce champ.</p></div>
+        </div>
+        <div class="order-step reveal reveal-delay-3">
+          <div class="order-step-num">4</div>
+          <div><h3>Vérifiez le total mis à jour</h3><p>La réduction s'applique automatiquement avant le paiement final.</p></div>
         </div>
       </div>
     </div>
@@ -1163,6 +1360,7 @@
 </div>
 
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">↑</button>
+<div class="kbd-hint" id="kbdHint"><kbd>C</kbd> copier le code · <kbd>T</kbd> ouvrir Telegram</div>
 
 <div class="fab-wrap" id="fabWrap">
   <div class="fab-menu">
@@ -1456,47 +1654,272 @@
     document.getElementById('calcFinal').textContent = final.toLocaleString('fr-FR', { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' €';
   }
 
-  // Recent offers, loaded from offers.json — edit that file to add/remove offers
-  fetch('offers.json?_=' + Date.now())
-    .then(r => { if(!r.ok) throw new Error('no file'); return r.json(); })
-    .then(offers => {
-      const container = document.getElementById('recentOffers');
-      if(!Array.isArray(offers) || offers.length === 0){
-        container.innerHTML = '<p class="offers-empty">Aucune offre récente pour le moment — retrouvez tout sur le canal Telegram.</p>';
-        return;
-      }
-      container.innerHTML = offers.slice(0, 6).map(o => `
-        <div class="offer-item reveal in-view">
-          <div class="offer-item-head">
-            ${o.new ? '<span class="offer-new">Nouveau</span>' : '<span></span>'}
-            <span class="offer-date">${o.date ? o.date : ''}</span>
-          </div>
-          <h3>${escapeHtml(o.title || 'Offre Hacoo')}</h3>
-          <p>${escapeHtml(o.description || '')}</p>
-          <a href="${o.link || 'https://t.me/promohacoo'}" target="_blank" rel="noopener">Voir sur Telegram →</a>
-        </div>
-      `).join('');
+  // Downloadable coupon image (canvas-generated)
+  function downloadCouponImage(){
+    const canvas = document.createElement('canvas');
+    canvas.width = 900; canvas.height = 500;
+    const ctx = canvas.getContext('2d');
 
-      const todayWrap = document.getElementById('todayOfferWrap');
-      if(todayWrap && offers[0]){
-        const t = offers[0];
-        todayWrap.innerHTML = `
-          <div class="today-offer">
-            <div>
-              <div class="today-offer-badge">★ Offre du jour</div>
-              <h3>${escapeHtml(t.title || 'Offre Hacoo')}</h3>
-              <p>${escapeHtml(t.description || '')}</p>
-            </div>
-            <a class="btn-primary" href="${t.link || 'https://t.me/promohacoo'}" target="_blank" rel="noopener">Voir sur Telegram</a>
-          </div>
-        `;
-      }
-    })
-    .catch(() => {
-      // Silently keep the site fully functional even if offers.json is missing or unreachable
-      const container = document.getElementById('recentOffers');
-      if(container) container.innerHTML = '<p class="offers-empty">Retrouvez toutes les offres sur le canal Telegram.</p>';
+    const bgGrad = ctx.createLinearGradient(0,0,900,500);
+    bgGrad.addColorStop(0, '#151b24');
+    bgGrad.addColorStop(1, '#0b0f14');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0,0,900,500);
+
+    const borderGrad = ctx.createLinearGradient(0,0,900,0);
+    borderGrad.addColorStop(0, '#d9a441');
+    borderGrad.addColorStop(1, '#ff6952');
+    ctx.strokeStyle = borderGrad;
+    ctx.lineWidth = 6;
+    ctx.strokeRect(3,3,894,494);
+
+    ctx.fillStyle = '#f0c368';
+    ctx.font = '700 34px Georgia';
+    ctx.fillText('FRBONPLAN', 60, 90);
+
+    ctx.fillStyle = '#a8b0bc';
+    ctx.font = '20px Georgia';
+    ctx.fillText('Code promo exclusif — canal Telegram', 60, 130);
+
+    ctx.strokeStyle = '#242c38';
+    ctx.setLineDash([6,6]);
+    ctx.strokeRect(60, 190, 780, 110);
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = '#f0c368';
+    ctx.font = '700 56px monospace';
+    ctx.fillText(document.getElementById('codeText').textContent, 90, 260);
+
+    ctx.fillStyle = '#ff6952';
+    ctx.font = '700 30px Georgia';
+    ctx.fillText('-14%', 700, 260);
+
+    ctx.fillStyle = '#6b7480';
+    ctx.font = '18px Georgia';
+    ctx.fillText('t.me/promohacoo · À utiliser sur Hacoo', 60, 440);
+
+    const link = document.createElement('a');
+    link.download = 'frbonplan-code-promo.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    showToast('Image du code téléchargée');
+  }
+
+  // Magnetic buttons (desktop only)
+  if(canHover){
+    document.querySelectorAll('.btn-primary').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width/2;
+        const y = e.clientY - rect.top - rect.height/2;
+        btn.style.transform = `translate(${x*0.15}px, ${y*0.25}px)`;
+      });
+      btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
     });
+  }
+
+  // Keyboard shortcuts: C = copy hero code, T = open Telegram
+  const kbdHint = document.getElementById('kbdHint');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 400 && window.scrollY < document.documentElement.scrollHeight - window.innerHeight - 400){
+      kbdHint.classList.add('show');
+    } else {
+      kbdHint.classList.remove('show');
+    }
+  }, { passive:true });
+  document.addEventListener('keydown', (e) => {
+    const tag = document.activeElement.tagName;
+    if(tag === 'INPUT' || tag === 'TEXTAREA') return;
+    if(e.key.toLowerCase() === 'c'){
+      copyCode(document.getElementById('copyBtn'));
+    } else if(e.key.toLowerCase() === 't'){
+      window.open('https://t.me/promohacoo', '_blank', 'noopener');
+    }
+  });
+
+  // 1) Interactive particle network in hero (skipped if reduced motion)
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pCanvas = document.getElementById('particleCanvas');
+  if(pCanvas && !prefersReduced){
+    const pctx = pCanvas.getContext('2d');
+    let particles = [];
+    let mouse = { x:-999, y:-999 };
+    function resizeParticles(){
+      const heroBg = pCanvas.parentElement;
+      pCanvas.width = heroBg.clientWidth;
+      pCanvas.height = heroBg.clientHeight;
+      const count = Math.min(50, Math.floor((pCanvas.width * pCanvas.height) / 22000));
+      particles = Array.from({length:count}, () => ({
+        x: Math.random()*pCanvas.width, y: Math.random()*pCanvas.height,
+        vx:(Math.random()-0.5)*0.35, vy:(Math.random()-0.5)*0.35
+      }));
+    }
+    resizeParticles();
+    window.addEventListener('resize', resizeParticles);
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+      const r = pCanvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+    });
+    document.querySelector('.hero').addEventListener('mouseleave', () => { mouse.x=-999; mouse.y=-999; });
+    function drawParticles(){
+      pctx.clearRect(0,0,pCanvas.width,pCanvas.height);
+      particles.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0||p.x>pCanvas.width) p.vx*=-1;
+        if(p.y<0||p.y>pCanvas.height) p.vy*=-1;
+      });
+      for(let i=0;i<particles.length;i++){
+        for(let j=i+1;j<particles.length;j++){
+          const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
+          const dist=Math.hypot(dx,dy);
+          if(dist<110){
+            pctx.strokeStyle = `rgba(217,164,65,${0.12*(1-dist/110)})`;
+            pctx.lineWidth=1;
+            pctx.beginPath(); pctx.moveTo(particles[i].x,particles[i].y); pctx.lineTo(particles[j].x,particles[j].y); pctx.stroke();
+          }
+        }
+        const dxm = particles[i].x-mouse.x, dym = particles[i].y-mouse.y;
+        const distm = Math.hypot(dxm,dym);
+        if(distm<140){
+          pctx.strokeStyle = `rgba(240,195,104,${0.3*(1-distm/140)})`;
+          pctx.beginPath(); pctx.moveTo(particles[i].x,particles[i].y); pctx.lineTo(mouse.x,mouse.y); pctx.stroke();
+        }
+        pctx.fillStyle='rgba(217,164,65,0.6)';
+        pctx.beginPath(); pctx.arc(particles[i].x,particles[i].y,1.6,0,Math.PI*2); pctx.fill();
+      }
+      requestAnimationFrame(drawParticles);
+    }
+    requestAnimationFrame(drawParticles);
+  }
+
+  // 2) Full-screen confetti burst when joining Telegram
+  function fireConfettiBurst(){
+    if(prefersReduced) return;
+    let cCanvas = document.getElementById('confettiCanvas');
+    if(!cCanvas){
+      cCanvas = document.createElement('canvas');
+      cCanvas.id = 'confettiCanvas';
+      document.body.appendChild(cCanvas);
+    }
+    cCanvas.width = window.innerWidth; cCanvas.height = window.innerHeight;
+    const cctx = cCanvas.getContext('2d');
+    const colors = ['#d9a441','#ff6952','#f0c368','#5ac8fa'];
+    const pieces = Array.from({length:140}, () => ({
+      x: Math.random()*cCanvas.width, y: -20 - Math.random()*200,
+      vx:(Math.random()-0.5)*3, vy:2+Math.random()*3,
+      size:4+Math.random()*5, color:colors[Math.floor(Math.random()*colors.length)],
+      rot:Math.random()*360, vr:(Math.random()-0.5)*10
+    }));
+    let frame = 0;
+    function animateConfetti(){
+      cctx.clearRect(0,0,cCanvas.width,cCanvas.height);
+      pieces.forEach(p => {
+        p.x += p.vx; p.y += p.vy; p.vy += 0.03; p.rot += p.vr;
+        cctx.save();
+        cctx.translate(p.x,p.y); cctx.rotate(p.rot*Math.PI/180);
+        cctx.fillStyle = p.color;
+        cctx.fillRect(-p.size/2,-p.size/2,p.size,p.size*0.6);
+        cctx.restore();
+      });
+      frame++;
+      if(frame < 140) requestAnimationFrame(animateConfetti);
+      else cctx.clearRect(0,0,cCanvas.width,cCanvas.height);
+    }
+    requestAnimationFrame(animateConfetti);
+  }
+  document.querySelectorAll('a.btn-primary[href*="t.me"]').forEach(btn => {
+    btn.addEventListener('click', fireConfettiBurst);
+  });
+
+  // 3) Typewriter rotating tagline in the hero eyebrow
+  const taglineEl = document.querySelector('.hero .eyebrow');
+  if(taglineEl && !prefersReduced){
+    const taglines = ['Sélection mise à jour chaque jour','Codes vérifiés manuellement','Zéro spam, zéro pression','Toujours gratuit à rejoindre'];
+    let tIndex = 0, charIndex = 0, deleting = false;
+    const dotHtml = '<span class="dot"></span>';
+    function typeLoop(){
+      const current = taglines[tIndex];
+      if(!deleting){
+        charIndex++;
+        if(charIndex > current.length){ deleting = true; setTimeout(typeLoop, 1400); return; }
+      } else {
+        charIndex--;
+        if(charIndex < 0){ deleting = false; tIndex = (tIndex+1) % taglines.length; charIndex = 0; }
+      }
+      taglineEl.innerHTML = dotHtml + current.slice(0, charIndex);
+      setTimeout(typeLoop, deleting ? 28 : 45);
+    }
+    setTimeout(typeLoop, 2200);
+  }
+
+  // 4) "Come back" tab title trick
+  const originalTitle = document.title;
+  document.addEventListener('visibilitychange', () => {
+    document.title = document.hidden ? '👋 N\'oublie pas tes bons plans...' : originalTitle;
+  });
+
+  // 5) Stamp seal reveal when the ticket scrolls into view
+  const stampSeal = document.getElementById('stampSeal');
+  if(stampSeal){
+    setTimeout(() => stampSeal.classList.add('stamped'), 900);
+  }
+
+  // 6) Before/after comparison slider
+  function updateCompare(val){
+    document.getElementById('compareOverlay').style.width = val + '%';
+    document.getElementById('compareHandle').style.left = val + '%';
+  }
+  const compareBox = document.querySelector('.compare-box');
+  const compareBeforePanel = document.getElementById('compareBeforePanel');
+  function syncComparePanelWidth(){
+    if(compareBox && compareBeforePanel) compareBeforePanel.style.width = compareBox.clientWidth + 'px';
+  }
+  syncComparePanelWidth();
+  window.addEventListener('resize', syncComparePanelWidth);
+
+  // 7) Konami code easter egg
+  const konamiSeq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let konamiPos = 0;
+  document.addEventListener('keydown', (e) => {
+    const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    if(key === konamiSeq[konamiPos]){
+      konamiPos++;
+      if(konamiPos === konamiSeq.length){
+        konamiPos = 0;
+        fireConfettiBurst();
+        showToast('🎉 Code secret trouvé ! Merci de faire partie de Frbonplan');
+      }
+    } else {
+      konamiPos = (key === konamiSeq[0]) ? 1 : 0;
+    }
+  });
+
+  // Auto-rotating "best of" showcase — fully self-contained, needs no file or edits
+  const showcaseSlides = document.querySelectorAll('.showcase-slide');
+  const showcaseDotsWrap = document.getElementById('showcaseDots');
+  let showcaseIndex = 0;
+  showcaseSlides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    if(i === 0) dot.classList.add('active');
+    dot.setAttribute('aria-label', 'Offre ' + (i+1));
+    dot.addEventListener('click', () => goToShowcase(i));
+    showcaseDotsWrap.appendChild(dot);
+  });
+  function goToShowcase(i){
+    showcaseSlides[showcaseIndex].classList.remove('active');
+    showcaseDotsWrap.children[showcaseIndex].classList.remove('active');
+    showcaseIndex = i;
+    showcaseSlides[showcaseIndex].classList.add('active');
+    showcaseDotsWrap.children[showcaseIndex].classList.add('active');
+  }
+  let showcaseAuto = setInterval(() => goToShowcase((showcaseIndex + 1) % showcaseSlides.length), 4500);
+  const showcaseBoxEl = document.querySelector('.showcase-box');
+  if(showcaseBoxEl){
+    showcaseBoxEl.addEventListener('mouseenter', () => clearInterval(showcaseAuto));
+    showcaseBoxEl.addEventListener('mouseleave', () => {
+      showcaseAuto = setInterval(() => goToShowcase((showcaseIndex + 1) % showcaseSlides.length), 4500);
+    });
+  }
 
   function escapeHtml(str){
     const div = document.createElement('div');
