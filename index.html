@@ -2,12 +2,12 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Frbonplan — Bons plans Hacoo sélectionnés</title>
-<meta name="description" content="Frbonplan écarte plus de codes Hacoo qu'il n'en publie. Ce qui reste : des offres testées, vérifiées à la main, sans fausse promesse.">
+<title>Frbonplan — Les meilleurs articles et bons plans Hacoo</title>
+<meta name="description" content="Frbonplan sélectionne les meilleurs articles et bons plans Hacoo, testés et vérifiés à la main. Codes promo en bonus, jamais l'inverse.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b0f14">
-<meta property="og:title" content="Frbonplan — On trie. On teste. On ne garde que ce qui marche.">
-<meta property="og:description" content="Des codes Hacoo vérifiés à la main, une sélection quotidienne, aucune fausse promesse.">
+<meta property="og:title" content="Frbonplan — Les meilleurs articles Hacoo, triés à la main">
+<meta property="og:description" content="Une sélection des meilleurs articles et bons plans Hacoo, avec des codes promo vérifiés en bonus.">
 <meta property="og:image" content="unnamed.png">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="unnamed.png">
@@ -56,7 +56,7 @@
   code, .mono{font-family:'JetBrains Mono', monospace;}
   a{color:inherit;}
   img{max-width:100%;display:block;}
-  .wrap{max-width:1360px;margin:0 auto;padding:0 24px;}
+  .wrap{max-width:1600px;margin:0 auto;padding:0 24px;}
   :focus-visible{outline:2px solid var(--gold-soft); outline-offset:3px; border-radius:6px;}
 
   .skip-link{
@@ -109,7 +109,7 @@
     backdrop-filter:blur(14px);
     border-bottom:1px solid var(--border);
   }
-  .header-inner{display:flex; align-items:center; justify-content:space-between; padding:12px 24px; max-width:1360px; margin:0 auto;}
+  .header-inner{display:flex; align-items:center; justify-content:space-between; padding:12px 24px; max-width:1600px; margin:0 auto;}
   .brand{display:flex; align-items:center; gap:11px; text-decoration:none;}
 
   .logo-wrap{position:relative; width:42px; height:42px; flex-shrink:0;}
@@ -852,6 +852,32 @@
   .wheel-result{min-height:24px; font-size:0.95rem; color:var(--gold-soft); font-weight:600; text-align:center;}
   .wheel-download{margin-top:2px;}
 
+  /* MICRO-BOUTIQUE */
+  .shop-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .shop-card{
+    background:var(--card); border:1px solid var(--border); border-radius:18px; overflow:hidden;
+    text-decoration:none; color:var(--text); transition:0.3s; display:flex; flex-direction:column;
+  }
+  .shop-card:hover{transform:translateY(-5px); border-color:rgba(217,164,65,0.4); box-shadow:0 18px 40px rgba(0,0,0,0.35);}
+  .shop-card-img{width:100%; aspect-ratio:1/1; overflow:hidden; background:var(--bg-alt); position:relative;}
+  .shop-card-img img{width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;}
+  .shop-card:hover .shop-card-img img{transform:scale(1.06);}
+  .shop-new-badge{
+    position:absolute; top:10px; left:10px; background:var(--gold); color:#181206; font-size:0.68rem; font-weight:700;
+    padding:4px 10px; border-radius:999px; text-transform:uppercase; letter-spacing:0.03em;
+  }
+  .shop-card-body{padding:18px 18px 20px; display:flex; flex-direction:column; gap:8px; flex:1;}
+  .shop-card-body h3{font-size:0.98rem; margin:0;}
+  .shop-price-row{display:flex; align-items:baseline; gap:10px; margin-top:auto;}
+  .shop-price-old{font-size:0.85rem; color:var(--text-dim); text-decoration:line-through;}
+  .shop-price-new{font-family:'Space Grotesk',sans-serif; font-size:1.25rem; font-weight:700; color:var(--gold-soft);}
+  .shop-cta{
+    margin-top:8px; text-align:center; font-size:0.82rem; font-weight:600; color:#181206;
+    background:linear-gradient(135deg, var(--gold), #c48a2e); padding:9px; border-radius:999px;
+  }
+  @media (max-width:900px){ .shop-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:600px){ .shop-grid{grid-template-columns:1fr; max-width:340px; margin:0 auto;} }
+
   /* 3D TILT ON CARDS */
   .cat-card, .card{transform-style:preserve-3d; will-change:transform;}
 
@@ -954,8 +980,8 @@
       <div class="reveal in-view">
         <div class="greeting-badge" id="greetingBadge"></div>
         <div class="eyebrow"><span class="dot"></span>Sélection mise à jour chaque jour</div>
-        <h1>On trie. On teste. <em>On ne garde que ce qui marche.</em></h1>
-        <p class="lede">Pendant que d'autres relaient tout ce qui passe, Frbonplan écarte plus qu'il ne publie — et ne garde que les codes Hacoo qui fonctionnent vraiment, vérifiés à la main.</p>
+        <h1>On trie. On teste. <em>On ne garde que les meilleurs articles.</em></h1>
+        <p class="lede">Pendant que d'autres relaient tout ce qui passe, Frbonplan sélectionne les meilleurs articles et bons plans Hacoo — avec, en bonus, des codes promo vérifiés à la main.</p>
         <div class="cta-row">
           <a class="btn-primary" href="https://t.me/promohacoo" target="_blank" rel="noopener">
             Rejoindre le canal Telegram
@@ -969,6 +995,7 @@
           <span>Gratuit, sans engagement</span>
           <span>Aucune promesse de gain</span>
         </div>
+        <p style="font-size:0.8rem; color:var(--text-dim); margin:10px 0 0;">👉 Pensez à cliquer sur nos liens avant d'acheter — ça nous soutient, sans rien changer au prix pour vous.</p>
         <div class="countdown" id="countdown">
           <span>Prochaine offre du jour dans</span>
           <b id="countdownValue">—</b>
@@ -1035,7 +1062,7 @@
       <div class="section-head reveal">
         <div class="eyebrow"><span class="dot"></span>Pourquoi Frbonplan</div>
         <h2>On dit non plus souvent qu'on dit oui</h2>
-        <p>N'importe qui peut relayer un code. Le vrai travail, c'est de savoir lequel écarter.</p>
+        <p>N'importe qui peut relayer un article au hasard. Le vrai travail, c'est de savoir lequel vaut vraiment le détour.</p>
       </div>
       <div class="grid-3">
         <div class="card reveal">
@@ -1127,6 +1154,60 @@
           <span class="cat-emoji">👜</span>
           <h3>Accessoires</h3>
           <p>Sacs &amp; petits articles</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="boutique">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow"><span class="dot"></span>Sélection épinglée</div>
+        <h2>Nos coups de cœur du moment</h2>
+        <p>Une poignée d'articles neufs, repérés et testés — le prix affiché inclut déjà la réduction du code.</p>
+      </div>
+      <div class="shop-grid">
+        <a class="shop-card reveal" href="https://c.onlyaff.app/15arcP" target="_blank" rel="noopener">
+          <div class="shop-card-img">
+            <span class="shop-new-badge">Neuf</span>
+            <img src="produit-sneakers.png" alt="Chaussures de running, plusieurs coloris">
+          </div>
+          <div class="shop-card-body">
+            <h3>Chaussures de running — plusieurs coloris</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-old">35,42 €</span>
+              <span class="shop-price-new">30,46 €</span>
+            </div>
+            <div class="shop-cta">Voir sur Hacoo →</div>
+          </div>
+        </a>
+        <a class="shop-card reveal reveal-delay-1" href="https://c.onlyaff.app/aPGpP5" target="_blank" rel="noopener">
+          <div class="shop-card-img">
+            <span class="shop-new-badge">Neuf</span>
+            <img src="produit-tshirt.png" alt="T-shirt oversize 100% coton">
+          </div>
+          <div class="shop-card-body">
+            <h3>T-shirt oversize — 100% coton</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-old">8,20 €</span>
+              <span class="shop-price-new">7,05 €</span>
+            </div>
+            <div class="shop-cta">Voir sur Hacoo →</div>
+          </div>
+        </a>
+        <a class="shop-card reveal reveal-delay-2" href="https://c.onlyaff.app/aPGtEq" target="_blank" rel="noopener">
+          <div class="shop-card-img">
+            <span class="shop-new-badge">Neuf</span>
+            <img src="produit-polo.png" alt="Polo casual, plusieurs coloris">
+          </div>
+          <div class="shop-card-body">
+            <h3>Polo casual — plusieurs coloris</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-old">12,71 €</span>
+              <span class="shop-price-new">10,93 €</span>
+            </div>
+            <div class="shop-cta">Voir sur Hacoo →</div>
+          </div>
         </a>
       </div>
     </div>
@@ -1423,6 +1504,14 @@
       <div class="faq-item reveal" data-q="fréquence mise à jour souvent quotidien">
         <button class="faq-q" onclick="toggleFaq(this)">À quelle fréquence la sélection est-elle mise à jour ?<span class="plus">+</span></button>
         <div class="faq-a"><p>Quotidiennement. Une nouvelle offre du jour est publiée chaque jour sur le canal Telegram et reprise ici.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr7',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr7',false)">👎 Pas clair</button></div></div>
+      </div>
+      <div class="faq-item reveal" data-q="pourquoi cliquer lien affilié commission liens">
+        <button class="faq-q" onclick="toggleFaq(this)">Pourquoi cliquer sur vos liens avant d'acheter ?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Frbonplan touche une petite commission quand un achat est fait en passant par nos liens — le prix reste strictement identique pour vous. C'est ce qui permet de continuer cette sélection gratuitement. Si un article ou un code vous a été utile, penser à cliquer depuis ici (plutôt que d'aller chercher l'article directement dans l'app) nous soutient directement, sans rien vous coûter de plus.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr8',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr8',false)">👎 Pas clair</button></div></div>
+      </div>
+      <div class="faq-item reveal" data-q="code ne fonctionne pas erreur invalide">
+        <button class="faq-q" onclick="toggleFaq(this)">Le code Promofinance ne fonctionne pas, que faire ?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Vérifiez d'abord la casse exacte (Promofinance) et qu'il n'y a pas d'espace collé. Un code à usage unique refusé signifie généralement qu'il a déjà été utilisé une première fois sur votre compte — dans ce cas, essayez le second code disponible (Frbonplan), ou contactez le support Hacoo directement pour toute question sur son fonctionnement. Nous ne pouvons pas garantir la validité d'un code au-delà de sa première utilisation par compte.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr9',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr9',false)">👎 Pas clair</button></div></div>
       </div>
       <p id="faqEmpty" style="display:none; color:var(--text-dim); text-align:center; padding:20px 0;">Aucune question ne correspond à votre recherche.</p>
     </div>
