@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Frbonplan — Bons plans Hacoo sélectionnés</title>
-<meta name="description" content="Frbonplan repère, vérifie et publie les meilleures opportunités Hacoo : codes promo, sélections produit et offres limitées, en toute transparence.">
+<meta name="description" content="Frbonplan écarte plus de codes Hacoo qu'il n'en publie. Ce qui reste : des offres testées, vérifiées à la main, sans fausse promesse.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b0f14">
-<meta property="og:title" content="Frbonplan — Bons plans Hacoo sélectionnés">
-<meta property="og:description" content="Codes promo, sélections et offres Hacoo, vérifiés et publiés sur notre canal Telegram.">
+<meta property="og:title" content="Frbonplan — On trie. On teste. On ne garde que ce qui marche.">
+<meta property="og:description" content="Des codes Hacoo vérifiés à la main, une sélection quotidienne, aucune fausse promesse.">
 <meta property="og:image" content="unnamed.png">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="unnamed.png">
@@ -492,6 +492,25 @@
   .showcase-dots button{width:8px; height:8px; border-radius:50%; background:var(--border); border:none; cursor:pointer; padding:0; transition:0.2s;}
   .showcase-dots button.active{background:var(--gold-soft); width:22px; border-radius:5px;}
 
+  /* NEWSLETTER SIGNUP */
+  .newsletter-box{
+    background:linear-gradient(135deg, rgba(217,164,65,0.12), rgba(255,105,82,0.06));
+    border:1px solid rgba(217,164,65,0.25); border-radius:20px; padding:36px; text-align:center;
+  }
+  .newsletter-box h2{font-size:clamp(1.4rem,2.6vw,1.8rem); margin-bottom:10px;}
+  .newsletter-box p{color:var(--text-soft); font-size:0.95rem; margin:0 0 24px; max-width:48ch; margin-left:auto; margin-right:auto;}
+  .newsletter-form{display:flex; gap:10px; max-width:440px; margin:0 auto; flex-wrap:wrap;}
+  .newsletter-form input[type="email"]{
+    flex:1; min-width:200px; background:var(--bg-alt); border:1px solid var(--border); color:var(--text);
+    padding:13px 18px; border-radius:999px; font-size:0.95rem; font-family:'Inter',sans-serif; outline:none;
+  }
+  .newsletter-form input[type="email"]:focus{border-color:var(--gold-soft);}
+  .newsletter-form button{white-space:nowrap;}
+  .newsletter-note{font-size:0.76rem; color:var(--text-dim); margin-top:14px;}
+  .newsletter-success{display:none; color:var(--gold-soft); font-size:0.92rem; margin-top:14px; font-weight:600;}
+  .newsletter-success.show{display:block;}
+  @media (max-width:480px){ .newsletter-form{flex-direction:column;} .newsletter-form button{width:100%; justify-content:center;} }
+
   /* HEADER SHRINK ON SCROLL */
   header{transition:padding 0.25s ease;}
   header.shrink .header-inner{padding-top:8px; padding-bottom:8px;}
@@ -782,12 +801,99 @@
   @media (hover:none){
     .card:hover, .coupon:hover{transform:none;}
   }
+
+  /* SITEWIDE AURORA BACKGROUND */
+  .aurora{position:fixed; inset:0; z-index:-2; overflow:hidden; pointer-events:none;}
+  .aurora span{
+    position:absolute; border-radius:50%; filter:blur(120px); opacity:0.16;
+    animation:auroraDrift 22s ease-in-out infinite;
+  }
+  .aurora span:nth-child(1){width:520px; height:520px; background:var(--gold); top:-10%; left:-10%; animation-delay:0s;}
+  .aurora span:nth-child(2){width:460px; height:460px; background:var(--coral); top:40%; right:-12%; animation-delay:-7s;}
+  .aurora span:nth-child(3){width:420px; height:420px; background:#5ac8fa; bottom:-15%; left:20%; animation-delay:-14s; opacity:0.1;}
+  @keyframes auroraDrift{
+    0%,100%{transform:translate(0,0) scale(1);}
+    33%{transform:translate(60px,-40px) scale(1.15);}
+    66%{transform:translate(-50px,50px) scale(0.9);}
+  }
+
+  /* CURSOR SPARKLE TRAIL */
+  .sparkle-trail{position:fixed; width:5px; height:5px; border-radius:50%; background:var(--gold-soft); pointer-events:none; z-index:150; opacity:0.9;}
+
+  /* CINEMATIC PRELOADER LOGO */
+  #preloader svg{width:60px; height:60px;}
+  #preloader svg path{
+    fill:none; stroke:var(--gold-soft); stroke-width:6; stroke-linecap:round;
+    stroke-dasharray:220; stroke-dashoffset:220; animation:drawLogo 1.1s ease forwards;
+  }
+  @keyframes drawLogo{to{stroke-dashoffset:0;}}
+
+  /* HEADING TEXT REVEAL (mask wipe) */
+  .text-reveal{position:relative; overflow:hidden;}
+  .text-reveal::after{
+    content:""; position:absolute; inset:0; background:var(--bg); transform-origin:right;
+    transform:scaleX(0); z-index:2;
+  }
+  .text-reveal.wipe::after{animation:wipeReveal 0.9s cubic-bezier(.65,0,.35,1) forwards;}
+  @keyframes wipeReveal{0%{transform:scaleX(0); transform-origin:left;}45%{transform:scaleX(1); transform-origin:left;}55%{transform-origin:right;}100%{transform:scaleX(0); transform-origin:right;}}
+
+  /* WHEEL OF SAVINGS */
+  .wheel-box{
+    display:flex; flex-direction:column; align-items:center; gap:20px; background:var(--card);
+    border:1px solid var(--border); border-radius:20px; padding:32px 24px;
+  }
+  .wheel-wrap{position:relative; width:220px; height:220px;}
+  .wheel-pointer{
+    position:absolute; top:-6px; left:50%; transform:translateX(-50%); z-index:3;
+    width:0; height:0; border-left:12px solid transparent; border-right:12px solid transparent; border-top:20px solid var(--gold-soft);
+  }
+  .wheel{width:100%; height:100%; border-radius:50%; transition:transform 3.5s cubic-bezier(.17,.89,.32,1.1); border:4px solid var(--card-hi); box-shadow:0 10px 40px rgba(0,0,0,0.4);}
+  .wheel-btn{margin-top:4px;}
+  .wheel-result{min-height:24px; font-size:0.95rem; color:var(--gold-soft); font-weight:600; text-align:center;}
+  .wheel-download{margin-top:2px;}
+
+  /* 3D TILT ON CARDS */
+  .cat-card, .card{transform-style:preserve-3d; will-change:transform;}
+
+  /* HERO PARALLAX LAYERS */
+  .hero-bg .blob, .hero-bg .sparkle, #particleCanvas{will-change:transform;}
+
+  /* TIME-OF-DAY ADAPTIVE GLOW (subtle) */
+  body.time-morning .aurora span{filter:blur(120px) hue-rotate(-8deg);}
+  body.time-evening .aurora span{filter:blur(120px) hue-rotate(10deg);}
+  body.time-night .aurora span{filter:blur(120px) hue-rotate(20deg) brightness(0.85);}
+
+  /* MARQUEE TICKER */
+  .marquee{
+    overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    background:var(--bg-alt); padding:14px 0; white-space:nowrap;
+  }
+  .marquee-track{display:inline-flex; gap:48px; animation:marqueeScroll 28s linear infinite;}
+  .marquee:hover .marquee-track{animation-play-state:paused;}
+  .marquee-item{display:inline-flex; align-items:center; gap:10px; font-size:0.85rem; color:var(--text-soft); font-weight:500;}
+  .marquee-item b{color:var(--gold-soft);}
+  .marquee-dot{width:4px; height:4px; border-radius:50%; background:var(--text-dim);}
+  @keyframes marqueeScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* GREETING BADGE */
+  .greeting-badge{font-size:0.85rem; color:var(--text-dim); margin-bottom:10px; display:flex; align-items:center; gap:6px;}
+
+  /* FAQ REACTIONS */
+  .faq-reactions{display:flex; gap:8px; margin-top:8px;}
+  .faq-react-btn{
+    background:var(--bg-alt); border:1px solid var(--border); color:var(--text-dim); font-size:0.78rem;
+    padding:5px 12px; border-radius:999px; cursor:pointer; transition:0.2s; font-family:'Inter',sans-serif;
+  }
+  .faq-react-btn:hover{border-color:var(--gold-soft); color:var(--text);}
+  .faq-react-btn.picked{background:rgba(217,164,65,0.15); border-color:var(--gold-soft); color:var(--gold-soft);}
 </style>
 </head>
 <body>
 
+<div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+
 <div id="preloader" aria-hidden="true">
-  <div class="preloader-mark">F</div>
+  <svg viewBox="0 0 60 60"><path d="M10 50V10h30M10 30h22"/></svg>
 </div>
 
 <a class="skip-link" href="#accueil">Aller au contenu</a>
@@ -846,14 +952,16 @@
     </div>
     <div class="wrap hero-grid">
       <div class="reveal in-view">
+        <div class="greeting-badge" id="greetingBadge"></div>
         <div class="eyebrow"><span class="dot"></span>Sélection mise à jour chaque jour</div>
-        <h1>Le tri est fait. Les <em>bons plans Hacoo</em> restent.</h1>
-        <p class="lede">Frbonplan repère, vérifie et publie les meilleures opportunités Hacoo — codes promo, sélections produit, offres limitées — pour éviter de fouiller pendant des heures.</p>
+        <h1>On trie. On teste. <em>On ne garde que ce qui marche.</em></h1>
+        <p class="lede">Pendant que d'autres relaient tout ce qui passe, Frbonplan écarte plus qu'il ne publie — et ne garde que les codes Hacoo qui fonctionnent vraiment, vérifiés à la main.</p>
         <div class="cta-row">
           <a class="btn-primary" href="https://t.me/promohacoo" target="_blank" rel="noopener">
             Rejoindre le canal Telegram
           </a>
           <a class="btn-ghost" href="https://www.hacoo.pl/@frbonplan" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex-shrink:0;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             Voir notre page Hacoo
           </a>
         </div>
@@ -904,29 +1012,46 @@
     </div>
   </div>
 
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item"><b>170+</b> membres Telegram<span class="marquee-dot"></span></span>
+      <span class="marquee-item">Sélection <b>quotidienne</b><span class="marquee-dot"></span></span>
+      <span class="marquee-item">Codes vérifiés <b>manuellement</b><span class="marquee-dot"></span></span>
+      <span class="marquee-item"><b>-14%</b> avec Promofinance<span class="marquee-dot"></span></span>
+      <span class="marquee-item">Aucun paiement <b>jamais demandé</b><span class="marquee-dot"></span></span>
+      <span class="marquee-item">Actif depuis <b>2026</b><span class="marquee-dot"></span></span>
+      <span class="marquee-item"><b>170+</b> membres Telegram<span class="marquee-dot"></span></span>
+      <span class="marquee-item">Sélection <b>quotidienne</b><span class="marquee-dot"></span></span>
+      <span class="marquee-item">Codes vérifiés <b>manuellement</b><span class="marquee-dot"></span></span>
+      <span class="marquee-item"><b>-14%</b> avec Promofinance<span class="marquee-dot"></span></span>
+      <span class="marquee-item">Aucun paiement <b>jamais demandé</b><span class="marquee-dot"></span></span>
+      <span class="marquee-item">Actif depuis <b>2026</b><span class="marquee-dot"></span></span>
+    </div>
+  </div>
+
   <section id="mission">
     <div class="dot-grid" aria-hidden="true"></div>
     <div class="wrap">
       <div class="section-head reveal">
         <div class="eyebrow"><span class="dot"></span>Pourquoi Frbonplan</div>
-        <h2>Une sélection, pas un déversoir</h2>
-        <p>Le but n'est pas de tout relayer, mais de ne garder que ce qui vaut le détour.</p>
+        <h2>On dit non plus souvent qu'on dit oui</h2>
+        <p>N'importe qui peut relayer un code. Le vrai travail, c'est de savoir lequel écarter.</p>
       </div>
       <div class="grid-3">
         <div class="card reveal">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-          <h3>Transparence</h3>
-          <p>Frbonplan ne vend rien en direct. On relaie uniquement des opportunités Hacoo jugées cohérentes.</p>
+          <h3>On ne vous vend rien</h3>
+          <p>Frbonplan ne prend jamais votre argent. Chaque achat se fait uniquement sur Hacoo, jamais ici.</p>
         </div>
         <div class="card reveal reveal-delay-1">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
-          <h3>Vérification</h3>
-          <p>Chaque offre est regardée avant publication. Pas de spam, pas de sur-promesse.</p>
+          <h3>Testé avant d'être publié</h3>
+          <p>Un code qui ne fonctionne pas ne sort jamais du brouillon. Zéro exception.</p>
         </div>
         <div class="card reveal reveal-delay-2">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z"/></svg></div>
-          <h3>Indépendance</h3>
-          <p>Aucun résultat garanti, aucune pression. Des explications claires, des liens directs.</p>
+          <h3>Aucune promesse en l'air</h3>
+          <p>Pas de compte à rebours artificiel, pas de "dernières pièces" inventées. Juste ce qui est réellement disponible.</p>
         </div>
       </div>
     </div>
@@ -937,7 +1062,7 @@
       <div class="section-head reveal">
         <div class="eyebrow"><span class="dot"></span>Simple et transparent</div>
         <h2>Comment ça marche</h2>
-        <p>Trois étapes, sans surprise, sans compte à créer chez nous.</p>
+        <p>Trois étapes. Pas une de plus, pas un compte à créer chez nous.</p>
       </div>
       <div class="steps">
         <div class="step reveal">
@@ -966,8 +1091,8 @@
         <h2>Frbonplan en chiffres</h2>
       </div>
       <div class="stats-grid">
-        <div class="stat-card reveal"><b id="statMembers">120+</b><span>Membres Telegram</span></div>
-        <div class="stat-card reveal reveal-delay-1"><b id="statOffers">455+</b><span>Offres partagées</span></div>
+        <div class="stat-card reveal"><b id="statMembers">170+</b><span>Membres Telegram</span></div>
+        <div class="stat-card reveal reveal-delay-1"><b id="statOffers">500+</b><span>Offres partagées</span></div>
         <div class="stat-card reveal reveal-delay-2"><b>14%</b><span>Réduction moyenne</span></div>
         <div class="stat-card reveal reveal-delay-3"><b>2026</b><span>Actif depuis</span></div>
       </div>
@@ -979,8 +1104,8 @@
     <div class="wrap">
       <div class="section-head reveal">
         <div class="eyebrow"><span class="dot"></span>Un aperçu du catalogue</div>
-        <h2>Catégories populaires sur Hacoo</h2>
-        <p>Un aperçu de ce que vous retrouverez en suivant nos sélections.</p>
+        <h2>Ce que la communauté achète le plus</h2>
+        <p>Pas un catalogue entier à parcourir — juste ce qui revient le plus souvent dans les commandes.</p>
       </div>
       <div class="cat-grid">
         <a class="cat-card cat-1 reveal" href="https://www.hacoo.pl/@frbonplan" target="_blank" rel="noopener">
@@ -1019,7 +1144,7 @@
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
           <h3>Notre page Hacoo</h3>
           <p style="margin-bottom:16px;">Retrouvez les sélections produit et offres associées à Frbonplan directement sur Hacoo.</p>
-          <a class="btn-ghost" style="padding:10px 18px; font-size:0.88rem;" href="https://www.hacoo.pl/@frbonplan" target="_blank" rel="noopener">Accéder à la page →</a>
+          <a class="btn-ghost" style="padding:10px 18px; font-size:0.88rem;" href="https://www.hacoo.pl/@frbonplan" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0;display:inline;vertical-align:-2px;margin-right:4px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Accéder à la page →</a>
         </div>
         <div class="card reveal reveal-delay-1">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
@@ -1036,9 +1161,9 @@
             <div class="showcase-slide active">
               <div class="showcase-visual v-code"><b>-14%</b><span>Code</span></div>
               <div class="showcase-content">
-                <div class="showcase-tag">Le plus utilisé</div>
+                <div class="showcase-tag">200+ commandes passées</div>
                 <h3>Promofinance</h3>
-                <p>Notre code le plus partagé, valable sur l'ensemble de votre panier.</p>
+                <p>Notre code le plus utilisé par la communauté, valable sur l'ensemble de votre panier.</p>
                 <a class="btn-ghost" style="padding:9px 18px; font-size:0.85rem;" href="https://www.hacoo.pl/@frbonplan" target="_blank" rel="noopener">Utiliser sur Hacoo →</a>
               </div>
             </div>
@@ -1081,7 +1206,7 @@
       <div class="coupon-head-row">
         <div class="section-head reveal" style="text-align:left; margin:0; max-width:none;">
           <div class="eyebrow"><span class="dot"></span>Réservé aux membres</div>
-          <h2>Codes promo en cours</h2>
+          <h2>Les codes actifs, rien de plus</h2>
         </div>
         <button class="btn-ghost" style="padding:10px 18px; font-size:0.85rem;" onclick="copyAllCodes(this)">Copier tous les codes</button>
       </div>
@@ -1095,6 +1220,7 @@
             <span class="mono" style="font-weight:700; color:var(--gold-soft);">Promofinance</span>
             <button class="copy-btn" onclick="copyGeneric(this, 'Promofinance')">Copier</button>
           </div>
+          <div style="font-size:0.78rem; color:var(--text-dim); margin-top:2px;">✓ Déjà utilisé pour <b style="color:var(--gold-soft);">200+ commandes</b></div>
         </div>
         <div class="coupon reveal reveal-delay-1">
           <div class="coupon-head">
@@ -1144,6 +1270,35 @@
           <input type="range" class="compare-slider" id="compareSlider" min="0" max="100" value="50" oninput="updateCompare(this.value)" aria-label="Comparer avec et sans code">
         </div>
       </div>
+
+      <div style="margin-top:36px;">
+        <h3 style="font-size:1.1rem; margin-bottom:4px; color:var(--gold-soft);">Tentez votre chance</h3>
+        <p style="color:var(--text-soft); font-size:0.88rem; margin:0 0 16px;">La roue tombe toujours sur un vrai avantage disponible.</p>
+        <div class="wheel-box reveal">
+          <div class="wheel-wrap">
+            <div class="wheel-pointer"></div>
+            <svg class="wheel" id="wheel" viewBox="0 0 220 220">
+              <circle cx="110" cy="110" r="108" fill="#151b24"/>
+              <path d="M110 110 L110 2 A108 108 0 0 1 208 78 Z" fill="#1b222d"/>
+              <path d="M110 110 L208 78 A108 108 0 0 1 175 197 Z" fill="#242c38"/>
+              <path d="M110 110 L175 197 A108 108 0 0 1 45 197 Z" fill="#1b222d"/>
+              <path d="M110 110 L45 197 A108 108 0 0 1 12 78 Z" fill="#242c38"/>
+              <path d="M110 110 L12 78 A108 108 0 0 1 110 2 Z" fill="#1b222d"/>
+              <text x="150" y="55" fill="#f0c368" font-size="15" font-weight="700" font-family="Space Grotesk">-14%</text>
+              <text x="158" y="145" fill="#a8b0bc" font-size="11" font-family="Inter">👑 VIP</text>
+              <text x="95" y="185" fill="#f0c368" font-size="15" font-weight="700" font-family="Space Grotesk">-14%</text>
+              <text x="35" y="150" fill="#a8b0bc" font-size="11" font-family="Inter">Hacoo</text>
+              <text x="35" y="55" fill="#f0c368" font-size="15" font-weight="700" font-family="Space Grotesk">-14%</text>
+            </svg>
+          </div>
+          <button class="btn-primary wheel-btn" onclick="spinWheel()" id="wheelBtn">Faire tourner la roue</button>
+          <div class="wheel-result" id="wheelResult"></div>
+          <button class="download-code-btn wheel-download" id="wheelDownloadBtn" style="display:none;" onclick="downloadWheelResult()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"/></svg>
+            Télécharger mon résultat
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1179,7 +1334,7 @@
     <div class="wrap" style="max-width:700px;">
       <div class="section-head reveal">
         <div class="eyebrow"><span class="dot"></span>Notre parcours</div>
-        <h2>Notre histoire</h2>
+        <h2>D'un canal vide à 170+ membres</h2>
       </div>
       <div class="timeline reveal">
         <div class="timeline-item">
@@ -1208,7 +1363,7 @@
     <div class="wrap">
       <div class="section-head reveal">
         <div class="eyebrow"><span class="dot"></span>Retours de la communauté</div>
-        <h2>Ce qu'en disent les membres</h2>
+        <h2>Pas nos mots. Les leurs.</h2>
         <p>Des retours partagés par la communauté du canal Telegram.</p>
       </div>
       <div class="testi-carousel reveal">
@@ -1238,36 +1393,36 @@
     <div class="wrap" style="max-width:760px;">
       <div class="section-head reveal">
         <div class="eyebrow"><span class="dot"></span>Questions fréquentes</div>
-        <h2>Tout ce qu'il faut savoir</h2>
+        <h2>Les questions qu'on nous pose vraiment</h2>
       </div>
       <input class="faq-search reveal" type="text" placeholder="Rechercher une question…" id="faqSearch" oninput="filterFaq(this.value)">
       <div class="faq-item reveal open" data-q="frbonplan gratuit prix coût">
         <button class="faq-q" onclick="toggleFaq(this)">Frbonplan est-il gratuit ?<span class="plus">+</span></button>
-        <div class="faq-a"><p>Oui. Le canal Telegram est entièrement gratuit et sans engagement.</p></div>
+        <div class="faq-a"><p>Oui. Le canal Telegram est entièrement gratuit et sans engagement.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr1',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr1',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="promesses gains argent revenus">
         <button class="faq-q" onclick="toggleFaq(this)">Faites-vous des promesses de gains ?<span class="plus">+</span></button>
-        <div class="faq-a"><p>Non. Frbonplan met en avant des offres, pas des résultats garantis.</p></div>
+        <div class="faq-a"><p>Non. Frbonplan met en avant des offres, pas des résultats garantis.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr2',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr2',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="sélection choix offres critères">
         <button class="faq-q" onclick="toggleFaq(this)">Comment les offres sont-elles choisies ?<span class="plus">+</span></button>
-        <div class="faq-a"><p>Repérage, vérification, puis publication sur le canal Telegram et la page Hacoo associée.</p></div>
+        <div class="faq-a"><p>Repérage, vérification, puis publication sur le canal Telegram et la page Hacoo associée.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr3',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr3',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="codes promo utiliser paiement">
         <button class="faq-q" onclick="toggleFaq(this)">Où utiliser les codes promo ?<span class="plus">+</span></button>
-        <div class="faq-a"><p>Directement sur l'application ou le site Hacoo, au moment du paiement.</p></div>
+        <div class="faq-a"><p>Directement sur l'application ou le site Hacoo, au moment du paiement.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr4',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr4',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="fiable fiabilité sérieux confiance arnaque">
         <button class="faq-q" onclick="toggleFaq(this)">Frbonplan est-il fiable ?<span class="plus">+</span></button>
-        <div class="faq-a"><p>Oui : Frbonplan ne demande jamais de paiement, ne vend rien en direct et ne gère aucune donnée bancaire — vous achetez toujours directement sur Hacoo. Chaque code est vérifié manuellement avant publication, et le canal Telegram reste ouvert et consultable à tout moment pour voir l'historique des offres partagées.</p></div>
+        <div class="faq-a"><p>Oui : Frbonplan ne demande jamais de paiement, ne vend rien en direct et ne gère aucune donnée bancaire — vous achetez toujours directement sur Hacoo. Chaque code est vérifié manuellement avant publication, et le canal Telegram reste ouvert et consultable à tout moment pour voir l'historique des offres partagées.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr5',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr5',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="délai livraison expédition combien temps recevoir colis">
         <button class="faq-q" onclick="toggleFaq(this)">Quel est le délai de livraison ?<span class="plus">+</span></button>
-        <div class="faq-a"><p>En général entre 7 et 14 jours. Exceptionnellement, certaines commandes peuvent prendre jusqu'à 28 jours selon la disponibilité et la destination.</p></div>
+        <div class="faq-a"><p>En général entre 7 et 14 jours. Exceptionnellement, certaines commandes peuvent prendre jusqu'à 28 jours selon la disponibilité et la destination.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr6',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr6',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="fréquence mise à jour souvent quotidien">
         <button class="faq-q" onclick="toggleFaq(this)">À quelle fréquence la sélection est-elle mise à jour ?<span class="plus">+</span></button>
-        <div class="faq-a"><p>Quotidiennement. Une nouvelle offre du jour est publiée chaque jour sur le canal Telegram et reprise ici.</p></div>
+        <div class="faq-a"><p>Quotidiennement. Une nouvelle offre du jour est publiée chaque jour sur le canal Telegram et reprise ici.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr7',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr7',false)">👎 Pas clair</button></div></div>
       </div>
       <p id="faqEmpty" style="display:none; color:var(--text-dim); text-align:center; padding:20px 0;">Aucune question ne correspond à votre recherche.</p>
     </div>
@@ -1277,7 +1432,7 @@
     <div class="wrap">
       <div class="section-head reveal">
         <div class="eyebrow"><span class="dot"></span>Retrouvez-nous partout</div>
-        <h2>Nos réseaux</h2>
+        <h2>Retrouvez-nous, vérifiez par vous-même</h2>
       </div>
       <div class="social-grid">
         <a class="social-btn reveal" href="https://t.me/promohacoo" target="_blank" rel="noopener">
@@ -1307,8 +1462,8 @@
   <section>
     <div class="wrap">
       <div class="final-cta reveal">
-        <h2>Prêt·e à voir les prochains bons plans ?</h2>
-        <p>Le canal Telegram reste le point d'entrée le plus rapide — codes, offres et sélections dès qu'ils sortent.</p>
+        <h2>Le prochain code n'attend pas.</h2>
+        <p>Une sélection par jour, jamais un flux sans fin. Rejoignez avant que celui d'aujourd'hui change.</p>
         <a class="btn-primary" href="https://t.me/promohacoo" target="_blank" rel="noopener">Rejoindre le canal Telegram</a>
       </div>
     </div>
@@ -1492,7 +1647,7 @@
     entries.forEach(entry => {
       if(entry.isIntersecting && !counted){
         counted = true;
-        const target = 120;
+        const target = 170;
         const duration = 1400;
         const start = performance.now();
         function step(now){
@@ -1925,6 +2080,175 @@
     const div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
+  }
+
+  // Cursor sparkle trail (desktop only, throttled)
+  if(canHover && !prefersReduced){
+    let lastSparkle = 0;
+    window.addEventListener('mousemove', (e) => {
+      const now = Date.now();
+      if(now - lastSparkle < 45) return;
+      lastSparkle = now;
+      const dot = document.createElement('div');
+      dot.className = 'sparkle-trail';
+      dot.style.left = e.clientX + 'px';
+      dot.style.top = e.clientY + 'px';
+      document.body.appendChild(dot);
+      dot.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:0.9 },
+        { transform:'translate(-50%,-50%) scale(0.2)', opacity:0 }
+      ], { duration:700, easing:'ease-out' });
+      setTimeout(() => dot.remove(), 720);
+    });
+  }
+
+  // Wheel of savings — always lands on a real, available advantage
+  const wheelOutcomes = [
+    { angle: 45,  label: '🎉 -14% avec Promofinance' },
+    { angle: 165, label: '🎉 -14% avec Frbonplan' },
+    { angle: 285, label: '👑 Accès VIP : DM Telegram pour la prochaine offre en avant-première' }
+  ];
+  let wheelSpinning = false, wheelTotalRotation = 0, wheelLastResult = null;
+  function spinWheel(){
+    if(wheelSpinning) return;
+    wheelSpinning = true;
+    const wheelEl = document.getElementById('wheel');
+    const btn = document.getElementById('wheelBtn');
+    const resultEl = document.getElementById('wheelResult');
+    const downloadBtn = document.getElementById('wheelDownloadBtn');
+    resultEl.textContent = '';
+    downloadBtn.style.display = 'none';
+    btn.disabled = true;
+    const pick = wheelOutcomes[Math.floor(Math.random() * wheelOutcomes.length)];
+    const extraSpins = 5 * 360;
+    wheelTotalRotation += extraSpins + (360 - pick.angle);
+    wheelEl.style.transform = `rotate(${wheelTotalRotation}deg)`;
+    setTimeout(() => {
+      resultEl.textContent = pick.label;
+      wheelLastResult = pick.label;
+      burstConfetti(btn);
+      wheelSpinning = false;
+      btn.disabled = false;
+      downloadBtn.style.display = 'inline-flex';
+    }, 3600);
+  }
+
+  function downloadWheelResult(){
+    if(!wheelLastResult) return;
+    const canvas = document.createElement('canvas');
+    canvas.width = 900; canvas.height = 500;
+    const ctx = canvas.getContext('2d');
+    const bgGrad = ctx.createLinearGradient(0,0,900,500);
+    bgGrad.addColorStop(0, '#151b24'); bgGrad.addColorStop(1, '#0b0f14');
+    ctx.fillStyle = bgGrad; ctx.fillRect(0,0,900,500);
+    const borderGrad = ctx.createLinearGradient(0,0,900,0);
+    borderGrad.addColorStop(0, '#d9a441'); borderGrad.addColorStop(1, '#ff6952');
+    ctx.strokeStyle = borderGrad; ctx.lineWidth = 6; ctx.strokeRect(3,3,894,494);
+    ctx.fillStyle = '#f0c368'; ctx.font = '700 30px Georgia';
+    ctx.fillText('FRBONPLAN — Roue de la chance', 60, 90);
+    ctx.fillStyle = '#a8b0bc'; ctx.font = '18px Georgia';
+    ctx.fillText('Mon résultat :', 60, 200);
+    ctx.fillStyle = '#f0c368'; ctx.font = '700 34px Georgia';
+    wrapCanvasText(ctx, wheelLastResult.replace(/[\u{1F300}-\u{1FAFF}]/gu, ''), 60, 250, 780, 42);
+    ctx.fillStyle = '#6b7480'; ctx.font = '18px Georgia';
+    ctx.fillText('t.me/promohacoo', 60, 440);
+    const link = document.createElement('a');
+    link.download = 'frbonplan-mon-resultat.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    showToast('Résultat téléchargé');
+  }
+  function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight){
+    const words = text.trim().split(' ');
+    let line = '';
+    words.forEach(word => {
+      const test = line + word + ' ';
+      if(ctx.measureText(test).width > maxWidth && line){
+        ctx.fillText(line, x, y); line = word + ' '; y += lineHeight;
+      } else { line = test; }
+    });
+    ctx.fillText(line, x, y);
+  }
+
+  // Heading text-reveal wipe effect on scroll
+  if(!prefersReduced){
+    const headings = document.querySelectorAll('.section-head h2');
+    headings.forEach(h => h.classList.add('text-reveal'));
+    const headingObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('wipe');
+          headingObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold:0.5 });
+    headings.forEach(h => headingObserver.observe(h));
+  }
+
+  // 3D tilt on category and content cards (desktop only)
+  if(canHover){
+    document.querySelectorAll('.cat-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(600px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+  }
+
+  // Cinematic parallax: hero layers move at different speeds on scroll
+  if(!prefersReduced){
+    const heroSection = document.querySelector('.hero');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if(y < window.innerHeight){
+        document.querySelectorAll('.hero-bg .blob').forEach((b, i) => {
+          b.style.transform = `translateY(${y * (0.15 + i*0.08)}px)`;
+        });
+        const heroLeft = document.querySelector('.hero-grid > div');
+        if(heroLeft) heroLeft.style.transform = `translateY(${y * 0.08}px)`;
+      }
+    }, { passive:true });
+  }
+
+  // Adaptive ambient tone based on time of day
+  const hour = new Date().getHours();
+  if(hour >= 6 && hour < 12) document.body.classList.add('time-morning');
+  else if(hour >= 18 && hour < 22) document.body.classList.add('time-evening');
+  else if(hour >= 22 || hour < 6) document.body.classList.add('time-night');
+
+  // Dynamic greeting based on time of day
+  const greetingEl = document.getElementById('greetingBadge');
+  if(greetingEl){
+    let greeting = 'Bonjour 👋';
+    if(hour >= 12 && hour < 18) greeting = 'Bon après-midi 👋';
+    else if(hour >= 18 && hour < 22) greeting = 'Bonsoir 👋';
+    else if(hour >= 22 || hour < 6) greeting = 'De passage tard ? 🌙';
+    greetingEl.textContent = greeting;
+  }
+
+  // FAQ helpful reactions (local UI feedback only, no data sent anywhere)
+  function faqReact(btn, uid, positive){
+    const group = btn.parentElement;
+    group.querySelectorAll('.faq-react-btn').forEach(b => b.classList.remove('picked'));
+    btn.classList.add('picked');
+    showToast(positive ? 'Merci pour votre retour 🙂' : 'Merci, on va clarifier ça');
+  }
+
+  // One-time confetti celebration when reaching the final CTA
+  const finalCtaEl = document.querySelector('.final-cta');
+  if(finalCtaEl && !prefersReduced){
+    const finalCtaObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          fireConfettiBurst();
+          finalCtaObserver.disconnect();
+        }
+      });
+    }, { threshold:0.6 });
+    finalCtaObserver.observe(finalCtaEl);
   }
 
   // Preloader
