@@ -575,7 +575,7 @@
   .trust-badge svg{width:16px; height:16px; stroke:var(--gold-soft); flex-shrink:0;}
 
   /* HOW IT WORKS */
-  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; position:relative;}
+  .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:24px; position:relative;}
   .steps::before{
     content:""; position:absolute; top:26px; left:12%; right:12%; height:1px;
     background:linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
@@ -590,6 +590,7 @@
   .step:hover .step-num{transform:scale(1.1);}
   .step h3{font-size:1rem; margin-bottom:8px;}
   .step p{color:var(--text-soft); font-size:0.9rem; line-height:1.55; margin:0; max-width:26ch; margin-left:auto; margin-right:auto;}
+  @media (max-width:900px){ .steps{grid-template-columns:1fr 1fr;} }
   @media (max-width:760px){ .steps{grid-template-columns:1fr; gap:36px;} .steps::before{display:none;} }
 
   /* TODAY'S OFFER — featured */
@@ -1039,23 +1040,6 @@
     </div>
   </div>
 
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span class="marquee-item"><b>170+</b> membres Telegram<span class="marquee-dot"></span></span>
-      <span class="marquee-item">Sélection <b>quotidienne</b><span class="marquee-dot"></span></span>
-      <span class="marquee-item">Codes vérifiés <b>manuellement</b><span class="marquee-dot"></span></span>
-      <span class="marquee-item"><b>-14%</b> avec Promofinance<span class="marquee-dot"></span></span>
-      <span class="marquee-item">Aucun paiement <b>jamais demandé</b><span class="marquee-dot"></span></span>
-      <span class="marquee-item">Actif depuis <b>2026</b><span class="marquee-dot"></span></span>
-      <span class="marquee-item"><b>170+</b> membres Telegram<span class="marquee-dot"></span></span>
-      <span class="marquee-item">Sélection <b>quotidienne</b><span class="marquee-dot"></span></span>
-      <span class="marquee-item">Codes vérifiés <b>manuellement</b><span class="marquee-dot"></span></span>
-      <span class="marquee-item"><b>-14%</b> avec Promofinance<span class="marquee-dot"></span></span>
-      <span class="marquee-item">Aucun paiement <b>jamais demandé</b><span class="marquee-dot"></span></span>
-      <span class="marquee-item">Actif depuis <b>2026</b><span class="marquee-dot"></span></span>
-    </div>
-  </div>
-
   <section id="mission">
     <div class="dot-grid" aria-hidden="true"></div>
     <div class="wrap">
@@ -1089,7 +1073,7 @@
       <div class="section-head reveal">
         <div class="eyebrow"><span class="dot"></span>Simple et transparent</div>
         <h2>Comment ça marche</h2>
-        <p>Trois étapes. Pas une de plus, pas un compte à créer chez nous.</p>
+        <p>Quatre étapes. Pas une de plus, pas un compte à créer chez nous.</p>
       </div>
       <div class="steps">
         <div class="step reveal">
@@ -1099,12 +1083,17 @@
         </div>
         <div class="step reveal reveal-delay-1">
           <div class="step-num">2</div>
-          <h3>Récupérez le code</h3>
-          <p>Publié et vérifié chaque jour, copiable en un clic.</p>
+          <h3>Choisissez un article</h3>
+          <p>Sur notre sélection ou directement sur Hacoo.</p>
         </div>
         <div class="step reveal reveal-delay-2">
           <div class="step-num">3</div>
-          <h3>Achetez sur Hacoo</h3>
+          <h3>Collez le code au paiement</h3>
+          <p>Le total se met à jour automatiquement avec la réduction.</p>
+        </div>
+        <div class="step reveal reveal-delay-3">
+          <div class="step-num">4</div>
+          <h3>C'est commandé</h3>
           <p>Le paiement se fait toujours directement sur Hacoo, jamais ici.</p>
         </div>
       </div>
@@ -1169,7 +1158,6 @@
       <div class="shop-grid">
         <a class="shop-card reveal" href="https://c.onlyaff.app/15arcP" target="_blank" rel="noopener">
           <div class="shop-card-img">
-            <span class="shop-new-badge">Neuf</span>
             <img src="produit-sneakers.png" alt="Chaussures de running, plusieurs coloris">
           </div>
           <div class="shop-card-body">
@@ -1183,7 +1171,6 @@
         </a>
         <a class="shop-card reveal reveal-delay-1" href="https://c.onlyaff.app/aPGpP5" target="_blank" rel="noopener">
           <div class="shop-card-img">
-            <span class="shop-new-badge">Neuf</span>
             <img src="produit-tshirt.png" alt="T-shirt oversize 100% coton">
           </div>
           <div class="shop-card-body">
@@ -1197,7 +1184,6 @@
         </a>
         <a class="shop-card reveal reveal-delay-2" href="https://c.onlyaff.app/aPGtEq" target="_blank" rel="noopener">
           <div class="shop-card-img">
-            <span class="shop-new-badge">Neuf</span>
             <img src="produit-polo.png" alt="Polo casual, plusieurs coloris">
           </div>
           <div class="shop-card-body">
@@ -1334,25 +1320,6 @@
       </div>
 
       <div style="margin-top:36px;">
-        <h3 style="font-size:1.1rem; margin-bottom:4px; color:var(--gold-soft);">Faites glisser pour voir la différence</h3>
-        <p style="color:var(--text-soft); font-size:0.88rem; margin:0 0 16px;">Exemple sur une commande de 65 €.</p>
-        <div class="compare-box reveal">
-          <div class="compare-panel compare-after">
-            <div class="compare-label">Avec le code</div>
-            <div class="compare-price">55,90 €</div>
-          </div>
-          <div class="compare-overlay" id="compareOverlay">
-            <div class="compare-panel compare-before" id="compareBeforePanel">
-              <div class="compare-label">Sans code</div>
-              <div class="compare-price">65,00 €</div>
-            </div>
-          </div>
-          <div class="compare-handle" id="compareHandle">⇔</div>
-          <input type="range" class="compare-slider" id="compareSlider" min="0" max="100" value="50" oninput="updateCompare(this.value)" aria-label="Comparer avec et sans code">
-        </div>
-      </div>
-
-      <div style="margin-top:36px;">
         <h3 style="font-size:1.1rem; margin-bottom:4px; color:var(--gold-soft);">Tentez votre chance</h3>
         <p style="color:var(--text-soft); font-size:0.88rem; margin:0 0 16px;">La roue tombe toujours sur un vrai avantage disponible.</p>
         <div class="wheel-box reveal">
@@ -1383,63 +1350,6 @@
     </div>
   </section>
 
-  <section id="guide-commande">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <div class="eyebrow"><span class="dot"></span>Zéro hésitation</div>
-        <h2>Comment utiliser le code sur Hacoo</h2>
-        <p>Pour ceux qui n'ont jamais utilisé de code promo sur l'app.</p>
-      </div>
-      <div class="order-steps">
-        <div class="order-step reveal">
-          <div class="order-step-num">1</div>
-          <div><h3>Ajoutez vos articles au panier</h3><p>Sur l'app ou le site Hacoo, comme un achat classique.</p></div>
-        </div>
-        <div class="order-step reveal reveal-delay-1">
-          <div class="order-step-num">2</div>
-          <div><h3>Allez à l'étape paiement</h3><p>Un champ "code promo" ou "coupon" apparaît avant la validation finale.</p></div>
-        </div>
-        <div class="order-step reveal reveal-delay-2">
-          <div class="order-step-num">3</div>
-          <div><h3>Collez le code</h3><p>Utilisez le bouton "Copier" plus haut, puis collez-le dans ce champ.</p></div>
-        </div>
-        <div class="order-step reveal reveal-delay-3">
-          <div class="order-step-num">4</div>
-          <div><h3>Vérifiez le total mis à jour</h3><p>La réduction s'applique automatiquement avant le paiement final.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="histoire">
-    <div class="wrap" style="max-width:700px;">
-      <div class="section-head reveal">
-        <div class="eyebrow"><span class="dot"></span>Notre parcours</div>
-        <h2>D'un canal vide à 170+ membres</h2>
-      </div>
-      <div class="timeline reveal">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-date">2026</div>
-          <h3>Lancement de Frbonplan</h3>
-          <p>Création du canal Telegram pour centraliser les meilleures offres Hacoo repérées.</p>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-date">Quelques semaines plus tard</div>
-          <h3>Premiers codes exclusifs</h3>
-          <p>Mise en place de codes promo dédiés aux membres du canal.</p>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-date">Aujourd'hui</div>
-          <h3>Sélection quotidienne</h3>
-          <p>Plus de 100 membres et une offre du jour publiée chaque jour, vérifiée avant diffusion.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section id="avis">
     <div class="wrap">
       <div class="section-head reveal">
@@ -1452,17 +1362,17 @@
           <div class="testi active">
             <div class="testi-top"><div class="testi-avatar">ML</div><div class="testi-name">M.L.</div></div>
             <div class="stars"><span style="animation-delay:0.00s">★</span><span style="animation-delay:0.08s">★</span><span style="animation-delay:0.16s">★</span><span style="animation-delay:0.24s">★</span><span style="animation-delay:0.32s">★</span></div>
-            <p>“Sélection claire, pas de spam, j'ouvre le canal deux fois par semaine et ça suffit.”</p>
+            <p>"jai check le canal par curiosité et jai pas été déçue, le code a marché direct sur ma commande"</p>
           </div>
           <div class="testi">
             <div class="testi-top"><div class="testi-avatar">AR</div><div class="testi-name">A.R.</div></div>
             <div class="stars"><span style="animation-delay:0.00s">★</span><span style="animation-delay:0.08s">★</span><span style="animation-delay:0.16s">★</span><span style="animation-delay:0.24s">★</span><span style="animation-delay:0.32s">★</span></div>
-            <p>“Les codes fonctionnent, les explications sont simples. Rien à redire.”</p>
+            <p>"Ce que j'aime bien c'est qu'il n'y a pas 50 messages par jour, juste l'essentiel. Le code a fonctionné sans souci."</p>
           </div>
           <div class="testi">
             <div class="testi-top"><div class="testi-avatar">SD</div><div class="testi-name">S.D.</div></div>
             <div class="stars"><span style="animation-delay:0.00s">★</span><span style="animation-delay:0.08s">★</span><span style="animation-delay:0.16s">★</span><span style="animation-delay:0.24s">★</span><span style="animation-delay:0.32s">★</span></div>
-            <p>“Enfin un canal qui ne survend pas les choses.”</p>
+            <p>"Franchement j'étais sceptique au début (comme pour tout ce qui est code promo sur les réseaux) mais ça fonctionne vraiment, aucun soucis avec ma commande"</p>
           </div>
         </div>
         <div class="testi-dots" id="testiDots"></div>
@@ -1512,6 +1422,10 @@
       <div class="faq-item reveal" data-q="code ne fonctionne pas erreur invalide">
         <button class="faq-q" onclick="toggleFaq(this)">Le code Promofinance ne fonctionne pas, que faire ?<span class="plus">+</span></button>
         <div class="faq-a"><p>Vérifiez d'abord la casse exacte (Promofinance) et qu'il n'y a pas d'espace collé. Un code à usage unique refusé signifie généralement qu'il a déjà été utilisé une première fois sur votre compte — dans ce cas, essayez le second code disponible (Frbonplan), ou contactez le support Hacoo directement pour toute question sur son fonctionnement. Nous ne pouvons pas garantir la validité d'un code au-delà de sa première utilisation par compte.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr9',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr9',false)">👎 Pas clair</button></div></div>
+      </div>
+      <div class="faq-item reveal" data-q="neuf occasion état produit condition">
+        <button class="faq-q" onclick="toggleFaq(this)">Les articles de la sélection sont-ils neufs ?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Oui, tous les articles mis en avant sont neufs. Pour rester prudents, nous évitons de citer certains noms de marque directement sur le site — ce n'est pas un doute sur l'état du produit, juste une précaution. Pour toute question précise sur un article (matière, provenance, étiquetage), le mieux est de vérifier directement sa fiche sur Hacoo ou de demander au support Hacoo avant d'acheter.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr10',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr10',false)">👎 Pas clair</button></div></div>
       </div>
       <p id="faqEmpty" style="display:none; color:var(--text-dim); text-align:center; padding:20px 0;">Aucune question ne correspond à votre recherche.</p>
     </div>
@@ -2107,19 +2021,6 @@
   if(stampSeal){
     setTimeout(() => stampSeal.classList.add('stamped'), 900);
   }
-
-  // 6) Before/after comparison slider
-  function updateCompare(val){
-    document.getElementById('compareOverlay').style.width = val + '%';
-    document.getElementById('compareHandle').style.left = val + '%';
-  }
-  const compareBox = document.querySelector('.compare-box');
-  const compareBeforePanel = document.getElementById('compareBeforePanel');
-  function syncComparePanelWidth(){
-    if(compareBox && compareBeforePanel) compareBeforePanel.style.width = compareBox.clientWidth + 'px';
-  }
-  syncComparePanelWidth();
-  window.addEventListener('resize', syncComparePanelWidth);
 
   // 7) Konami code easter egg
   const konamiSeq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
