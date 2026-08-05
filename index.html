@@ -8,7 +8,9 @@
 <meta name="theme-color" content="#0b0f14">
 <meta property="og:title" content="Frbonplan — Les meilleurs articles Hacoo, triés à la main">
 <meta property="og:description" content="Une sélection des meilleurs articles et bons plans Hacoo, avec des codes promo vérifiés en bonus.">
-<meta property="og:image" content="unnamed.png">
+<meta property="og:image" content="https://frbonplan.github.io/Frbonplan/unnamed.png">
+<meta property="og:url" content="https://frbonplan.github.io/Frbonplan/">
+<link rel="canonical" href="https://frbonplan.github.io/Frbonplan/">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="unnamed.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -803,6 +805,53 @@
     .card:hover, .coupon:hover{transform:none;}
   }
 
+  /* QR CODE BLOCK */
+  .qr-block{
+    display:flex; flex-direction:column; align-items:center; gap:8px; margin-top:22px;
+    padding-top:22px; border-top:1px dashed var(--border);
+  }
+  .qr-block img{border-radius:10px; border:1px solid var(--border); background:#fff; padding:6px;}
+  .qr-block span{font-size:0.78rem; color:var(--text-dim);}
+
+  /* COMFORT MODE (reduce animations toggle) */
+  .comfort-toggle{
+    position:fixed; left:22px; bottom:78px; z-index:65;
+    width:44px; height:44px; border-radius:50%; background:var(--card); border:1px solid var(--border);
+    color:var(--text-dim); display:flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:0.25s; font-size:1rem;
+  }
+  .comfort-toggle:hover{border-color:var(--gold-soft); color:var(--gold-soft);}
+  .comfort-toggle.active{background:rgba(217,164,65,0.15); border-color:var(--gold-soft); color:var(--gold-soft);}
+  @media (max-width:760px){ .comfort-toggle{display:none;} }
+  body.comfort-mode *{animation:none !important; transition:none !important;}
+  body.comfort-mode .aurora, body.comfort-mode .particle-layer, body.comfort-mode .sparkle-trail{display:none !important;}
+
+  /* SHORTCUTS MODAL */
+  .shortcuts-modal{
+    position:fixed; inset:0; z-index:250; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px);
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  .shortcuts-modal.show{display:flex;}
+  .shortcuts-box{
+    background:var(--card); border:1px solid var(--border); border-radius:18px; padding:28px; max-width:360px; width:100%;
+  }
+  .shortcuts-box h3{font-size:1.05rem; margin-bottom:16px;}
+  .shortcuts-row{display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); font-size:0.88rem; color:var(--text-soft);}
+  .shortcuts-row:last-of-type{border-bottom:none;}
+  .shortcuts-row kbd{background:var(--card-hi); border:1px solid var(--border); border-radius:5px; padding:2px 8px; font-family:'JetBrains Mono',monospace; color:var(--gold-soft);}
+  .shortcuts-close{margin-top:16px; width:100%;}
+
+  /* PRINT STYLES */
+  @media print{
+    .aurora, .spotlight, #particleCanvas, .sparkle-trail, header, .sticky-cta, .back-top, .fab-wrap,
+    .kbd-hint, .spy-dots, .comfort-toggle, #preloader, .btn-primary, .btn-ghost, .copy-btn, footer .footer-badge{
+      display:none !important;
+    }
+    body{background:#fff !important; color:#111 !important;}
+    .card, .coupon, .testi, .shop-card{border:1px solid #ccc !important; box-shadow:none !important; background:#fff !important;}
+    a{color:#111 !important; text-decoration:underline !important;}
+  }
+
   /* SITEWIDE AURORA BACKGROUND */
   .aurora{position:fixed; inset:0; z-index:-2; overflow:hidden; pointer-events:none;}
   .aurora span{
@@ -879,6 +928,35 @@
   @media (max-width:900px){ .shop-grid{grid-template-columns:1fr 1fr;} }
   @media (max-width:600px){ .shop-grid{grid-template-columns:1fr; max-width:340px; margin:0 auto;} }
 
+  .shop-share{
+    position:absolute; top:10px; right:10px; width:32px; height:32px; border-radius:50%;
+    background:rgba(11,15,20,0.7); backdrop-filter:blur(4px); border:1px solid rgba(255,255,255,0.15);
+    display:flex; align-items:center; justify-content:center; color:#fff; cursor:pointer; z-index:2; transition:0.2s;
+  }
+  .shop-share:hover{background:var(--gold); color:#181206;}
+  .shop-share svg{width:14px; height:14px;}
+
+  /* STYLE QUIZ */
+  .quiz-box{background:var(--card); border:1px solid var(--border); border-radius:20px; padding:32px; max-width:560px; margin:0 auto;}
+  .quiz-step{display:none;}
+  .quiz-step.active{display:block;}
+  .quiz-progress{display:flex; gap:6px; margin-bottom:22px;}
+  .quiz-progress span{flex:1; height:4px; border-radius:999px; background:var(--border);}
+  .quiz-progress span.done{background:var(--gold-soft);}
+  .quiz-question{font-size:1.05rem; margin-bottom:18px; text-align:center;}
+  .quiz-options{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .quiz-opt{
+    background:var(--bg-alt); border:1px solid var(--border); color:var(--text); padding:14px; border-radius:12px;
+    cursor:pointer; font-size:0.9rem; text-align:center; transition:0.2s; font-family:'Inter',sans-serif;
+  }
+  .quiz-opt:hover{border-color:var(--gold-soft); background:rgba(217,164,65,0.08);}
+  .quiz-result{text-align:center;}
+  .quiz-result .cat-emoji-big{font-size:2.6rem; margin-bottom:10px;}
+  .quiz-result h3{font-size:1.2rem; margin-bottom:8px;}
+  .quiz-result p{color:var(--text-soft); font-size:0.92rem; margin:0 0 18px;}
+  .quiz-restart{background:none; border:none; color:var(--text-dim); font-size:0.82rem; cursor:pointer; margin-top:10px; text-decoration:underline;}
+  @media (max-width:480px){ .quiz-options{grid-template-columns:1fr;} }
+
   /* 3D TILT ON CARDS */
   .cat-card, .card{transform-style:preserve-3d; will-change:transform;}
 
@@ -914,6 +992,109 @@
   .faq-react-btn:hover{border-color:var(--gold-soft); color:var(--text);}
   .faq-react-btn.picked{background:rgba(217,164,65,0.15); border-color:var(--gold-soft); color:var(--gold-soft);}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Frbonplan",
+  "url": "https://frbonplan.github.io/Frbonplan/",
+  "logo": "https://frbonplan.github.io/Frbonplan/unnamed.png",
+  "sameAs": [
+    "https://t.me/promohacoo",
+    "https://tiktok.com/@frbonplan",
+    "https://www.instagram.com/frbonplan77",
+    "https://www.youtube.com/@Promofinance-o2r"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Frbonplan est-il gratuit ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Le canal Telegram est entièrement gratuit et sans engagement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faites-vous des promesses de gains ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Frbonplan met en avant des offres, pas des résultats garantis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment les offres sont-elles choisies ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Repérage, vérification, puis publication sur le canal Telegram et la page Hacoo associée."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Où utiliser les codes promo ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Directement sur l'application ou le site Hacoo, au moment du paiement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Frbonplan est-il fiable ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui : Frbonplan ne demande jamais de paiement, ne vend rien en direct et ne gère aucune donnée bancaire — vous achetez toujours directement sur Hacoo. Chaque code est vérifié manuellement avant publication, et le canal Telegram reste ouvert et consultable à tout moment pour voir l'historique des offres partagées."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel est le délai de livraison ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En général entre 7 et 14 jours. Exceptionnellement, certaines commandes peuvent prendre jusqu'à 28 jours selon la disponibilité et la destination."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "À quelle fréquence la sélection est-elle mise à jour ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Quotidiennement. Une nouvelle offre du jour est publiée chaque jour sur le canal Telegram et reprise ici."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi cliquer sur vos liens avant d'acheter ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Frbonplan touche une petite commission quand un achat est fait en passant par nos liens — le prix reste strictement identique pour vous. C'est ce qui permet de continuer cette sélection gratuitement. Si un article ou un code vous a été utile, penser à cliquer depuis ici (plutôt que d'aller chercher l'article directement dans l'app) nous soutient directement, sans rien vous coûter de plus."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le code Promofinance ne fonctionne pas, que faire ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Vérifiez d'abord la casse exacte (Promofinance) et qu'il n'y a pas d'espace collé. Un code à usage unique refusé signifie généralement qu'il a déjà été utilisé une première fois sur votre compte — dans ce cas, essayez le second code disponible (Frbonplan), ou contactez le support Hacoo directement pour toute question sur son fonctionnement. Nous ne pouvons pas garantir la validité d'un code au-delà de sa première utilisation par compte."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Les articles de la sélection sont-ils neufs ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, tous les articles mis en avant sont neufs. Pour rester prudents, nous évitons de citer certains noms de marque directement sur le site — ce n'est pas un doute sur l'état du produit, juste une précaution. Pour toute question précise sur un article (matière, provenance, étiquetage), le mieux est de vérifier directement sa fiche sur Hacoo ou de demander au support Hacoo avant d'acheter."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -1148,6 +1329,46 @@
     </div>
   </section>
 
+  <section id="quiz">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow"><span class="dot"></span>30 secondes chrono</div>
+        <h2>Quel style vous correspond ?</h2>
+        <p>Deux questions rapides pour vous orienter vers la bonne catégorie.</p>
+      </div>
+      <div class="quiz-box reveal">
+        <div class="quiz-progress"><span id="quizBar1"></span><span id="quizBar2"></span></div>
+
+        <div class="quiz-step active" id="quizStep1">
+          <p class="quiz-question">Plutôt confort ou allure ?</p>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="quizAnswer(1,'confort')">😌 Confort avant tout</button>
+            <button class="quiz-opt" onclick="quizAnswer(1,'allure')">✨ J'aime avoir de l'allure</button>
+          </div>
+        </div>
+
+        <div class="quiz-step" id="quizStep2">
+          <p class="quiz-question">Pour quelle occasion ?</p>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="quizAnswer(2,'quotidien')">🏠 Le quotidien</button>
+            <button class="quiz-opt" onclick="quizAnswer(2,'sortie')">🌆 Sortir, voir du monde</button>
+          </div>
+        </div>
+
+        <div class="quiz-step" id="quizResult">
+          <div class="quiz-result">
+            <div class="cat-emoji-big" id="quizEmoji">👟</div>
+            <h3 id="quizTitle">Athleisure &amp; confort</h3>
+            <p id="quizDesc">Votre style : confortable et décontracté au quotidien.</p>
+            <a class="btn-primary" id="quizLink" href="https://www.hacoo.pl/@frbonplan" target="_blank" rel="noopener">Voir la sélection →</a>
+            <br>
+            <button class="quiz-restart" onclick="quizRestart()">Refaire le quiz</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="boutique">
     <div class="wrap">
       <div class="section-head reveal">
@@ -1158,7 +1379,7 @@
       <div class="shop-grid">
         <a class="shop-card reveal" href="https://c.onlyaff.app/15arcP" target="_blank" rel="noopener">
           <div class="shop-card-img">
-            <img src="produit-sneakers.png" alt="Chaussures de running, plusieurs coloris">
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Chaussures de running, plusieurs coloris', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-sneakers.png" alt="Chaussures de running, plusieurs coloris">
           </div>
           <div class="shop-card-body">
             <h3>Chaussures de running — plusieurs coloris</h3>
@@ -1171,7 +1392,7 @@
         </a>
         <a class="shop-card reveal reveal-delay-1" href="https://c.onlyaff.app/aPGpP5" target="_blank" rel="noopener">
           <div class="shop-card-img">
-            <img src="produit-tshirt.png" alt="T-shirt oversize 100% coton">
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('T-shirt oversize 100% coton', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-tshirt.png" alt="T-shirt oversize 100% coton">
           </div>
           <div class="shop-card-body">
             <h3>T-shirt oversize — 100% coton</h3>
@@ -1184,13 +1405,26 @@
         </a>
         <a class="shop-card reveal reveal-delay-2" href="https://c.onlyaff.app/aPGtEq" target="_blank" rel="noopener">
           <div class="shop-card-img">
-            <img src="produit-polo.png" alt="Polo casual, plusieurs coloris">
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Polo casual, plusieurs coloris', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-polo.png" alt="Polo casual, plusieurs coloris">
           </div>
           <div class="shop-card-body">
             <h3>Polo casual — plusieurs coloris</h3>
             <div class="shop-price-row">
               <span class="shop-price-old">12,71 €</span>
               <span class="shop-price-new">10,93 €</span>
+            </div>
+            <div class="shop-cta">Voir sur Hacoo →</div>
+          </div>
+        </a>
+        <a class="shop-card reveal reveal-delay-3" href="https://c.onlyaff.app/aTdSJV" target="_blank" rel="noopener">
+          <div class="shop-card-img">
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Écouteurs sans fil compatible Apple', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-ecouteurs.jpg" alt="Écouteurs sans fil compatible Apple">
+          </div>
+          <div class="shop-card-body">
+            <h3>Écouteurs sans fil — compatible Apple</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-old">11,46 €</span>
+              <span class="shop-price-new">9,86 €</span>
             </div>
             <div class="shop-cta">Voir sur Hacoo →</div>
           </div>
@@ -1468,6 +1702,10 @@
         <h2>Le prochain code n'attend pas.</h2>
         <p>Une sélection par jour, jamais un flux sans fin. Rejoignez avant que celui d'aujourd'hui change.</p>
         <a class="btn-primary" href="https://t.me/promohacoo" target="_blank" rel="noopener">Rejoindre le canal Telegram</a>
+        <div class="qr-block">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&bgcolor=11-15-20&color=240-195-104&data=https://t.me/promohacoo" alt="QR code pour rejoindre le canal Telegram" width="110" height="110" loading="lazy">
+          <span>Ou scannez pour rejoindre depuis un autre téléphone</span>
+        </div>
       </div>
     </div>
   </section>
@@ -1518,7 +1756,19 @@
 </div>
 
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">↑</button>
-<div class="kbd-hint" id="kbdHint"><kbd>C</kbd> copier le code · <kbd>T</kbd> ouvrir Telegram</div>
+<div class="kbd-hint" id="kbdHint"><kbd>C</kbd> copier · <kbd>T</kbd> Telegram · <kbd>?</kbd> aide</div>
+
+<button class="comfort-toggle" id="comfortToggle" onclick="toggleComfort()" aria-label="Réduire les animations" title="Réduire les animations">✨</button>
+
+<div class="shortcuts-modal" id="shortcutsModal">
+  <div class="shortcuts-box">
+    <h3>Raccourcis clavier</h3>
+    <div class="shortcuts-row"><span>Copier le code</span><kbd>C</kbd></div>
+    <div class="shortcuts-row"><span>Ouvrir Telegram</span><kbd>T</kbd></div>
+    <div class="shortcuts-row"><span>Afficher cette aide</span><kbd>?</kbd></div>
+    <button class="btn-ghost shortcuts-close" onclick="toggleShortcuts(false)">Fermer</button>
+  </div>
+</div>
 
 <div class="fab-wrap" id="fabWrap">
   <div class="fab-menu">
@@ -1892,8 +2142,74 @@
       copyCode(document.getElementById('copyBtn'));
     } else if(e.key.toLowerCase() === 't'){
       window.open('https://t.me/promohacoo', '_blank', 'noopener');
+    } else if(e.key === '?'){
+      toggleShortcuts();
+    } else if(e.key === 'Escape'){
+      toggleShortcuts(false);
     }
   });
+
+  // Shortcuts help modal
+  function toggleShortcuts(force){
+    const modal = document.getElementById('shortcutsModal');
+    const show = force !== undefined ? force : !modal.classList.contains('show');
+    modal.classList.toggle('show', show);
+  }
+  document.getElementById('shortcutsModal').addEventListener('click', (e) => {
+    if(e.target.id === 'shortcutsModal') toggleShortcuts(false);
+  });
+
+  // Comfort mode: manually reduce all animations for anyone who finds it too much
+  function toggleComfort(){
+    const active = document.body.classList.toggle('comfort-mode');
+    document.getElementById('comfortToggle').classList.toggle('active', active);
+    showToast(active ? 'Animations réduites' : 'Animations réactivées');
+  }
+
+  // Style quiz
+  const quizAnswers = {};
+  const quizOutcomes = {
+    'confort_quotidien': { emoji:'👟', title:'Athleisure & confort', desc:'Votre style : confortable et décontracté au quotidien.' },
+    'confort_sortie': { emoji:'👗', title:'Casual & Soirée', desc:'Confortable mais soigné pour sortir sans y penser.' },
+    'allure_quotidien': { emoji:'👜', title:'Accessoires', desc:'Un détail qui change tout, même un jour normal.' },
+    'allure_sortie': { emoji:'🧥', title:'Outerwear', desc:'Une pièce qui marque, pensée pour se faire remarquer.' }
+  };
+  function quizAnswer(step, value){
+    quizAnswers[step] = value;
+    document.getElementById('quizBar' + step).classList.add('done');
+    if(step === 1){
+      document.getElementById('quizStep1').classList.remove('active');
+      document.getElementById('quizStep2').classList.add('active');
+    } else {
+      const key = quizAnswers[1] + '_' + quizAnswers[2];
+      const outcome = quizOutcomes[key] || quizOutcomes['confort_quotidien'];
+      document.getElementById('quizEmoji').textContent = outcome.emoji;
+      document.getElementById('quizTitle').textContent = outcome.title;
+      document.getElementById('quizDesc').textContent = outcome.desc;
+      document.getElementById('quizStep2').classList.remove('active');
+      document.getElementById('quizResult').classList.add('active');
+    }
+  }
+  function quizRestart(){
+    document.getElementById('quizResult').classList.remove('active');
+    document.getElementById('quizStep1').classList.add('active');
+    document.getElementById('quizBar1').classList.remove('done');
+    document.getElementById('quizBar2').classList.remove('done');
+  }
+
+  // Share an individual product
+  function shareProduct(name, btn){
+    const shareData = {
+      title: 'Frbonplan — ' + name,
+      text: name + ' repéré via Frbonplan, avec réduction au code.',
+      url: btn.closest('.shop-card').href
+    };
+    if(navigator.share){
+      navigator.share(shareData).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(shareData.url).then(() => showToast("Lien de l'article copié"));
+    }
+  }
 
   // 1) Interactive particle network in hero (skipped if reduced motion)
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
