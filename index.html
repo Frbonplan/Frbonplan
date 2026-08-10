@@ -274,7 +274,7 @@
   .stat-box span{font-size:0.72rem; color:var(--text-dim);}
 
   /* SECTIONS */
-  section{padding:56px 0; position:relative; z-index:2;}
+  section{padding:56px 0; position:relative; z-index:2; scroll-margin-top:78px;}
   .section-head{text-align:center; max-width:640px; margin:0 auto 40px;}
   .section-head .eyebrow{margin-bottom:14px;}
   .section-head h2{font-size:clamp(1.5rem,3vw,2rem); margin-bottom:12px;}
@@ -1111,6 +1111,8 @@
 <nav class="spy-dots" id="spyDots" aria-label="Navigation rapide">
   <a href="#accueil" data-section="accueil" data-label="Accueil" class="active"></a>
   <a href="#mission" data-section="mission" data-label="Mission"></a>
+  <a href="#quiz" data-section="quiz" data-label="Quiz"></a>
+  <a href="#boutique" data-section="boutique" data-label="Boutique"></a>
   <a href="#offres" data-section="offres" data-label="Offres"></a>
   <a href="#codes" data-section="codes" data-label="Codes"></a>
   <a href="#avis" data-section="avis" data-label="Avis"></a>
@@ -1128,6 +1130,8 @@
     </a>
     <nav class="main-nav" id="mainNav">
       <a href="#mission" data-section="mission">Mission</a>
+      <a href="#quiz" data-section="quiz">Quiz</a>
+      <a href="#boutique" data-section="boutique">Boutique</a>
       <a href="#offres" data-section="offres">Offres</a>
       <a href="#codes" data-section="codes">Codes promo</a>
       <a href="#avis" data-section="avis">Avis</a>
@@ -1138,6 +1142,8 @@
   </div>
   <div class="mobile-nav" id="mobileNav">
     <a href="#mission" onclick="toggleMenu()">Mission</a>
+    <a href="#quiz" onclick="toggleMenu()">Quiz</a>
+    <a href="#boutique" onclick="toggleMenu()">Boutique</a>
     <a href="#offres" onclick="toggleMenu()">Offres</a>
     <a href="#codes" onclick="toggleMenu()">Codes promo</a>
     <a href="#avis" onclick="toggleMenu()">Avis</a>
@@ -1288,8 +1294,8 @@
         <h2>Frbonplan en chiffres</h2>
       </div>
       <div class="stats-grid">
-        <div class="stat-card reveal"><b id="statMembers">170+</b><span>Membres Telegram</span></div>
-        <div class="stat-card reveal reveal-delay-1"><b id="statOffers">500+</b><span>Offres partagées</span></div>
+        <div class="stat-card reveal"><b id="statMembers">280+</b><span>Membres Telegram</span></div>
+        <div class="stat-card reveal reveal-delay-1"><b id="statOffers">700+</b><span>Posts sur Hacoo</span></div>
         <div class="stat-card reveal reveal-delay-2"><b>14%</b><span>Réduction moyenne</span></div>
         <div class="stat-card reveal reveal-delay-3"><b>2026</b><span>Actif depuis</span></div>
       </div>
@@ -1379,7 +1385,7 @@
       <div class="shop-grid">
         <a class="shop-card reveal" href="https://c.onlyaff.app/15arcP" target="_blank" rel="noopener">
           <div class="shop-card-img">
-            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Chaussures de running, plusieurs coloris', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-sneakers.png" alt="Chaussures de running, plusieurs coloris">
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Chaussures de running, plusieurs coloris', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-sneakers.png" alt="Chaussures de running, plusieurs coloris" loading="lazy">
           </div>
           <div class="shop-card-body">
             <h3>Chaussures de running — plusieurs coloris</h3>
@@ -1387,12 +1393,13 @@
               <span class="shop-price-old">35,42 €</span>
               <span class="shop-price-new">30,46 €</span>
             </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
             <div class="shop-cta">Voir sur Hacoo →</div>
           </div>
         </a>
         <a class="shop-card reveal reveal-delay-1" href="https://c.onlyaff.app/aPGpP5" target="_blank" rel="noopener">
           <div class="shop-card-img">
-            <button class="shop-share" onclick="event.preventDefault(); shareProduct('T-shirt oversize 100% coton', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-tshirt.png" alt="T-shirt oversize 100% coton">
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('T-shirt oversize 100% coton', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-tshirt.png" alt="T-shirt oversize 100% coton" loading="lazy">
           </div>
           <div class="shop-card-body">
             <h3>T-shirt oversize — 100% coton</h3>
@@ -1400,12 +1407,13 @@
               <span class="shop-price-old">8,20 €</span>
               <span class="shop-price-new">7,05 €</span>
             </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
             <div class="shop-cta">Voir sur Hacoo →</div>
           </div>
         </a>
         <a class="shop-card reveal reveal-delay-2" href="https://c.onlyaff.app/aPGtEq" target="_blank" rel="noopener">
           <div class="shop-card-img">
-            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Polo casual, plusieurs coloris', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-polo.png" alt="Polo casual, plusieurs coloris">
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Polo casual, plusieurs coloris', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-polo.png" alt="Polo casual, plusieurs coloris" loading="lazy">
           </div>
           <div class="shop-card-body">
             <h3>Polo casual — plusieurs coloris</h3>
@@ -1413,12 +1421,13 @@
               <span class="shop-price-old">12,71 €</span>
               <span class="shop-price-new">10,93 €</span>
             </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
             <div class="shop-cta">Voir sur Hacoo →</div>
           </div>
         </a>
         <a class="shop-card reveal reveal-delay-3" href="https://c.onlyaff.app/aTdSJV" target="_blank" rel="noopener">
           <div class="shop-card-img">
-            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Écouteurs sans fil compatible Apple', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-ecouteurs.jpg" alt="Écouteurs sans fil compatible Apple">
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Écouteurs sans fil compatible Apple', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-ecouteurs.jpg" alt="Écouteurs sans fil compatible Apple" loading="lazy">
           </div>
           <div class="shop-card-body">
             <h3>Écouteurs sans fil — compatible Apple</h3>
@@ -1426,6 +1435,7 @@
               <span class="shop-price-old">11,46 €</span>
               <span class="shop-price-new">9,86 €</span>
             </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
             <div class="shop-cta">Voir sur Hacoo →</div>
           </div>
         </a>
@@ -1900,7 +1910,7 @@
     entries.forEach(entry => {
       if(entry.isIntersecting && !counted){
         counted = true;
-        const target = 170;
+        const target = 280;
         const duration = 1400;
         const start = performance.now();
         function step(now){
@@ -1933,7 +1943,7 @@
   }, { passive:true });
 
   // Active nav + scrollspy dots
-  const sectionIds = ['accueil','mission','offres','codes','avis','faq'];
+  const sectionIds = ['accueil','mission','quiz','boutique','offres','codes','avis','faq'];
   const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
   const navLinks = document.querySelectorAll('nav.main-nav a');
   const spyLinks = document.querySelectorAll('.spy-dots a');
