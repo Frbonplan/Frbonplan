@@ -1095,6 +1095,14 @@
   ]
 }
 </script>
+<!-- Google Analytics 4 — déjà configuré avec l'identifiant G-X63CVF6T6L -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X63CVF6T6L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-X63CVF6T6L');
+</script>
 </head>
 <body>
 
@@ -1800,6 +1808,27 @@
 <div class="toast" id="toast"><span class="tick">✓</span><span id="toastText">Code copié</span></div>
 
 <script>
+  // Safe analytics wrapper — never breaks the site even if GA is blocked or not yet configured
+  function trackEvent(name, params){
+    if(typeof gtag === 'function'){
+      try { gtag('event', name, params || {}); } catch(e){}
+    }
+  }
+
+  // Track every click toward Telegram, Hacoo, or affiliate product links, site-wide
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href]');
+    if(!link) return;
+    const href = link.href;
+    if(href.includes('t.me/')){
+      trackEvent('click_telegram', { link_location: link.closest('section, header, .sticky-cta, .fab-wrap')?.id || 'unknown', link_text: link.textContent.trim().slice(0,60) });
+    } else if(href.includes('hacoo.pl')){
+      trackEvent('click_hacoo_profile', { link_text: link.textContent.trim().slice(0,60) });
+    } else if(href.includes('onlyaff.app')){
+      trackEvent('click_product_link', { product_name: link.querySelector('h3')?.textContent?.trim() || link.textContent.trim().slice(0,60) });
+    }
+  });
+
   // Mobile menu
   function toggleMenu(){
     const nav = document.getElementById('mobileNav');
@@ -1844,6 +1873,7 @@
       btn.classList.add('copied');
       burstConfetti(btn);
       showToast('Code "' + text + '" copié');
+      trackEvent('copy_code', { code: text, location: 'hero' });
       setTimeout(() => { btn.textContent = 'Copier'; btn.classList.remove('copied'); }, 1800);
     });
   }
@@ -1855,6 +1885,7 @@
       btn.classList.add('copied');
       burstConfetti(btn);
       showToast('Code "' + text + '" copié');
+      trackEvent('copy_code', { code: text, location: 'codes_section' });
       setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1800);
     });
   }
@@ -1865,6 +1896,7 @@
       const original = btn.textContent;
       btn.textContent = 'Codes copiés !';
       showToast('Tous les codes ont été copiés');
+      trackEvent('copy_all_codes', {});
       setTimeout(() => { btn.textContent = original; }, 1800);
     });
   }
