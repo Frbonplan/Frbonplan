@@ -5,7 +5,7 @@
 <title>Frbonplan — Les meilleurs articles et bons plans Hacoo</title>
 <meta name="description" content="Frbonplan sélectionne les meilleurs articles et bons plans Hacoo, testés et vérifiés à la main. Codes promo en bonus, jamais l'inverse.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b0f14">
+<meta name="theme-color" content="#0b0f14" id="themeColorMeta">
 <meta property="og:title" content="Frbonplan — Les meilleurs articles Hacoo, triés à la main">
 <meta property="og:description" content="Une sélection des meilleurs articles et bons plans Hacoo, avec des codes promo vérifiés en bonus.">
 <meta property="og:image" content="https://frbonplan.github.io/Frbonplan/unnamed.png">
@@ -29,7 +29,24 @@
     --text:#f5f3ee;
     --text-soft:#a8b0bc;
     --text-dim:#6b7480;
+    --header-bg:rgba(11,15,20,0.82);
+    --sticky-bg:rgba(11,15,20,0.94);
     --radius:16px;
+  }
+  body.light-theme{
+    --bg:#faf8f4;
+    --bg-alt:#f1ede4;
+    --card:#ffffff;
+    --card-hi:#f6f2ea;
+    --border:#e5e0d3;
+    --gold:#e88a12;
+    --gold-soft:#b8650a;
+    --coral:#f0432a;
+    --text:#1c1f26;
+    --text-soft:#565f6c;
+    --text-dim:#8b93a0;
+    --header-bg:rgba(250,248,244,0.82);
+    --sticky-bg:rgba(250,248,244,0.94);
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -107,7 +124,7 @@
   /* HEADER */
   header{
     position:sticky; top:0; z-index:60;
-    background:rgba(11,15,20,0.82);
+    background:var(--header-bg);
     backdrop-filter:blur(14px);
     border-bottom:1px solid var(--border);
   }
@@ -156,6 +173,13 @@
   }
   .header-cta:hover{transform:translateY(-1px); box-shadow:0 8px 26px rgba(217,164,65,0.4);}
 
+  .theme-toggle{
+    background:var(--card); border:1px solid var(--border); color:var(--text);
+    width:38px; height:38px; border-radius:10px; font-size:1rem; cursor:pointer; transition:0.2s;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .theme-toggle:hover{border-color:var(--gold-soft);}
+
   .menu-toggle{display:none; background:none; border:1px solid var(--border); color:var(--text); width:38px; height:38px; border-radius:10px; font-size:1.1rem; cursor:pointer;}
   .mobile-nav{display:none; flex-direction:column; padding:10px 24px 18px; border-bottom:1px solid var(--border); background:var(--bg-alt);}
   .mobile-nav a{color:var(--text-soft); text-decoration:none; padding:10px 0; font-size:0.95rem; border-bottom:1px solid var(--border);}
@@ -179,11 +203,11 @@
   .hero-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:48px; align-items:center; position:relative; z-index:2;}
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
-    font-size:0.78rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
-    color:var(--gold-soft); background:rgba(217,164,65,0.1); border:1px solid rgba(217,164,65,0.25);
+    font-size:0.78rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--gold-soft); background:rgba(232,138,18,0.14); border:1px solid rgba(232,138,18,0.4);
     padding:6px 14px; border-radius:999px; margin-bottom:20px;
   }
-  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--coral); box-shadow:0 0 0 3px rgba(255,105,82,0.2); animation:pulse 1.8s ease-in-out infinite;}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--coral); box-shadow:0 0 0 3px rgba(240,67,42,0.25); animation:pulse 1.8s ease-in-out infinite;}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(255,105,82,0.2);}50%{box-shadow:0 0 0 6px rgba(255,105,82,0.08);}}
 
   .hero h1{font-size:clamp(2.1rem, 4.4vw, 3.1rem); line-height:1.12; letter-spacing:-0.01em; margin-bottom:20px;}
@@ -201,9 +225,9 @@
   .btn-primary{
     position:relative; overflow:hidden;
     display:inline-flex; align-items:center; gap:9px;
-    background:linear-gradient(135deg, var(--gold), #c48a2e); color:#181206;
-    font-weight:600; font-size:0.98rem; padding:14px 26px; border-radius:999px; text-decoration:none;
-    box-shadow:0 10px 30px rgba(217,164,65,0.3); transition:0.22s; border:none; cursor:pointer;
+    background:linear-gradient(135deg, var(--gold), #d16f0a); color:#1a0f00;
+    font-weight:700; font-size:0.98rem; padding:14px 26px; border-radius:999px; text-decoration:none;
+    box-shadow:0 12px 28px rgba(232,138,18,0.42); transition:0.22s; border:none; cursor:pointer;
     font-family:'Inter', sans-serif;
   }
   .btn-primary::before{
@@ -212,7 +236,7 @@
     transform:skewX(-20deg); animation:sheen 3.2s ease-in-out infinite;
   }
   @keyframes sheen{0%{left:-60%;}45%,100%{left:130%;}}
-  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 14px 36px rgba(217,164,65,0.45);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 38px rgba(232,138,18,0.55);}
   .btn-ghost{
     display:inline-flex; align-items:center; gap:8px;
     background:transparent; border:1px solid var(--border); color:var(--text-soft);
@@ -677,7 +701,7 @@
   }
   .coupon:hover::before{transform:translateX(100%);}
   .coupon-head{display:flex; justify-content:space-between; align-items:center;}
-  .coupon-pct{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.6rem; color:var(--gold-soft); animation:pctPulse 2.6s ease-in-out infinite;}
+  .coupon-pct{font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.7rem; color:var(--coral); animation:pctPulse 2.6s ease-in-out infinite;}
   @keyframes pctPulse{0%,100%{text-shadow:0 0 0 transparent;}50%{text-shadow:0 0 16px rgba(240,195,104,0.55);}}
   .coupon-name{font-size:0.85rem; color:var(--text-soft);}
   .coupon-code-line{display:flex; align-items:center; justify-content:space-between; border:1px dashed var(--border); border-radius:10px; padding:12px 14px;}
@@ -750,7 +774,7 @@
   /* MOBILE STICKY BAR */
   .sticky-cta{
     display:none; position:fixed; bottom:0; left:0; right:0; z-index:70;
-    background:rgba(11,15,20,0.94); backdrop-filter:blur(14px); border-top:1px solid var(--border);
+    background:var(--sticky-bg); backdrop-filter:blur(14px); border-top:1px solid var(--border);
     padding:12px 16px; align-items:center; justify-content:center;
   }
   .sticky-cta a{width:100%; text-align:center; justify-content:center;}
@@ -920,7 +944,10 @@
   .shop-card-body h3{font-size:0.98rem; margin:0;}
   .shop-price-row{display:flex; align-items:baseline; gap:10px; margin-top:auto;}
   .shop-price-old{font-size:0.85rem; color:var(--text-dim); text-decoration:line-through;}
-  .shop-price-new{font-family:'Space Grotesk',sans-serif; font-size:1.25rem; font-weight:700; color:var(--gold-soft);}
+  .shop-price-new{
+    font-family:'Space Grotesk',sans-serif; font-size:1.3rem; font-weight:800; color:#fff;
+    background:linear-gradient(135deg, var(--coral), #ff7a4a); padding:3px 12px; border-radius:8px;
+  }
   .shop-cta{
     margin-top:8px; text-align:center; font-size:0.82rem; font-weight:600; color:#181206;
     background:linear-gradient(135deg, var(--gold), #c48a2e); padding:9px; border-radius:999px;
@@ -1145,6 +1172,7 @@
       <a href="#avis" data-section="avis">Avis</a>
       <a href="#faq" data-section="faq">FAQ</a>
     </nav>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Changer de thème" title="Changer de thème">🌙</button>
     <a class="header-cta" href="https://t.me/promohacoo" target="_blank" rel="noopener">Rejoindre →</a>
     <button class="menu-toggle" onclick="toggleMenu()" aria-label="Ouvrir le menu">☰</button>
   </div>
@@ -1302,7 +1330,7 @@
         <h2>Frbonplan en chiffres</h2>
       </div>
       <div class="stats-grid">
-        <div class="stat-card reveal"><b id="statMembers">280+</b><span>Membres Telegram</span></div>
+        <div class="stat-card reveal"><b id="statMembers">350+</b><span>Membres Telegram</span></div>
         <div class="stat-card reveal reveal-delay-1"><b id="statOffers">700+</b><span>Posts sur Hacoo</span></div>
         <div class="stat-card reveal reveal-delay-2"><b>14%</b><span>Réduction moyenne</span></div>
         <div class="stat-card reveal reveal-delay-3"><b>2026</b><span>Actif depuis</span></div>
@@ -1835,6 +1863,13 @@
     nav.style.display = (nav.style.display === 'flex') ? 'none' : 'flex';
   }
 
+  // Light/dark theme toggle
+  function toggleTheme(){
+    const isLight = document.body.classList.toggle('light-theme');
+    document.getElementById('themeToggle').textContent = isLight ? '☀️' : '🌙';
+    document.getElementById('themeColorMeta').setAttribute('content', isLight ? '#faf8f4' : '#0b0f14');
+  }
+
   // Toast
   let toastTimer;
   function showToast(msg){
@@ -1942,7 +1977,7 @@
     entries.forEach(entry => {
       if(entry.isIntersecting && !counted){
         counted = true;
-        const target = 280;
+        const target = 350;
         const duration = 1400;
         const start = performance.now();
         function step(now){
