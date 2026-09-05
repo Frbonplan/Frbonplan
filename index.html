@@ -15,6 +15,8 @@
 <link rel="icon" type="image/png" href="unnamed.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://frbonplan.myshopify.com">
+<link rel="dns-prefetch" href="https://frbonplan.myshopify.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -1000,6 +1002,16 @@
     text-decoration:none; color:var(--text); transition:0.3s; display:flex; flex-direction:column;
   }
   .shop-card:hover{transform:translateY(-5px); border-color:rgba(217,164,65,0.4); box-shadow:0 18px 40px rgba(0,0,0,0.35);}
+  .shop-card-official{border-color:rgba(240,195,104,0.55); box-shadow:0 0 0 1px rgba(240,195,104,0.2);}
+  .shop-card-official:hover{border-color:var(--gold-soft); box-shadow:0 18px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(240,195,104,0.4);}
+  .shop-badge-official{
+    position:absolute; top:10px; left:10px; background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#181206; font-size:0.68rem; font-weight:700;
+    padding:4px 10px; border-radius:999px; text-transform:uppercase; letter-spacing:0.03em;
+  }
+  .shop-cta-official{
+    margin-top:8px; text-align:center; font-size:0.82rem; font-weight:700; color:#1a0f00;
+    background:linear-gradient(135deg, var(--gold-soft), var(--coral)); padding:9px; border-radius:999px;
+  }
   .shop-card-img{width:100%; aspect-ratio:1/1; overflow:hidden; background:var(--bg-alt); position:relative;}
   .shop-card-img img{width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;}
   .shop-card:hover .shop-card-img img{transform:scale(1.06);}
@@ -1226,6 +1238,7 @@
 
 <nav class="spy-dots" id="spyDots" aria-label="Navigation rapide">
   <a href="#accueil" data-section="accueil" data-label="Accueil" class="active"></a>
+  <a href="#montres" data-section="montres" data-label="Montres"></a>
   <a href="#mission" data-section="mission" data-label="Mission"></a>
   <a href="#quiz" data-section="quiz" data-label="Quiz"></a>
   <a href="#boutique" data-section="boutique" data-label="Boutique"></a>
@@ -1346,6 +1359,27 @@
     </div>
   </div>
 
+  <section id="montres">
+    <div class="wrap">
+      <div class="montre-spotlight reveal">
+        <div class="montre-ring">⌚</div>
+        <div class="montre-eyebrow">✦ Boutique officielle Frbonplan</div>
+        <h2>Nos montres ne restent pas <em>longtemps en ligne.</em></h2>
+        <p class="montre-sub">La même exigence que sur Hacoo, appliquée à notre propre sélection de montres. Repérées, choisies, mises en ligne sur notre boutique officielle — sans intermédiaire.</p>
+        <div class="montre-trust-row">
+          <span>⌚ Sélection resserrée</span>
+          <span>✓ Boutique officielle Frbonplan</span>
+          <span>🔒 Paiement sécurisé</span>
+        </div>
+        <a class="montre-cta" href="https://frbonplan.myshopify.com/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 2"/></svg>
+          Découvrir la collection →
+        </a>
+        <div class="montre-note">Nouvelle sélection ajoutée régulièrement — jetez-y un œil avant qu'un modèle ne disparaisse.</div>
+      </div>
+    </div>
+  </section>
+
   <section id="mission">
     <div class="dot-grid" aria-hidden="true"></div>
     <div class="wrap">
@@ -1417,7 +1451,7 @@
         <h2>Frbonplan en chiffres</h2>
       </div>
       <div class="stats-grid">
-        <div class="stat-card reveal"><b id="statMembers">600+</b><span>Membres Telegram</span></div>
+        <div class="stat-card reveal"><b id="statMembers">650+</b><span>Membres Telegram</span></div>
         <div class="stat-card reveal reveal-delay-1"><b id="statOffers">800+</b><span>Posts sur Hacoo</span></div>
         <div class="stat-card reveal reveal-delay-2"><b>14%</b><span>Réduction moyenne</span></div>
         <div class="stat-card reveal reveal-delay-3"><b>2026</b><span>Actif depuis</span></div>
@@ -1454,27 +1488,6 @@
           <h3>Accessoires</h3>
           <p>Sacs &amp; petits articles</p>
         </a>
-      </div>
-    </div>
-  </section>
-
-  <section id="montres">
-    <div class="wrap">
-      <div class="montre-spotlight reveal">
-        <div class="montre-ring">⌚</div>
-        <div class="montre-eyebrow">✦ Boutique officielle Frbonplan</div>
-        <h2>Nos montres ne restent pas <em>longtemps en ligne.</em></h2>
-        <p class="montre-sub">La même exigence que sur Hacoo, appliquée à notre propre sélection de montres. Repérées, choisies, mises en ligne sur notre boutique officielle — sans intermédiaire.</p>
-        <div class="montre-trust-row">
-          <span>⌚ Sélection resserrée</span>
-          <span>✓ Boutique officielle Frbonplan</span>
-          <span>🔒 Paiement sécurisé</span>
-        </div>
-        <a class="montre-cta" href="https://frbonplan.myshopify.com/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 2"/></svg>
-          Découvrir la collection →
-        </a>
-        <div class="montre-note">Nouvelle sélection ajoutée régulièrement — jetez-y un œil avant qu'un modèle ne disparaisse.</div>
       </div>
     </div>
   </section>
@@ -1533,6 +1546,20 @@
         </div>
       </div>
       <div class="shop-grid">
+        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/products/binbond-luxury-hollow-out-quartz-wristwatch-for-men-luminous-waterproof-mens-watch-business-sport-fashion-reloj-hommes?variant=54834620662099" target="_blank" rel="noopener">
+          <div class="shop-card-img">
+            <span class="shop-badge-official">⌚ Boutique officielle</span>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre BINBOND Luxury squelette', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/Sdb95a4d53c5b44fab7537fe9ff477aa1Y.webp?v=1788371227&width=500" alt="Montre BINBOND Luxury, cadran squelette" loading="lazy">
+          </div>
+          <div class="shop-card-body">
+            <h3>Montre BINBOND Luxury — cadran squelette</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">32,99 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div class="shop-cta-official">Voir sur notre boutique →</div>
+          </div>
+        </a>
         <a class="shop-card reveal" href="https://c.onlyaff.app/15arcP" target="_blank" rel="noopener">
           <div class="shop-card-img">
             <button class="shop-share" onclick="event.preventDefault(); shareProduct('Chaussures de running, plusieurs coloris', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-sneakers.png" alt="Chaussures de running, plusieurs coloris" loading="lazy">
@@ -1587,6 +1614,48 @@
             </div>
             <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
             <div class="shop-cta">Voir sur Hacoo →</div>
+          </div>
+        </a>
+        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/products/montre-automatique-pour-homme-elegante-de-luxe-mecanique-etanche-squelette-acier-inoxydable-montre-pour-homme-cadeau-pour-petit-ami" target="_blank" rel="noopener">
+          <div class="shop-card-img">
+            <span class="shop-badge-official">⌚ Boutique officielle</span>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre automatique squelette acier inoxydable', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S26b32faadb0a44abb145a26a635849a4W.webp?v=1788556371&width=500" alt="Montre automatique squelette en acier inoxydable" loading="lazy">
+          </div>
+          <div class="shop-card-body">
+            <h3>Montre automatique squelette — acier inoxydable</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">89,99 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div class="shop-cta-official">Voir sur notre boutique →</div>
+          </div>
+        </a>
+        <a class="shop-card shop-card-official reveal reveal-delay-1" href="https://frbonplan.myshopify.com/products/binbond-orginal-brand-quartz-watches-for-men-luxury-luminous-stainless-steel-chronograph-mens-watch-hombre-elegante-reloj" target="_blank" rel="noopener">
+          <div class="shop-card-img">
+            <span class="shop-badge-official">⌚ Boutique officielle</span>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre BINBOND chronographe', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S5768258e9db04a9ba8d74c3e9c58717e3.webp?v=1788555448&width=500" alt="Montre BINBOND chronographe cadran luminescent" loading="lazy">
+          </div>
+          <div class="shop-card-body">
+            <h3>Montre BINBOND — chronographe luminescent</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">64,99 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div class="shop-cta-official">Voir sur notre boutique →</div>
+          </div>
+        </a>
+        <a class="shop-card shop-card-official reveal reveal-delay-2" href="https://frbonplan.myshopify.com/products/poedagar-luxury-military-man-watch-square-waterproof-luminous-date-week-men-watch-stainless-steel-quartz-mens-watches-reloj-box" target="_blank" rel="noopener">
+          <div class="shop-card-img">
+            <span class="shop-badge-official">⌚ Boutique officielle</span>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre POEDAGAR carrée', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S69a867ac68cf48808359d02d4f3f93b7J.webp?v=1788292824&width=500" alt="Montre POEDAGAR design carré militaire" loading="lazy">
+          </div>
+          <div class="shop-card-body">
+            <h3>Montre POEDAGAR — design carré militaire</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">42,99 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div class="shop-cta-official">Voir sur notre boutique →</div>
           </div>
         </a>
       </div>
@@ -2105,7 +2174,7 @@
     entries.forEach(entry => {
       if(entry.isIntersecting && !counted){
         counted = true;
-        const target = 600;
+        const target = 650;
         const duration = 1400;
         const start = performance.now();
         function step(now){
@@ -2138,7 +2207,7 @@
   }, { passive:true });
 
   // Active nav + scrollspy dots
-  const sectionIds = ['accueil','mission','quiz','boutique','offres','codes','avis','faq'];
+  const sectionIds = ['accueil','montres','mission','quiz','boutique','offres','codes','avis','faq'];
   const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
   const navLinks = document.querySelectorAll('nav.main-nav a');
   const spyLinks = document.querySelectorAll('.spy-dots a');
@@ -2172,19 +2241,26 @@
   if(canHover){
     const spotlight = document.getElementById('spotlight');
     const blobs = [document.getElementById('blob1'), document.getElementById('blob2'), document.getElementById('blob3')];
+    let spotlightPending = false, lastMouseX = 0, lastMouseY = 0;
     window.addEventListener('mousemove', (e) => {
+      lastMouseX = e.clientX; lastMouseY = e.clientY;
       spotlight.classList.add('active');
-      spotlight.style.left = e.clientX + 'px';
-      spotlight.style.top = e.clientY + 'px';
-      const cx = (e.clientX / window.innerWidth - 0.5);
-      const cy = (e.clientY / window.innerHeight - 0.5);
-      blobs.forEach((b, i) => {
-        if(!b) return;
-        const strength = (i+1) * 8;
-        b.style.marginLeft = (cx * strength) + 'px';
-        b.style.marginTop = (cy * strength) + 'px';
+      if(spotlightPending) return;
+      spotlightPending = true;
+      requestAnimationFrame(() => {
+        spotlight.style.left = lastMouseX + 'px';
+        spotlight.style.top = lastMouseY + 'px';
+        const cx = (lastMouseX / window.innerWidth - 0.5);
+        const cy = (lastMouseY / window.innerHeight - 0.5);
+        blobs.forEach((b, i) => {
+          if(!b) return;
+          const strength = (i+1) * 8;
+          b.style.marginLeft = (cx * strength) + 'px';
+          b.style.marginTop = (cy * strength) + 'px';
+        });
+        spotlightPending = false;
       });
-    });
+    }, { passive:true });
     window.addEventListener('mouseleave', () => spotlight.classList.remove('active'));
   }
 
@@ -2756,15 +2832,22 @@
 
   // Cinematic parallax: hero layers move at different speeds on scroll (only while hero is visible)
   if(!prefersReduced){
+    const parallaxBlobs = document.querySelectorAll('.hero-bg .blob');
+    const parallaxHeroLeft = document.querySelector('.hero-grid > div');
+    let parallaxPending = false;
     window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      if(y < window.innerHeight){
-        document.querySelectorAll('.hero-bg .blob').forEach((b, i) => {
-          b.style.transform = `translateY(${y * (0.15 + i*0.08)}px)`;
-        });
-        const heroLeft = document.querySelector('.hero-grid > div');
-        if(heroLeft) heroLeft.style.transform = `translateY(${y * 0.08}px)`;
-      }
+      if(parallaxPending) return;
+      parallaxPending = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if(y < window.innerHeight){
+          parallaxBlobs.forEach((b, i) => {
+            b.style.transform = `translateY(${y * (0.15 + i*0.08)}px)`;
+          });
+          if(parallaxHeroLeft) parallaxHeroLeft.style.transform = `translateY(${y * 0.08}px)`;
+        }
+        parallaxPending = false;
+      });
     }, { passive:true });
   }
 
