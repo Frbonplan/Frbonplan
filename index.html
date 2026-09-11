@@ -675,43 +675,55 @@
       radial-gradient(600px 340px at 50% -10%, rgba(240,195,104,0.28), transparent 65%),
       radial-gradient(500px 300px at 100% 110%, rgba(255,105,82,0.22), transparent 60%),
       linear-gradient(160deg, #14100a, #1b1006 55%, #120c07);
-    border:1px solid rgba(240,195,104,0.35);
-    box-shadow:0 30px 80px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.02);
+    border:1px solid rgba(240,195,104,0.45);
+    box-shadow:0 30px 80px rgba(0,0,0,0.55), 0 0 90px rgba(240,195,104,0.14), inset 0 0 0 1px rgba(255,255,255,0.03);
   }
   .montre-spotlight::before{
     content:""; position:absolute; inset:-40%; z-index:0; pointer-events:none;
-    background:conic-gradient(from 0deg, transparent 0deg, rgba(240,195,104,0.16) 60deg, transparent 130deg, transparent 230deg, rgba(255,105,82,0.14) 300deg, transparent 360deg);
+    background:conic-gradient(from 0deg, transparent 0deg, rgba(240,195,104,0.2) 60deg, transparent 130deg, transparent 230deg, rgba(255,105,82,0.16) 300deg, transparent 360deg);
     animation:montreSweep 9s linear infinite;
   }
   @keyframes montreSweep{to{transform:rotate(360deg);}}
+  .montre-shine-sweep{
+    content:""; position:absolute; top:0; left:-30%; width:26%; height:100%; z-index:0; pointer-events:none;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,0.16), rgba(240,195,104,0.28), rgba(255,255,255,0.16), transparent);
+    transform:skewX(-18deg); animation:montreShineSweep 4.5s ease-in-out infinite;
+  }
+  @keyframes montreShineSweep{0%{left:-30%;}45%,100%{left:130%;}}
+  .montre-twinkle{
+    position:absolute; z-index:0; pointer-events:none; color:var(--gold-soft);
+    opacity:0; animation:montreTwinkle 3.2s ease-in-out infinite;
+  }
+  @keyframes montreTwinkle{0%,100%{opacity:0; transform:scale(0.5) rotate(0deg);}50%{opacity:0.9; transform:scale(1.15) rotate(20deg);}}
   .montre-spotlight > *{position:relative; z-index:1;}
   .montre-ring{
-    width:104px; height:104px; margin:0 auto 22px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center; font-size:2.6rem;
-    background:radial-gradient(circle at 35% 30%, #2a2013, #171009);
+    width:112px; height:112px; margin:0 auto 22px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:2.8rem;
+    background:radial-gradient(circle at 35% 30%, #2f2414, #171009);
     border:2px solid var(--gold-soft);
-    box-shadow:0 0 0 0 rgba(240,195,104,0.55);
+    box-shadow:0 0 0 0 rgba(240,195,104,0.55), 0 0 40px rgba(240,195,104,0.35);
+    filter:drop-shadow(0 0 10px rgba(240,195,104,0.5));
     animation:montrePing 2.2s ease-out infinite, montreFloat 3.6s ease-in-out infinite;
   }
   @keyframes montrePing{
-    0%{box-shadow:0 0 0 0 rgba(240,195,104,0.5);}
-    70%{box-shadow:0 0 0 26px rgba(240,195,104,0);}
-    100%{box-shadow:0 0 0 0 rgba(240,195,104,0);}
+    0%{box-shadow:0 0 0 0 rgba(240,195,104,0.5), 0 0 40px rgba(240,195,104,0.35);}
+    70%{box-shadow:0 0 0 30px rgba(240,195,104,0), 0 0 40px rgba(240,195,104,0.35);}
+    100%{box-shadow:0 0 0 0 rgba(240,195,104,0), 0 0 40px rgba(240,195,104,0.35);}
   }
   @keyframes montreFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
   .montre-eyebrow{
     display:inline-flex; align-items:center; gap:8px; font-size:0.76rem; font-weight:700;
     letter-spacing:0.08em; text-transform:uppercase; color:#181206;
     background:linear-gradient(135deg, var(--gold-soft), var(--gold)); padding:6px 16px; border-radius:999px;
-    margin-bottom:20px;
+    margin-bottom:20px; box-shadow:0 6px 20px rgba(240,195,104,0.35);
   }
   .montre-spotlight h2{
-    font-size:clamp(1.7rem, 4vw, 2.6rem); line-height:1.14; margin-bottom:16px; color:#fdf6e8;
+    font-size:clamp(1.8rem, 4.4vw, 2.8rem); line-height:1.14; margin-bottom:16px; color:#fdf6e8; letter-spacing:-0.01em;
   }
   .montre-spotlight h2 em{
-    font-style:normal; background:linear-gradient(100deg, var(--gold-soft), var(--coral), var(--gold-soft));
-    background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent;
-    animation:shine 5s linear infinite;
+    font-style:normal; background:linear-gradient(100deg, var(--gold-soft), var(--coral), #fff2d1, var(--gold-soft));
+    background-size:250% auto; -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:shine 4s linear infinite;
   }
   .montre-spotlight p.montre-sub{
     color:#cbb99a; font-size:1.02rem; line-height:1.6; max-width:52ch; margin:0 auto 30px;
@@ -1481,6 +1493,12 @@
   <section id="montres">
     <div class="wrap">
       <div class="montre-spotlight reveal">
+        <div class="montre-shine-sweep" aria-hidden="true"></div>
+        <span class="montre-twinkle" aria-hidden="true" style="top:14%; left:10%; font-size:0.9rem; animation-delay:0s;">✦</span>
+        <span class="montre-twinkle" aria-hidden="true" style="top:22%; right:12%; font-size:1.3rem; animation-delay:0.9s;">✦</span>
+        <span class="montre-twinkle" aria-hidden="true" style="bottom:20%; left:16%; font-size:1.1rem; animation-delay:1.7s;">✦</span>
+        <span class="montre-twinkle" aria-hidden="true" style="bottom:28%; right:18%; font-size:0.8rem; animation-delay:2.4s;">✦</span>
+        <span class="montre-twinkle" aria-hidden="true" style="top:48%; left:6%; font-size:0.7rem; animation-delay:1.2s;">✦</span>
         <div class="montre-ring">⌚</div>
         <div class="montre-eyebrow">✦ Boutique officielle Frbonplan</div>
         <h2>Nos montres ne restent pas <em>longtemps en ligne.</em></h2>
