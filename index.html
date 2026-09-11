@@ -18,6 +18,7 @@
 <meta name="twitter:image" content="https://frbonplan.github.io/Frbonplan/unnamed.png">
 <link rel="icon" type="image/png" href="unnamed.png">
 <link rel="apple-touch-icon" href="unnamed.png">
+<link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://frbonplan.myshopify.com">
@@ -1254,6 +1255,74 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Frbonplan est une sélection indépendante : nous ne fabriquons, ne stockons et ne vendons aucun article. Chaque achat est conclu directement avec Hacoo, qui reste seul responsable de la conformité, de la qualité et du service après-vente du produit. Pour un retour, un remboursement ou une réclamation, le contact est le support Hacoo, pas Frbonplan."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Boutique de montres Frbonplan",
+  "itemListElement": [
+    {
+      "@type": "Product",
+      "position": 1,
+      "name": "Montre BINBOND Luxury — cadran squelette",
+      "image": "https://frbonplan.myshopify.com/cdn/shop/files/Sdb95a4d53c5b44fab7537fe9ff477aa1Y.webp",
+      "url": "https://frbonplan.myshopify.com/products/binbond-luxury-hollow-out-quartz-wristwatch-for-men-luminous-waterproof-mens-watch-business-sport-fashion-reloj-hommes",
+      "brand": { "@type": "Brand", "name": "BINBOND" },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://frbonplan.myshopify.com/products/binbond-luxury-hollow-out-quartz-wristwatch-for-men-luminous-waterproof-mens-watch-business-sport-fashion-reloj-hommes",
+        "priceCurrency": "EUR",
+        "price": "32.99",
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    {
+      "@type": "Product",
+      "position": 2,
+      "name": "Montre automatique squelette — acier inoxydable",
+      "image": "https://frbonplan.myshopify.com/cdn/shop/files/S26b32faadb0a44abb145a26a635849a4W.webp",
+      "url": "https://frbonplan.myshopify.com/products/montre-automatique-pour-homme-elegante-de-luxe-mecanique-etanche-squelette-acier-inoxydable-montre-pour-homme-cadeau-pour-petit-ami",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://frbonplan.myshopify.com/products/montre-automatique-pour-homme-elegante-de-luxe-mecanique-etanche-squelette-acier-inoxydable-montre-pour-homme-cadeau-pour-petit-ami",
+        "priceCurrency": "EUR",
+        "price": "89.99",
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    {
+      "@type": "Product",
+      "position": 3,
+      "name": "Montre BINBOND — chronographe luminescent",
+      "image": "https://frbonplan.myshopify.com/cdn/shop/files/S5768258e9db04a9ba8d74c3e9c58717e3.webp",
+      "url": "https://frbonplan.myshopify.com/products/binbond-orginal-brand-quartz-watches-for-men-luxury-luminous-stainless-steel-chronograph-mens-watch-hombre-elegante-reloj",
+      "brand": { "@type": "Brand", "name": "BINBOND" },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://frbonplan.myshopify.com/products/binbond-orginal-brand-quartz-watches-for-men-luxury-luminous-stainless-steel-chronograph-mens-watch-hombre-elegante-reloj",
+        "priceCurrency": "EUR",
+        "price": "64.99",
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    {
+      "@type": "Product",
+      "position": 4,
+      "name": "Montre POEDAGAR — design carré militaire",
+      "image": "https://frbonplan.myshopify.com/cdn/shop/files/S69a867ac68cf48808359d02d4f3f93b7J.webp",
+      "url": "https://frbonplan.myshopify.com/products/poedagar-luxury-military-man-watch-square-waterproof-luminous-date-week-men-watch-stainless-steel-quartz-mens-watches-reloj-box",
+      "brand": { "@type": "Brand", "name": "POEDAGAR" },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://frbonplan.myshopify.com/products/poedagar-luxury-military-man-watch-square-waterproof-luminous-date-week-men-watch-stainless-steel-quartz-mens-watches-reloj-box",
+        "priceCurrency": "EUR",
+        "price": "42.99",
+        "availability": "https://schema.org/InStock"
       }
     }
   ]
@@ -3016,6 +3085,14 @@
     const pre = document.getElementById('preloader');
     setTimeout(() => pre.classList.add('hide'), 350);
   });
+
+  // Service Worker — active le mode application installable (PWA) et le chargement quasi-instantané
+  // au retour. Échec silencieux si sw.js n'est pas encore en ligne : ne casse jamais le site.
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    });
+  }
 
   // Ripple effect on primary/ghost buttons
   document.querySelectorAll('.btn-primary, .btn-ghost, .copy-btn').forEach(btn => {
