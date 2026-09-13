@@ -2,18 +2,18 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Frbonplan — Les meilleurs articles et bons plans Hacoo</title>
-<meta name="description" content="Frbonplan sélectionne les meilleurs articles et bons plans Hacoo, testés et vérifiés à la main. Codes promo en bonus, jamais l'inverse.">
+<title>Frbonplan — Bons plans Hacoo & boutique de montres</title>
+<meta name="description" content="Frbonplan : bons plans Hacoo sélectionnés à la main et boutique de montres en propre. Codes promo, qualité vérifiée, aucune fausse promesse.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b0f14" id="themeColorMeta">
-<meta property="og:title" content="Frbonplan — Les meilleurs articles Hacoo, triés à la main">
+<meta property="og:title" content="Frbonplan — Bons plans Hacoo & boutique de montres">
 <meta property="og:description" content="Une sélection des meilleurs articles et bons plans Hacoo, avec des codes promo vérifiés en bonus.">
 <meta property="og:image" content="https://frbonplan.github.io/Frbonplan/unnamed.png">
 <meta property="og:url" content="https://frbonplan.github.io/Frbonplan/">
 <link rel="canonical" href="https://frbonplan.github.io/Frbonplan/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Frbonplan — Les meilleurs articles Hacoo, triés à la main">
+<meta name="twitter:title" content="Frbonplan — Bons plans Hacoo & boutique de montres">
 <meta name="twitter:description" content="Sélection quotidienne d'articles et codes promo Hacoo, vérifiés à la main — et boutique officielle Frbonplan dédiée aux montres.">
 <meta name="twitter:image" content="https://frbonplan.github.io/Frbonplan/unnamed.png">
 <link rel="icon" type="image/png" href="unnamed.png">
@@ -991,6 +991,34 @@
   .shortcuts-row kbd{background:var(--card-hi); border:1px solid var(--border); border-radius:5px; padding:2px 8px; font-family:'JetBrains Mono',monospace; color:var(--gold-soft);}
   .shortcuts-close{margin-top:16px; width:100%;}
 
+  /* PWA INSTALL BUTTON */
+  .install-app-btn{
+    position:fixed; right:22px; bottom:78px; z-index:64;
+    display:none; align-items:center; gap:8px;
+    background:linear-gradient(135deg, var(--gold), #d16f0a); color:#1a0f00;
+    border:none; padding:11px 18px; border-radius:999px; font-weight:700; font-size:0.86rem;
+    cursor:pointer; box-shadow:0 10px 26px rgba(232,138,18,0.4); font-family:'Inter',sans-serif;
+  }
+  .install-app-btn.show{display:flex;}
+  .install-app-btn svg{width:16px; height:16px; flex-shrink:0;}
+  @media (max-width:760px){ .install-app-btn{right:16px; bottom:144px; font-size:0.8rem; padding:10px 14px;} }
+
+  /* iOS INSTALL MODAL */
+  .ios-install-modal{
+    position:fixed; inset:0; z-index:270; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px);
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  .ios-install-modal.show{display:flex;}
+  .ios-install-box{
+    position:relative; background:var(--card); border:1px solid var(--border); border-radius:18px;
+    padding:28px; max-width:340px; width:100%;
+  }
+  .ios-install-box h3{font-size:1.05rem; margin-bottom:16px;}
+  .ios-install-box ol{margin:0 0 14px; padding-left:20px; color:var(--text-soft); font-size:0.9rem; line-height:1.8;}
+  .ios-install-box p{color:var(--text-dim); font-size:0.82rem; margin:0;}
+  .ios-install-close{position:absolute; top:14px; right:14px; background:none; border:none; color:var(--text-dim); font-size:1.1rem; cursor:pointer;}
+  .ios-icon{display:inline-block; transform:scale(1.1);}
+
   /* PRINT STYLES */
   @media print{
     .aurora, .spotlight, #particleCanvas, .sparkle-trail, header, .sticky-cta, .back-top, .fab-wrap,
@@ -1005,8 +1033,8 @@
   /* SITEWIDE AURORA BACKGROUND */
   .aurora{position:fixed; inset:0; z-index:-2; overflow:hidden; pointer-events:none;}
   .aurora span{
-    position:absolute; border-radius:50%; filter:blur(120px); opacity:0.16;
-    animation:auroraDrift 22s ease-in-out infinite;
+    position:absolute; border-radius:50%; filter:blur(70px); opacity:0.16;
+    animation:auroraDrift 22s ease-in-out infinite; will-change:transform;
   }
   .aurora span:nth-child(1){width:520px; height:520px; background:var(--gold); top:-10%; left:-10%; animation-delay:0s;}
   .aurora span:nth-child(2){width:460px; height:460px; background:var(--coral); top:40%; right:-12%; animation-delay:-7s;}
@@ -1015,6 +1043,10 @@
     0%,100%{transform:translate(0,0) scale(1);}
     33%{transform:translate(60px,-40px) scale(1.15);}
     66%{transform:translate(-50px,50px) scale(0.9);}
+  }
+  /* Mobile: blur filters are heavy on phone GPUs — keep the warm tint, drop the cost */
+  @media (max-width:760px){
+    .aurora span{filter:blur(36px); animation:none;}
   }
 
   /* CURSOR SPARKLE TRAIL */
@@ -1098,6 +1130,29 @@
   }
   .shop-share:hover{background:var(--gold); color:#181206;}
   .shop-share svg{width:14px; height:14px;}
+
+  .shop-fav{
+    position:absolute; top:10px; left:10px; width:32px; height:32px; border-radius:50%;
+    background:rgba(11,15,20,0.7); backdrop-filter:blur(4px); border:1px solid rgba(255,255,255,0.15);
+    display:flex; align-items:center; justify-content:center; color:#fff; cursor:pointer; z-index:2; transition:0.2s;
+  }
+  .shop-fav svg{width:15px; height:15px; transition:0.2s;}
+  .shop-fav:hover{border-color:var(--coral);}
+  .shop-fav.active{background:var(--coral); border-color:var(--coral);}
+  .shop-fav.active svg{fill:#fff; stroke:#fff;}
+  .shop-fav.pop svg{animation:favPop 0.4s ease;}
+  @keyframes favPop{0%{transform:scale(1);}40%{transform:scale(1.5);}100%{transform:scale(1);}}
+
+  .fav-counter{
+    position:fixed; left:22px; bottom:134px; z-index:64;
+    display:none; align-items:center; gap:7px;
+    background:var(--card); border:1px solid var(--border); color:var(--text);
+    padding:9px 16px; border-radius:999px; font-size:0.85rem; font-weight:600; cursor:pointer;
+    box-shadow:0 10px 24px rgba(0,0,0,0.25);
+  }
+  .fav-counter.show{display:flex;}
+  .fav-counter svg{width:15px; height:15px; fill:var(--coral); stroke:var(--coral);}
+  @media (max-width:760px){ .fav-counter{bottom:200px; left:16px;} }
 
   /* STYLE QUIZ */
   .quiz-box{background:var(--card); border:1px solid var(--border); border-radius:20px; padding:32px; max-width:560px; margin:0 auto;}
@@ -1353,7 +1408,7 @@
 
 <div class="announce-bar" id="announceBar">
   <span class="announce-emoji">⌚</span>
-  <span><b>Boutique de montres Frbonplan</b> : -20% avec le code <b>FRBONPLAN</b> — <a href="https://frbonplan.myshopify.com/" target="_blank" rel="noopener">découvrir →</a></span>
+  <span><b>Boutique de montres Frbonplan</b> : -20% avec le code <b>FRBONPLAN</b> — <a href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener">découvrir →</a></span>
   <button class="announce-close" id="announceClose" aria-label="Fermer ce message">✕</button>
 </div>
 
@@ -1386,13 +1441,13 @@
         <img class="logo-photo" src="unnamed.png" alt="Logo Frbonplan">
         <div class="logo-seal">F</div>
       </div>
-      <div class="brand-name">FR<span>BONPLAN</span><small>Sélection Hacoo</small></div>
+      <div class="brand-name">FR<span>BONPLAN</span><small>Bons plans &amp; montres</small></div>
     </a>
     <nav class="main-nav" id="mainNav">
       <a href="#mission" data-section="mission">Mission</a>
       <a href="#quiz" data-section="quiz">Quiz</a>
       <a href="#boutique" data-section="boutique">Boutique</a>
-      <a href="https://frbonplan.myshopify.com/" target="_blank" rel="noopener">Nos montres ↗</a>
+      <a href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener">Nos montres ↗</a>
       <a href="#offres" data-section="offres">Offres</a>
       <a href="#codes" data-section="codes">Codes promo</a>
       <a href="#avis" data-section="avis">Avis</a>
@@ -1406,7 +1461,7 @@
     <a href="#mission" onclick="toggleMenu()">Mission</a>
     <a href="#quiz" onclick="toggleMenu()">Quiz</a>
     <a href="#boutique" onclick="toggleMenu()">Boutique</a>
-    <a href="https://frbonplan.myshopify.com/" target="_blank" rel="noopener">Notre boutique de montres ↗</a>
+    <a href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener">Notre boutique de montres ↗</a>
     <a href="#offres" onclick="toggleMenu()">Offres</a>
     <a href="#codes" onclick="toggleMenu()">Codes promo</a>
     <a href="#avis" onclick="toggleMenu()">Avis</a>
@@ -1508,18 +1563,18 @@
           <span>✓ Boutique officielle Frbonplan</span>
           <span>🔒 Paiement sécurisé</span>
         </div>
-        <a class="montre-cta" href="https://frbonplan.myshopify.com/" target="_blank" rel="noopener">
+        <a class="montre-cta" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><path d="M12 9v3l2 2"/></svg>
           Découvrir la collection →
         </a>
         <div class="montre-note">Nouvelle sélection ajoutée régulièrement — jetez-y un œil avant qu'un modèle ne disparaisse.</div>
         <div class="montre-coupon">
-          <div class="montre-coupon-label"><b>-20% sur votre 1ère commande</b> avec le code ci-dessous</div>
+          <div class="montre-coupon-label"><b>-20% sur votre 1ère commande</b> — déjà appliqué automatiquement en cliquant "Découvrir la collection"</div>
           <div class="montre-coupon-row">
             <span class="montre-coupon-code mono" id="montreCodeText">FRBONPLAN</span>
             <button class="copy-btn" onclick="copyGeneric(this, 'FRBONPLAN')">Copier</button>
           </div>
-          <div class="montre-coupon-scope">⌚ Valable uniquement sur notre boutique de montres — pas sur Hacoo</div>
+          <div class="montre-coupon-scope">⌚ Valable uniquement sur notre boutique de montres — pas sur Hacoo. Gardez ce code de côté si vous naviguez autrement sur la boutique.</div>
         </div>
       </div>
       <div class="montre-guarantees">
@@ -1702,15 +1757,15 @@
         <h2>Nos coups de cœur du moment</h2>
         <p>Une poignée d'articles neufs, repérés et testés — le prix affiché inclut déjà la réduction du code.</p>
         <div style="margin-top:18px;">
-          <a class="btn-primary" href="https://frbonplan.myshopify.com/" target="_blank" rel="noopener">
+          <a class="btn-primary" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex-shrink:0;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             Voir notre boutique officielle de montres
           </a>
         </div>
       </div>
       <div class="shop-grid">
-        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/products/binbond-luxury-hollow-out-quartz-wristwatch-for-men-luminous-waterproof-mens-watch-business-sport-fashion-reloj-hommes?variant=54834620662099" target="_blank" rel="noopener">
-          <div class="shop-card-img">
+        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Fbinbond-luxury-hollow-out-quartz-wristwatch-for-men-luminous-waterproof-mens-watch-business-sport-fashion-reloj-hommes%3Fvariant%3D54834620662099" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav1" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
             <span class="shop-badge-official">⌚ Boutique officielle</span>
             <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre BINBOND Luxury squelette', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/Sdb95a4d53c5b44fab7537fe9ff477aa1Y.webp?v=1788371227&width=500" alt="Montre BINBOND Luxury, cadran squelette" loading="lazy">
           </div>
@@ -1725,7 +1780,7 @@
           </div>
         </a>
         <a class="shop-card reveal" href="https://c.onlyaff.app/15arcP" target="_blank" rel="noopener">
-          <div class="shop-card-img">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav2" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
             <button class="shop-share" onclick="event.preventDefault(); shareProduct('Chaussures de running, plusieurs coloris', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-sneakers.png" alt="Chaussures de running, plusieurs coloris" loading="lazy">
           </div>
           <div class="shop-card-body">
@@ -1739,7 +1794,7 @@
           </div>
         </a>
         <a class="shop-card reveal reveal-delay-1" href="https://c.onlyaff.app/aPGpP5" target="_blank" rel="noopener">
-          <div class="shop-card-img">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav3" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
             <button class="shop-share" onclick="event.preventDefault(); shareProduct('T-shirt oversize 100% coton', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-tshirt.png" alt="T-shirt oversize 100% coton" loading="lazy">
           </div>
           <div class="shop-card-body">
@@ -1753,7 +1808,7 @@
           </div>
         </a>
         <a class="shop-card reveal reveal-delay-2" href="https://c.onlyaff.app/aPGtEq" target="_blank" rel="noopener">
-          <div class="shop-card-img">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav4" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
             <button class="shop-share" onclick="event.preventDefault(); shareProduct('Polo casual, plusieurs coloris', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-polo.png" alt="Polo casual, plusieurs coloris" loading="lazy">
           </div>
           <div class="shop-card-body">
@@ -1767,7 +1822,7 @@
           </div>
         </a>
         <a class="shop-card reveal reveal-delay-3" href="https://c.onlyaff.app/aTdSJV" target="_blank" rel="noopener">
-          <div class="shop-card-img">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav5" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
             <button class="shop-share" onclick="event.preventDefault(); shareProduct('Écouteurs sans fil compatible Apple', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="produit-ecouteurs.jpg" alt="Écouteurs sans fil compatible Apple" loading="lazy">
           </div>
           <div class="shop-card-body">
@@ -1780,8 +1835,8 @@
             <div class="shop-cta">Voir sur Hacoo →</div>
           </div>
         </a>
-        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/products/montre-automatique-pour-homme-elegante-de-luxe-mecanique-etanche-squelette-acier-inoxydable-montre-pour-homme-cadeau-pour-petit-ami" target="_blank" rel="noopener">
-          <div class="shop-card-img">
+        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Fmontre-automatique-pour-homme-elegante-de-luxe-mecanique-etanche-squelette-acier-inoxydable-montre-pour-homme-cadeau-pour-petit-ami" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav6" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
             <span class="shop-badge-official">⌚ Boutique officielle</span>
             <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre automatique squelette acier inoxydable', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S26b32faadb0a44abb145a26a635849a4W.webp?v=1788556371&width=500" alt="Montre automatique squelette en acier inoxydable" loading="lazy">
           </div>
@@ -1795,8 +1850,8 @@
             <div class="shop-cta-official">Voir sur notre boutique →</div>
           </div>
         </a>
-        <a class="shop-card shop-card-official reveal reveal-delay-1" href="https://frbonplan.myshopify.com/products/binbond-orginal-brand-quartz-watches-for-men-luxury-luminous-stainless-steel-chronograph-mens-watch-hombre-elegante-reloj" target="_blank" rel="noopener">
-          <div class="shop-card-img">
+        <a class="shop-card shop-card-official reveal reveal-delay-1" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Fbinbond-orginal-brand-quartz-watches-for-men-luxury-luminous-stainless-steel-chronograph-mens-watch-hombre-elegante-reloj" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav7" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
             <span class="shop-badge-official">⌚ Boutique officielle</span>
             <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre BINBOND chronographe', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S5768258e9db04a9ba8d74c3e9c58717e3.webp?v=1788555448&width=500" alt="Montre BINBOND chronographe cadran luminescent" loading="lazy">
           </div>
@@ -1810,8 +1865,8 @@
             <div class="shop-cta-official">Voir sur notre boutique →</div>
           </div>
         </a>
-        <a class="shop-card shop-card-official reveal reveal-delay-2" href="https://frbonplan.myshopify.com/products/poedagar-luxury-military-man-watch-square-waterproof-luminous-date-week-men-watch-stainless-steel-quartz-mens-watches-reloj-box" target="_blank" rel="noopener">
-          <div class="shop-card-img">
+        <a class="shop-card shop-card-official reveal reveal-delay-2" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Fpoedagar-luxury-military-man-watch-square-waterproof-luminous-date-week-men-watch-stainless-steel-quartz-mens-watches-reloj-box" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav8" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
             <span class="shop-badge-official">⌚ Boutique officielle</span>
             <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre POEDAGAR carrée', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S69a867ac68cf48808359d02d4f3f93b7J.webp?v=1788292824&width=500" alt="Montre POEDAGAR design carré militaire" loading="lazy">
           </div>
@@ -2059,7 +2114,7 @@
       </div>
       <div class="faq-item reveal" data-q="responsabilité problème litige article ne correspond pas garantie">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Que se passe-t-il si un article ne correspond pas à mes attentes ?<span class="plus">+</span></button>
-        <div class="faq-a"><p>Frbonplan est une sélection indépendante : nous ne fabriquons, ne stockons et ne vendons aucun article. Chaque achat est conclu directement avec Hacoo, qui reste seul responsable de la conformité, de la qualité et du service après-vente du produit. Pour un retour, un remboursement ou une réclamation, le contact est le support Hacoo, pas Frbonplan.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr11',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr11',false)">👎 Pas clair</button></div></div>
+        <div class="faq-a"><p>Frbonplan est une sélection indépendante : nous ne fabriquons, ne stockons et ne vendons aucun article Hacoo. Chaque achat est conclu directement avec Hacoo, qui reste seul responsable de la conformité, de la qualité et du service après-vente du produit. Pour un retour, un remboursement ou une réclamation, le contact est le support Hacoo, pas Frbonplan. Pour un achat sur notre boutique de montres, les conditions de vente, garanties et retours de cette boutique s'appliquent — consultez-les avant de commander.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr11',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr11',false)">👎 Pas clair</button></div></div>
       </div>
       <p id="faqEmpty" style="display:none; color:var(--text-dim); text-align:center; padding:20px 0;">Aucune question ne correspond à votre recherche.</p>
     </div>
@@ -2103,7 +2158,7 @@
         <p>Une sélection par jour, jamais un flux sans fin. Rejoignez avant que celui d'aujourd'hui change — et jetez un œil à notre boutique de montres pendant que vous y êtes.</p>
         <div class="cta-row" style="justify-content:center;">
           <a class="btn-primary" href="https://t.me/promohacoo" target="_blank" rel="noopener">Rejoindre le canal Telegram</a>
-          <a class="montre-cta" href="https://frbonplan.myshopify.com/" target="_blank" rel="noopener">⌚ Voir les montres →</a>
+          <a class="montre-cta" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener">⌚ Voir les montres →</a>
         </div>
         <div class="qr-block">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&bgcolor=11-15-20&color=240-195-104&data=https://t.me/promohacoo" alt="QR code pour rejoindre le canal Telegram" width="110" height="110" loading="lazy">
@@ -2149,12 +2204,12 @@
       <div class="footer-col">
         <h4>Boutique</h4>
         <ul>
-          <li><a href="https://frbonplan.myshopify.com/" target="_blank" rel="noopener">Notre boutique de montres</a></li>
+          <li><a href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener">Notre boutique de montres</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-legal">
-      <p>© 2026 Frbonplan. Frbonplan relaie une sélection d'articles et de codes promo Hacoo — il ne vend rien directement et ne demande jamais de paiement. Tout achat s'effectue exclusivement sur Hacoo, sous la responsabilité exclusive de Hacoo en tant que vendeur (conformité, qualité, livraison, service après-vente et litiges). Frbonplan décline toute responsabilité quant à la qualité, l'état, la conformité ou la livraison d'un article acheté via ses liens ou ses codes ; toute réclamation relève du support Hacoo. Aucun résultat ni gain n'est garanti.</p>
+      <p>© 2026 Frbonplan. Frbonplan relaie une sélection d'articles et de codes promo Hacoo — il ne vend rien directement sur cette page et ne demande jamais de paiement. Tout achat Hacoo s'effectue exclusivement sur Hacoo, sous la responsabilité exclusive de Hacoo en tant que vendeur (conformité, qualité, livraison, service après-vente et litiges). Notre boutique de montres (frbonplan.myshopify.com) est une boutique distincte, avec ses propres conditions de vente et garanties. Dans tous les cas, Frbonplan décline toute responsabilité quant à la qualité, l'état, la conformité ou la livraison d'un article acheté via ses liens, ses codes, ou sa boutique ; toute réclamation relève du vendeur concerné (Hacoo ou notre boutique). Aucun résultat ni gain n'est garanti.</p>
       <div class="footer-badge" style="margin-top:10px;"><img src="unnamed.png" alt=""> Site officiel Frbonplan · <a href="https://t.me/promohacoo" target="_blank" rel="noopener" style="margin-left:4px;">Contact via Telegram</a></div>
     </div>
   </div>
@@ -2162,7 +2217,7 @@
 
 <div class="sticky-cta">
   <a class="btn-primary" href="https://t.me/promohacoo" target="_blank" rel="noopener">Telegram</a>
-  <a class="montre-cta" style="padding:12px 10px; font-size:0.86rem;" href="https://frbonplan.myshopify.com/" target="_blank" rel="noopener">⌚ Montres</a>
+  <a class="montre-cta" style="padding:12px 10px; font-size:0.86rem;" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener">⌚ Montres</a>
 </div>
 
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">↑</button>
@@ -2190,7 +2245,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/></svg>
       Page Hacoo
     </a>
-    <a class="fab-item" href="https://frbonplan.myshopify.com/" target="_blank" rel="noopener">
+    <a class="fab-item" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       Nos montres
     </a>
@@ -2201,6 +2256,30 @@
   </div>
   <button class="fab-main" onclick="toggleFab()" aria-label="Actions rapides">+</button>
 </div>
+
+<button class="install-app-btn" id="installAppBtn" onclick="triggerInstall()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+  Installer l'application
+</button>
+
+<div class="ios-install-modal" id="iosInstallModal">
+  <div class="ios-install-box">
+    <button class="ios-install-close" onclick="document.getElementById('iosInstallModal').classList.remove('show')" aria-label="Fermer">✕</button>
+    <h3>Installer sur iPhone</h3>
+    <ol>
+      <li>Appuyez sur <strong>Partager</strong> <span class="ios-icon">􀈂</span> en bas de Safari</li>
+      <li>Choisissez <strong>"Sur l'écran d'accueil"</strong></li>
+      <li>Appuyez sur <strong>Ajouter</strong></li>
+    </ol>
+    <p>L'app Frbonplan apparaîtra comme n'importe quelle autre, avec son icône.</p>
+  </div>
+</div>
+
+<button class="fav-counter" id="favCounter" onclick="scrollToFavSection()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+  <span id="favCount">0</span> favori<span id="favPlural"></span>
+</button>
+
 <div class="toast" id="toast" role="status" aria-live="polite"><span class="tick">✓</span><span id="toastText">Code copié</span></div>
 
 <script>
@@ -2211,7 +2290,7 @@
     }
   }
 
-  // Track every click toward Telegram, Hacoo, or affiliate product links, site-wide
+  // Track every click toward Telegram, Hacoo, affiliate products, or the watch shop, site-wide
   document.addEventListener('click', (e) => {
     const link = e.target.closest('a[href]');
     if(!link) return;
@@ -2222,6 +2301,12 @@
       trackEvent('click_hacoo_profile', { link_text: link.textContent.trim().slice(0,60) });
     } else if(href.includes('onlyaff.app')){
       trackEvent('click_product_link', { product_name: link.querySelector('h3')?.textContent?.trim() || link.textContent.trim().slice(0,60) });
+    } else if(href.includes('myshopify.com')){
+      const isProductPage = href.includes('/products/');
+      trackEvent(isProductPage ? 'click_watch_product' : 'click_watch_shop', {
+        link_location: link.closest('section, header, .sticky-cta, .fab-wrap, footer')?.id || link.closest('.fab-wrap') ? 'fab' : 'unknown',
+        product_name: link.querySelector('h3')?.textContent?.trim() || link.textContent.trim().slice(0,60)
+      });
     }
   });
 
@@ -2537,7 +2622,7 @@
   // Native share with clipboard fallback
   function shareSite(){
     const shareData = {
-      title: 'Frbonplan — Bons plans Hacoo',
+      title: 'Frbonplan — Bons plans & montres',
       text: 'Les meilleurs bons plans Hacoo, sélectionnés chaque jour.',
       url: window.location.href
     };
@@ -2671,10 +2756,10 @@
   // Style quiz
   const quizAnswers = {};
   const quizOutcomes = {
-    'confort_quotidien': { emoji:'👟', title:'Athleisure & confort', desc:'Votre style : confortable et décontracté au quotidien.' },
-    'confort_sortie': { emoji:'👗', title:'Casual & Soirée', desc:'Confortable mais soigné pour sortir sans y penser.' },
-    'allure_quotidien': { emoji:'👜', title:'Accessoires', desc:'Un détail qui change tout, même un jour normal.' },
-    'allure_sortie': { emoji:'🧥', title:'Outerwear', desc:'Une pièce qui marque, pensée pour se faire remarquer.' }
+    'confort_quotidien': { emoji:'👟', title:'Athleisure & confort', desc:'Votre style : confortable et décontracté au quotidien.', link:'https://www.hacoo.pl/@frbonplan', cta:'Voir la sélection →' },
+    'confort_sortie': { emoji:'👗', title:'Casual & Soirée', desc:'Confortable mais soigné pour sortir sans y penser.', link:'https://www.hacoo.pl/@frbonplan', cta:'Voir la sélection →' },
+    'allure_quotidien': { emoji:'👜', title:'Accessoires', desc:'Un détail qui change tout, même un jour normal.', link:'https://www.hacoo.pl/@frbonplan', cta:'Voir la sélection →' },
+    'allure_sortie': { emoji:'⌚', title:'Une montre qui marque', desc:'Pour se faire remarquer, rien ne vaut une belle montre au poignet.', link:'https://frbonplan.myshopify.com/', cta:'Voir les montres →' }
   };
   function quizAnswer(step, value){
     quizAnswers[step] = value;
@@ -2688,8 +2773,12 @@
       document.getElementById('quizEmoji').textContent = outcome.emoji;
       document.getElementById('quizTitle').textContent = outcome.title;
       document.getElementById('quizDesc').textContent = outcome.desc;
+      const quizLinkEl = document.getElementById('quizLink');
+      quizLinkEl.href = outcome.link;
+      quizLinkEl.textContent = outcome.cta;
       document.getElementById('quizStep2').classList.remove('active');
       document.getElementById('quizResult').classList.add('active');
+      trackEvent('quiz_completed', { result: outcome.title });
     }
   }
   function quizRestart(){
@@ -2700,6 +2789,27 @@
   }
 
   // Share an individual product
+  // Favorites (session-only, no storage needed — resets on reload by design)
+  let favCount = 0;
+  function toggleFav(btn){
+    const isActive = btn.classList.toggle('active');
+    btn.classList.add('pop');
+    setTimeout(() => btn.classList.remove('pop'), 400);
+    favCount += isActive ? 1 : -1;
+    favCount = Math.max(0, favCount);
+    const counter = document.getElementById('favCounter');
+    document.getElementById('favCount').textContent = favCount;
+    document.getElementById('favPlural').textContent = favCount > 1 ? 's' : '';
+    counter.classList.toggle('show', favCount > 0);
+    trackEvent('toggle_favorite', { active: isActive, product: btn.dataset.favId });
+    if(favCount === 3){
+      showToast('Vous avez du goût ! Rejoignez le canal pour ne rien manquer 👀');
+    }
+  }
+  function scrollToFavSection(){
+    document.querySelector('.shop-fav.active')?.closest('section')?.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
   function shareProduct(name, btn){
     const shareData = {
       title: 'Frbonplan — ' + name,
@@ -3111,6 +3221,34 @@
       navigator.serviceWorker.register('./sw.js').catch(() => {});
     });
   }
+
+  // Installable app prompt (Android/Chrome/Edge) + manual instructions for iOS
+  let deferredInstallPrompt = null;
+  const installBtn = document.getElementById('installAppBtn');
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    if(installBtn) installBtn.classList.add('show');
+  });
+  function triggerInstall(){
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    if(deferredInstallPrompt){
+      deferredInstallPrompt.prompt();
+      deferredInstallPrompt.userChoice.then((choice) => {
+        trackEvent('pwa_install_prompt', { outcome: choice.outcome });
+        deferredInstallPrompt = null;
+        if(installBtn) installBtn.classList.remove('show');
+      });
+    } else if(isIOS){
+      document.getElementById('iosInstallModal').classList.add('show');
+      trackEvent('pwa_install_ios_instructions', {});
+    } else {
+      showToast("Ouvrez le menu ⋮ de votre navigateur → Installer l'application");
+    }
+  }
+  window.addEventListener('appinstalled', () => trackEvent('pwa_installed', {}));
+  // Show the button on iOS too, since there's no native prompt event there
+  if(/iphone|ipad|ipod/i.test(navigator.userAgent) && installBtn) installBtn.classList.add('show');
 
   // Ripple effect on primary/ghost buttons
   document.querySelectorAll('.btn-primary, .btn-ghost, .copy-btn').forEach(btn => {
