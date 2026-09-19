@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://frbonplan.myshopify.com">
+<link rel="preload" href="unnamed.png" as="image">
 <link rel="dns-prefetch" href="https://frbonplan.myshopify.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -991,6 +992,81 @@
   .shortcuts-row kbd{background:var(--card-hi); border:1px solid var(--border); border-radius:5px; padding:2px 8px; font-family:'JetBrains Mono',monospace; color:var(--gold-soft);}
   .shortcuts-close{margin-top:16px; width:100%;}
 
+  /* COMMAND PALETTE (Ctrl/Cmd+K) */
+  .cmdk-overlay{
+    position:fixed; inset:0; z-index:300; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px);
+    display:none; align-items:flex-start; justify-content:center; padding:12vh 20px 20px;
+  }
+  .cmdk-overlay.show{display:flex;}
+  .cmdk-box{background:var(--card); border:1px solid var(--border); border-radius:16px; width:100%; max-width:520px; overflow:hidden; box-shadow:0 30px 70px rgba(0,0,0,0.5);}
+  .cmdk-input{
+    width:100%; border:none; border-bottom:1px solid var(--border); background:none; color:var(--text);
+    padding:18px 20px; font-size:1rem; outline:none; font-family:'Inter',sans-serif;
+  }
+  .cmdk-results{max-height:50vh; overflow-y:auto; padding:8px;}
+  .cmdk-item{display:flex; align-items:center; gap:12px; padding:11px 14px; border-radius:10px; cursor:pointer; color:var(--text);}
+  .cmdk-item:hover, .cmdk-item.active{background:var(--bg-alt);}
+  .cmdk-item span.cmdk-icon{font-size:1rem; width:22px; text-align:center; flex-shrink:0;}
+  .cmdk-item span.cmdk-label{font-size:0.92rem; flex:1;}
+  .cmdk-item span.cmdk-hint{font-size:0.72rem; color:var(--text-dim);}
+  .cmdk-empty{padding:20px; text-align:center; color:var(--text-dim); font-size:0.88rem;}
+
+  /* ONBOARDING TOUR */
+  .tour-overlay{position:fixed; inset:0; z-index:280; display:none;}
+  .tour-overlay.show{display:block;}
+  .tour-card{
+    position:fixed; z-index:281; background:var(--card); border:1px solid var(--gold-soft); border-radius:14px;
+    padding:18px 20px; max-width:280px; box-shadow:0 20px 50px rgba(0,0,0,0.4);
+  }
+  .tour-card h4{font-size:0.95rem; margin-bottom:6px;}
+  .tour-card p{font-size:0.85rem; color:var(--text-soft); margin:0 0 14px;}
+  .tour-card-actions{display:flex; justify-content:space-between; align-items:center;}
+  .tour-skip{background:none; border:none; color:var(--text-dim); font-size:0.8rem; cursor:pointer;}
+  .tour-next{background:var(--gold); color:#1a0f00; border:none; padding:7px 16px; border-radius:999px; font-weight:700; font-size:0.82rem; cursor:pointer;}
+  .tour-dots{display:flex; gap:5px; margin-top:12px;}
+  .tour-dots span{width:5px; height:5px; border-radius:50%; background:var(--border);}
+  .tour-dots span.done{background:var(--gold-soft);}
+  .tour-highlight{position:relative; z-index:279; box-shadow:0 0 0 4px var(--gold-soft), 0 0 0 9999px rgba(0,0,0,0.55) !important; border-radius:12px;}
+
+  /* PRODUCT SEARCH */
+  .catalog-search{max-width:420px; margin:0 auto 24px;}
+  .catalog-search input{
+    width:100%; background:var(--card); border:1px solid var(--border); color:var(--text);
+    padding:12px 18px; border-radius:999px; font-size:0.92rem; outline:none; font-family:'Inter',sans-serif;
+  }
+  .catalog-search input:focus{border-color:var(--gold-soft);}
+  .catalog-no-results{text-align:center; color:var(--text-dim); padding:20px; display:none;}
+  .catalog-no-results.show{display:block;}
+
+  /* MINI ARTICLES */
+  .tips-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .tip-card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:24px; cursor:pointer; transition:0.25s;}
+  .tip-card:hover{transform:translateY(-3px); border-color:rgba(232,138,18,0.35);}
+  .tip-card h3{font-size:1.02rem; margin-bottom:8px;}
+  .tip-card p.tip-excerpt{color:var(--text-soft); font-size:0.88rem; margin:0 0 10px; line-height:1.5;}
+  .tip-read{color:var(--gold-soft); font-size:0.82rem; font-weight:600;}
+  .tip-full{display:none; margin-top:14px; padding-top:14px; border-top:1px solid var(--border); color:var(--text-soft); font-size:0.9rem; line-height:1.65;}
+  .tip-card.open .tip-full{display:block;}
+  .tip-card.open .tip-excerpt{display:none;}
+  @media (max-width:760px){ .tips-grid{grid-template-columns:1fr;} }
+
+  /* SESSION RECAP */
+  .session-recap{
+    background:var(--card); border:1px dashed var(--border); border-radius:14px; padding:18px 22px;
+    display:flex; flex-wrap:wrap; gap:18px; align-items:center; justify-content:center; max-width:640px; margin:0 auto;
+  }
+  .session-recap-item{display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text-soft);}
+  .session-recap-item b{color:var(--gold-soft); font-family:'Space Grotesk',sans-serif;}
+
+  /* TWO SHOPS EXPLAINER */
+  .shops-explainer{display:grid; grid-template-columns:1fr auto 1fr; gap:18px; align-items:center; max-width:680px; margin:0 auto;}
+  .shops-explainer-card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:22px; text-align:center;}
+  .shops-explainer-card .se-icon{font-size:1.8rem; margin-bottom:10px;}
+  .shops-explainer-card h3{font-size:0.98rem; margin-bottom:6px;}
+  .shops-explainer-card p{font-size:0.84rem; color:var(--text-soft); margin:0; line-height:1.5;}
+  .shops-explainer-vs{color:var(--text-dim); font-size:0.8rem; font-weight:700;}
+  @media (max-width:600px){ .shops-explainer{grid-template-columns:1fr;} .shops-explainer-vs{display:none;} }
+
   /* PWA INSTALL BUTTON */
   .install-app-btn{
     position:fixed; right:22px; bottom:78px; z-index:64;
@@ -1143,16 +1219,26 @@
   .shop-fav.pop svg{animation:favPop 0.4s ease;}
   @keyframes favPop{0%{transform:scale(1);}40%{transform:scale(1.5);}100%{transform:scale(1);}}
 
-  .fav-counter{
+  .fav-counter-wrap{
     position:fixed; left:22px; bottom:134px; z-index:64;
-    display:none; align-items:center; gap:7px;
+    display:none; align-items:center; gap:8px;
+  }
+  .fav-counter-wrap.show{display:flex;}
+  .fav-counter{
+    display:flex; align-items:center; gap:7px;
     background:var(--card); border:1px solid var(--border); color:var(--text);
     padding:9px 16px; border-radius:999px; font-size:0.85rem; font-weight:600; cursor:pointer;
     box-shadow:0 10px 24px rgba(0,0,0,0.25);
   }
-  .fav-counter.show{display:flex;}
   .fav-counter svg{width:15px; height:15px; fill:var(--coral); stroke:var(--coral);}
-  @media (max-width:760px){ .fav-counter{bottom:200px; left:16px;} }
+  .fav-share-btn{
+    width:36px; height:36px; border-radius:50%; background:var(--card); border:1px solid var(--border);
+    color:var(--text-soft); display:flex; align-items:center; justify-content:center; cursor:pointer;
+    box-shadow:0 10px 24px rgba(0,0,0,0.25); transition:0.2s; flex-shrink:0;
+  }
+  .fav-share-btn:hover{border-color:var(--gold-soft); color:var(--gold-soft);}
+  .fav-share-btn svg{width:15px; height:15px;}
+  @media (max-width:760px){ .fav-counter-wrap{bottom:200px; left:16px;} }
 
   /* STYLE QUIZ */
   .quiz-box{background:var(--card); border:1px solid var(--border); border-radius:20px; padding:32px; max-width:560px; margin:0 auto;}
@@ -1545,6 +1631,28 @@
     </div>
   </div>
 
+  <section id="pourquoi-deux">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow"><span class="dot"></span>Pour bien comprendre</div>
+        <h2>Deux boutiques, un seul Frbonplan</h2>
+      </div>
+      <div class="shops-explainer reveal">
+        <div class="shops-explainer-card">
+          <div class="se-icon">🛍️</div>
+          <h3>Sélection Hacoo</h3>
+          <p>On repère et vérifie des articles déjà en vente sur Hacoo. L'achat se fait sur Hacoo, sous leur responsabilité.</p>
+        </div>
+        <div class="shops-explainer-vs">+</div>
+        <div class="shops-explainer-card">
+          <div class="se-icon">⌚</div>
+          <h3>Notre boutique de montres</h3>
+          <p>Une boutique que nous gérons nous-mêmes (Shopify), avec son propre code -20% et ses propres conditions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="montres">
     <div class="wrap">
       <div class="montre-spotlight reveal">
@@ -1710,6 +1818,34 @@
     </div>
   </section>
 
+  <section id="conseils">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow"><span class="dot"></span>Pour aller plus loin</div>
+        <h2>Deux minutes de lecture</h2>
+        <p>Ce qu'on a appris en triant des centaines d'offres.</p>
+      </div>
+      <div class="tips-grid">
+        <div class="tip-card reveal" onclick="this.classList.toggle('open')">
+          <h3>🔍 Comment repérer un vrai bon plan</h3>
+          <p class="tip-excerpt">Trois signaux simples avant de cliquer "commander".</p>
+          <div class="tip-full">
+            <p>Un vrai bon plan coche généralement trois cases : le code fonctionne encore au moment où vous l'utilisez, la réduction s'applique sur le prix affiché sans "prix barré" gonflé artificiellement, et le vendeur reste joignable après l'achat. Si l'un de ces points manque, mieux vaut vérifier avant de payer plutôt qu'après.</p>
+          </div>
+          <div class="tip-read">Lire →</div>
+        </div>
+        <div class="tip-card reveal reveal-delay-1" onclick="this.classList.toggle('open')">
+          <h3>⏱️ Pourquoi on ne poste pas tout</h3>
+          <p class="tip-excerpt">La différence entre un flux et une sélection.</p>
+          <div class="tip-full">
+            <p>Beaucoup de comptes "bons plans" republient tout ce qui passe, parce que plus de volume veut souvent dire plus de clics à court terme. On fait l'inverse : chaque offre est regardée avant publication, et la majorité de ce qu'on repère n'est jamais publié. Moins de posts, mais un taux de codes qui fonctionnent réellement bien plus élevé.</p>
+          </div>
+          <div class="tip-read">Lire →</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="quiz">
     <div class="wrap">
       <div class="section-head reveal">
@@ -1763,6 +1899,10 @@
           </a>
         </div>
       </div>
+      <div class="catalog-search reveal">
+        <input type="text" id="catalogSearchInput" placeholder="🔍 Chercher un article (Hacoo ou montres)..." oninput="filterCatalog(this.value)">
+      </div>
+      <p class="catalog-no-results" id="catalogNoResults">Aucun article ne correspond à votre recherche.</p>
       <div class="shop-grid">
         <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Fbinbond-luxury-hollow-out-quartz-wristwatch-for-men-luminous-waterproof-mens-watch-business-sport-fashion-reloj-hommes%3Fvariant%3D54834620662099" target="_blank" rel="noopener">
           <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav1" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
@@ -2116,6 +2256,14 @@
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Que se passe-t-il si un article ne correspond pas à mes attentes ?<span class="plus">+</span></button>
         <div class="faq-a"><p>Frbonplan est une sélection indépendante : nous ne fabriquons, ne stockons et ne vendons aucun article Hacoo. Chaque achat est conclu directement avec Hacoo, qui reste seul responsable de la conformité, de la qualité et du service après-vente du produit. Pour un retour, un remboursement ou une réclamation, le contact est le support Hacoo, pas Frbonplan. Pour un achat sur notre boutique de montres, les conditions de vente, garanties et retours de cette boutique s'appliquent — consultez-les avant de commander.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr11',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr11',false)">👎 Pas clair</button></div></div>
       </div>
+      <div class="faq-item reveal" data-q="montre livraison délai boutique shopify">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Quel délai de livraison pour une montre ?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Les délais sont indiqués directement sur la fiche produit et à l'étape de commande sur notre boutique — ils peuvent varier selon le modèle. Vérifiez l'estimation affichée avant de valider votre commande.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr12',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr12',false)">👎 Pas clair</button></div></div>
+      </div>
+      <div class="faq-item reveal" data-q="montre retour remboursement garantie échange">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Puis-je retourner ou échanger une montre ?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Les conditions de retour, d'échange et de garantie de notre boutique de montres sont précisées sur le site au moment de la commande et dans l'email de confirmation. En cas de question, contactez-nous directement via Telegram avec votre numéro de commande.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr13',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr13',false)">👎 Pas clair</button></div></div>
+      </div>
       <p id="faqEmpty" style="display:none; color:var(--text-dim); text-align:center; padding:20px 0;">Aucune question ne correspond à votre recherche.</p>
     </div>
   </section>
@@ -2147,6 +2295,16 @@
           <svg viewBox="0 0 24 24"><path d="M12 2 4 8l8 6 8-6-8-6Zm0 8-8 6 8 6 8-6-8-6Z"/></svg>
           <span>Linktree</span>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="sessionRecapSection" style="display:none;">
+    <div class="wrap">
+      <div class="session-recap reveal" id="sessionRecap">
+        <div class="session-recap-item">👀 <b id="recapViews">0</b> section(s) explorée(s)</div>
+        <div class="session-recap-item">❤️ <b id="recapFavs">0</b> favori(s)</div>
+        <div class="session-recap-item">📋 <b id="recapCopies">0</b> code(s) copié(s)</div>
       </div>
     </div>
   </section>
@@ -2221,7 +2379,7 @@
 </div>
 
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">↑</button>
-<div class="kbd-hint" id="kbdHint"><kbd>C</kbd> copier · <kbd>T</kbd> Telegram · <kbd>?</kbd> aide</div>
+<div class="kbd-hint" id="kbdHint"><kbd>C</kbd> copier · <kbd>T</kbd> Telegram · <kbd>⌘K</kbd> rechercher · <kbd>?</kbd> aide</div>
 
 <button class="comfort-toggle" id="comfortToggle" onclick="toggleComfort()" aria-label="Réduire les animations" title="Réduire les animations">✨</button>
 
@@ -2230,6 +2388,7 @@
     <h3>Raccourcis clavier</h3>
     <div class="shortcuts-row"><span>Copier le code</span><kbd>C</kbd></div>
     <div class="shortcuts-row"><span>Ouvrir Telegram</span><kbd>T</kbd></div>
+    <div class="shortcuts-row"><span>Recherche rapide</span><kbd>Ctrl/⌘ K</kbd></div>
     <div class="shortcuts-row"><span>Afficher cette aide</span><kbd>?</kbd></div>
     <button class="btn-ghost shortcuts-close" onclick="toggleShortcuts(false)">Fermer</button>
   </div>
@@ -2253,6 +2412,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg>
       Partager le site
     </button>
+    <button class="fab-item" onclick="toggleFab(); openCmdk();">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      Rechercher
+    </button>
   </div>
   <button class="fab-main" onclick="toggleFab()" aria-label="Actions rapides">+</button>
 </div>
@@ -2275,10 +2438,24 @@
   </div>
 </div>
 
-<button class="fav-counter" id="favCounter" onclick="scrollToFavSection()">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
-  <span id="favCount">0</span> favori<span id="favPlural"></span>
-</button>
+<div class="cmdk-overlay" id="cmdkOverlay">
+  <div class="cmdk-box">
+    <input type="text" class="cmdk-input" id="cmdkInput" placeholder="Aller à... (Telegram, montres, FAQ, code...)" autocomplete="off">
+    <div class="cmdk-results" id="cmdkResults"></div>
+  </div>
+</div>
+
+<div class="tour-overlay" id="tourOverlay"></div>
+
+<div class="fav-counter-wrap" id="favCounterWrap">
+  <button class="fav-counter" id="favCounter" onclick="scrollToFavSection()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+    <span id="favCount">0</span> favori<span id="favPlural"></span>
+  </button>
+  <button class="fav-share-btn" id="favShareBtn" onclick="shareFavorites()" aria-label="Partager mes favoris">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg>
+  </button>
+</div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"><span class="tick">✓</span><span id="toastText">Code copié</span></div>
 
@@ -2307,6 +2484,9 @@
         link_location: link.closest('section, header, .sticky-cta, .fab-wrap, footer')?.id || link.closest('.fab-wrap') ? 'fab' : 'unknown',
         product_name: link.querySelector('h3')?.textContent?.trim() || link.textContent.trim().slice(0,60)
       });
+      if(href.includes('/discount/')){
+        showToast('✓ Code -20% appliqué — direction la boutique...');
+      }
     }
   });
 
@@ -2394,6 +2574,7 @@
       burstConfetti(btn);
       showToast('Code "' + text + '" copié');
       trackEvent('copy_code', { code: text, location: 'hero' });
+      sessionStats.copies++; updateSessionRecap();
       setTimeout(() => { btn.textContent = 'Copier'; btn.classList.remove('copied'); }, 1800);
     });
   }
@@ -2406,6 +2587,7 @@
       burstConfetti(btn);
       showToast('Code "' + text + '" copié');
       trackEvent('copy_code', { code: text, location: 'codes_section' });
+      sessionStats.copies++; updateSessionRecap();
       setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1800);
     });
   }
@@ -2723,6 +2905,17 @@
     }
   }, { passive:true });
   document.addEventListener('keydown', (e) => {
+    if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k'){
+      e.preventDefault();
+      const overlay = document.getElementById('cmdkOverlay');
+      overlay.classList.contains('show') ? closeCmdk() : openCmdk();
+      return;
+    }
+    if(e.key === 'Escape'){
+      closeCmdk();
+      toggleShortcuts(false);
+      return;
+    }
     const tag = document.activeElement.tagName;
     if(tag === 'INPUT' || tag === 'TEXTAREA') return;
     if(e.key.toLowerCase() === 'c'){
@@ -2731,8 +2924,6 @@
       window.open('https://t.me/promohacoo', '_blank', 'noopener');
     } else if(e.key === '?'){
       toggleShortcuts();
-    } else if(e.key === 'Escape'){
-      toggleShortcuts(false);
     }
   });
 
@@ -2788,19 +2979,23 @@
     document.getElementById('quizBar2').classList.remove('done');
   }
 
-  // Share an individual product
   // Favorites (session-only, no storage needed — resets on reload by design)
   let favCount = 0;
+  const favItems = [];
   function toggleFav(btn){
     const isActive = btn.classList.toggle('active');
     btn.classList.add('pop');
     setTimeout(() => btn.classList.remove('pop'), 400);
     favCount += isActive ? 1 : -1;
     favCount = Math.max(0, favCount);
-    const counter = document.getElementById('favCounter');
+    const name = btn.closest('.shop-card')?.querySelector('h3')?.textContent?.trim() || 'Article';
+    if(isActive) favItems.push(name);
+    else { const i = favItems.indexOf(name); if(i > -1) favItems.splice(i, 1); }
+    const wrap = document.getElementById('favCounterWrap');
     document.getElementById('favCount').textContent = favCount;
     document.getElementById('favPlural').textContent = favCount > 1 ? 's' : '';
-    counter.classList.toggle('show', favCount > 0);
+    wrap.classList.toggle('show', favCount > 0);
+    updateFaviconBadge(favCount);
     trackEvent('toggle_favorite', { active: isActive, product: btn.dataset.favId });
     if(favCount === 3){
       showToast('Vous avez du goût ! Rejoignez le canal pour ne rien manquer 👀');
@@ -2808,6 +3003,179 @@
   }
   function scrollToFavSection(){
     document.querySelector('.shop-fav.active')?.closest('section')?.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+  function shareFavorites(){
+    if(favItems.length === 0) return;
+    const text = 'Ma sélection Frbonplan :\n' + favItems.map(n => '• ' + n).join('\n') + '\n\n' + window.location.href;
+    if(navigator.share){
+      navigator.share({ title: 'Ma sélection Frbonplan', text, url: window.location.href }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(text).then(() => showToast('Votre sélection a été copiée'));
+    }
+    trackEvent('share_favorites', { count: favItems.length });
+  }
+
+  // Dynamic favicon badge showing the favorites count, like a real app notification
+  function updateFaviconBadge(count){
+    const size = 64;
+    const canvas = document.createElement('canvas');
+    canvas.width = size; canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.onerror = () => {};
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0, size, size);
+      if(count > 0){
+        ctx.beginPath();
+        ctx.arc(size - 14, 14, 14, 0, Math.PI * 2);
+        ctx.fillStyle = '#f0432a';
+        ctx.fill();
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 18px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(count > 9 ? '9+' : String(count), size - 14, 15);
+      }
+      let link = document.querySelector('link[rel="icon"][data-dynamic]');
+      if(!link){
+        link = document.createElement('link');
+        link.rel = 'icon';
+        link.setAttribute('data-dynamic', 'true');
+        document.head.appendChild(link);
+      }
+      link.href = canvas.toDataURL('image/png');
+    };
+    img.src = 'unnamed.png';
+  }
+
+  // ===== COMMAND PALETTE (Ctrl/Cmd+K) =====
+  const cmdkItems = [
+    { icon:'🏠', label:'Accueil', hint:'section', action: () => scrollToId('accueil') },
+    { icon:'🎯', label:'Notre mission', hint:'section', action: () => scrollToId('mission') },
+    { icon:'📝', label:'Quiz de style', hint:'section', action: () => scrollToId('quiz') },
+    { icon:'🛍️', label:'Boutique — coups de cœur', hint:'section', action: () => scrollToId('boutique') },
+    { icon:'⌚', label:'Boutique de montres', hint:'section', action: () => scrollToId('montres') },
+    { icon:'🏷️', label:'Offres Hacoo', hint:'section', action: () => scrollToId('offres') },
+    { icon:'🎟️', label:'Codes promo', hint:'section', action: () => scrollToId('codes') },
+    { icon:'💬', label:'Avis clients', hint:'section', action: () => scrollToId('avis') },
+    { icon:'❓', label:'FAQ', hint:'section', action: () => scrollToId('faq') },
+    { icon:'📋', label:'Copier le code Frbonplan', hint:'action', action: () => copyCode(document.getElementById('copyBtn')) },
+    { icon:'📨', label:'Ouvrir Telegram', hint:'lien', action: () => window.open('https://t.me/promohacoo','_blank','noopener') },
+    { icon:'⌚', label:'Ouvrir la boutique montres', hint:'lien', action: () => window.open('https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F','_blank','noopener') },
+    { icon:'🎡', label:'Faire tourner la roue', hint:'action', action: () => { scrollToId('codes'); setTimeout(spinWheel, 500); } },
+    { icon:'🌙', label:'Changer de thème', hint:'action', action: () => toggleTheme() },
+  ];
+  function scrollToId(id){
+    document.getElementById(id)?.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+  let cmdkActiveIndex = 0;
+  function openCmdk(){
+    document.getElementById('cmdkOverlay').classList.add('show');
+    const input = document.getElementById('cmdkInput');
+    input.value = '';
+    renderCmdkResults('');
+    setTimeout(() => input.focus(), 50);
+    trackEvent('cmdk_opened', {});
+  }
+  function closeCmdk(){
+    document.getElementById('cmdkOverlay').classList.remove('show');
+  }
+  function renderCmdkResults(query){
+    const q = query.trim().toLowerCase();
+    const filtered = cmdkItems.filter(it => it.label.toLowerCase().includes(q));
+    const wrap = document.getElementById('cmdkResults');
+    cmdkActiveIndex = 0;
+    if(filtered.length === 0){
+      wrap.innerHTML = '<div class="cmdk-empty">Aucun résultat</div>';
+      wrap.dataset.filteredIds = '';
+      return;
+    }
+    wrap.innerHTML = filtered.map((it, i) => {
+      const realIdx = cmdkItems.indexOf(it);
+      return '<div class="cmdk-item ' + (i===0?'active':'') + '" onclick="runCmdkItem(' + realIdx + ')">' +
+        '<span class="cmdk-icon">' + it.icon + '</span>' +
+        '<span class="cmdk-label">' + it.label + '</span>' +
+        '<span class="cmdk-hint">' + it.hint + '</span></div>';
+    }).join('');
+    wrap.dataset.filteredIds = filtered.map(it => cmdkItems.indexOf(it)).join(',');
+  }
+  function runCmdkItem(index){
+    closeCmdk();
+    cmdkItems[index].action();
+  }
+  function updateCmdkActive(){
+    document.querySelectorAll('.cmdk-item').forEach((el, i) => el.classList.toggle('active', i === cmdkActiveIndex));
+  }
+
+  // ===== ONBOARDING TOUR (first visit only, per session) =====
+  const tourSteps = [
+    { selector: '.ticket', title: 'Le code du jour', text: 'Votre code promo est toujours ici, copiable en un clic.' },
+    { selector: 'a[href="#boutique"]', title: 'La boutique', text: 'Nos coups de cœur Hacoo ET nos montres, au même endroit.' },
+    { selector: '.theme-toggle', title: 'Recherche rapide', text: 'Appuyez sur Ctrl/⌘ + K à tout moment pour sauter où vous voulez.' },
+  ];
+  let tourIndex = 0;
+  let sessionTourShown = false;
+  function startTour(){
+    document.getElementById('tourOverlay').classList.add('show');
+    showTourStep(0);
+  }
+  function showTourStep(i){
+    document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
+    document.querySelectorAll('.tour-card').forEach(el => el.remove());
+    if(i >= tourSteps.length){ endTour(); return; }
+    tourIndex = i;
+    const step = tourSteps[i];
+    const target = document.querySelector(step.selector);
+    if(!target){ showTourStep(i+1); return; }
+    target.classList.add('tour-highlight');
+    target.scrollIntoView({ behavior:'smooth', block:'center' });
+    setTimeout(() => {
+      const rect = target.getBoundingClientRect();
+      const card = document.createElement('div');
+      card.className = 'tour-card';
+      card.style.top = Math.min(window.innerHeight - 180, Math.max(20, rect.bottom + 14)) + 'px';
+      card.style.left = Math.min(window.innerWidth - 300, Math.max(20, rect.left)) + 'px';
+      card.innerHTML = '<h4>' + step.title + '</h4><p>' + step.text + '</p>' +
+        '<div class="tour-card-actions"><button class="tour-skip" onclick="endTour()">Passer</button>' +
+        '<button class="tour-next" onclick="nextTourStep()">' + (i === tourSteps.length-1 ? 'Terminer' : 'Suivant') + '</button></div>' +
+        '<div class="tour-dots">' + tourSteps.map((_,d)=>'<span class="' + (d<=i?'done':'') + '"></span>').join('') + '</div>';
+      document.body.appendChild(card);
+    }, 400);
+  }
+  function nextTourStep(){ showTourStep(tourIndex + 1); }
+  function endTour(){
+    document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
+    document.querySelectorAll('.tour-card').forEach(el => el.remove());
+    document.getElementById('tourOverlay').classList.remove('show');
+    trackEvent('tour_completed', { steps_seen: tourIndex });
+  }
+
+  // ===== CATALOG SEARCH (filters every product card site-wide) =====
+  function filterCatalog(query){
+    const q = query.trim().toLowerCase();
+    const cards = document.querySelectorAll('.shop-card');
+    let visible = 0;
+    cards.forEach(card => {
+      const name = card.querySelector('h3')?.textContent.toLowerCase() || '';
+      const match = name.includes(q);
+      card.style.display = match ? '' : 'none';
+      if(match) visible++;
+    });
+    document.getElementById('catalogNoResults').classList.toggle('show', visible === 0 && q.length > 0);
+  }
+
+  // ===== SESSION RECAP =====
+  const sessionStats = { sectionsSeen: new Set(), copies: 0 };
+  const recapSections = ['mission','quiz','boutique','montres','offres','codes','avis','faq'];
+  function updateSessionRecap(){
+    const section = document.getElementById('sessionRecapSection');
+    if(!section) return;
+    if(sessionStats.sectionsSeen.size >= 3){
+      section.style.display = 'block';
+      document.getElementById('recapViews').textContent = sessionStats.sectionsSeen.size;
+      document.getElementById('recapFavs').textContent = typeof favCount !== 'undefined' ? favCount : 0;
+      document.getElementById('recapCopies').textContent = sessionStats.copies;
+    }
   }
 
   function shareProduct(name, btn){
@@ -3207,6 +3575,38 @@
     }, { threshold:0.6 });
     finalCtaObserver.observe(finalCtaEl);
   }
+
+  // Command palette input events
+  document.getElementById('cmdkInput').addEventListener('input', (e) => renderCmdkResults(e.target.value));
+  document.getElementById('cmdkInput').addEventListener('keydown', (e) => {
+    const ids = (document.getElementById('cmdkResults').dataset.filteredIds || '').split(',').filter(Boolean).map(Number);
+    if(ids.length === 0) return;
+    if(e.key === 'ArrowDown'){ e.preventDefault(); cmdkActiveIndex = Math.min(cmdkActiveIndex+1, ids.length-1); updateCmdkActive(); }
+    else if(e.key === 'ArrowUp'){ e.preventDefault(); cmdkActiveIndex = Math.max(cmdkActiveIndex-1, 0); updateCmdkActive(); }
+    else if(e.key === 'Enter'){ e.preventDefault(); runCmdkItem(ids[cmdkActiveIndex]); }
+  });
+  document.getElementById('cmdkOverlay').addEventListener('click', (e) => {
+    if(e.target.id === 'cmdkOverlay') closeCmdk();
+  });
+
+  // Session recap: track which sections the visitor actually scrolls through
+  const recapObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting && recapSections.includes(entry.target.id)){
+        sessionStats.sectionsSeen.add(entry.target.id);
+        updateSessionRecap();
+      }
+    });
+  }, { threshold:0.4 });
+  recapSections.forEach(id => { const el = document.getElementById(id); if(el) recapObserver.observe(el); });
+
+  // Onboarding tour — starts once per session, after a short delay
+  setTimeout(() => {
+    if(!sessionTourShown){
+      sessionTourShown = true;
+      startTour();
+    }
+  }, 3500);
 
   // Preloader
   window.addEventListener('load', () => {
