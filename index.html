@@ -7,6 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
 <meta name="theme-color" content="#0b0f14" id="themeColorMeta">
+<meta name="color-scheme" content="dark light">
+<meta name="application-name" content="Frbonplan">
+<meta name="apple-mobile-web-app-orientations" content="portrait">
 <meta property="og:title" content="Frbonplan — Bons plans Hacoo & boutique de montres">
 <meta property="og:description" content="Une sélection des meilleurs articles et bons plans Hacoo, avec des codes promo vérifiés en bonus.">
 <meta property="og:image" content="https://frbonplan.github.io/Frbonplan/unnamed.png">
@@ -20,6 +23,8 @@
 <meta name="twitter:image" content="https://frbonplan.github.io/Frbonplan/unnamed.png">
 <link rel="icon" type="image/png" href="unnamed.png">
 <link rel="apple-touch-icon" href="unnamed.png">
+<link rel="apple-touch-icon" sizes="180x180" href="unnamed.png">
+<link rel="mask-icon" href="unnamed.png" color="#d9a441">
 <link rel="manifest" href="manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,9 +33,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://frbonplan.myshopify.com">
-<link rel="preload" href="unnamed.png" as="image">
+<link rel="preload" href="unnamed.png" as="image" fetchpriority="high">
 <link rel="dns-prefetch" href="https://frbonplan.myshopify.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<!-- Polices chargées sans bloquer l'affichage : le texte apparaît immédiatement
+     avec la police système, puis bascule sur la police finale une fois prête. -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@700&display=swap" media="print" onload="this.media='all';this.onload=null;">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@700&display=swap"></noscript>
 <style>
   :root{
     --bg:#0b0f14;
@@ -76,7 +85,7 @@
       radial-gradient(900px 500px at 100% 10%, rgba(255,105,82,0.06), transparent 55%),
       var(--bg);
     color:var(--text);
-    font-family:'Inter', system-ui, sans-serif;
+    font-family:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
     position:relative;
@@ -86,7 +95,7 @@
     content:""; position:fixed; inset:0; pointer-events:none; z-index:1; opacity:0.035; mix-blend-mode:overlay;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
-  h1,h2,h3{font-family:'Space Grotesk', sans-serif; margin:0;}
+  h1,h2,h3{font-family:'Space Grotesk', system-ui, sans-serif; margin:0;}
   code, .mono{font-family:'JetBrains Mono', monospace;}
   a{color:inherit;}
   img{max-width:100%;display:block;}
@@ -174,18 +183,18 @@
     background:linear-gradient(135deg, var(--gold), var(--coral)); background-size:200% 200%;
     animation:logoShift 5s ease-in-out infinite;
     display:flex; align-items:center; justify-content:center;
-    font-family:'Space Grotesk', sans-serif; font-weight:700; color:#0b0f14; font-size:10px;
+    font-family:'Space Grotesk', system-ui, sans-serif; font-weight:700; color:#0b0f14; font-size:10px;
     border:2px solid var(--bg);
   }
   @keyframes logoShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
-  .brand-name{font-family:'Space Grotesk', sans-serif; font-weight:700; letter-spacing:0.01em; font-size:1.05rem;}
+  .brand-name{font-family:'Space Grotesk', system-ui, sans-serif; font-weight:700; letter-spacing:0.01em; font-size:1.05rem;}
   .brand-name span{color:var(--gold-soft);}
-  .brand-name small{display:block; font-family:'Inter',sans-serif; font-weight:500; font-size:0.68rem; color:var(--text-dim); letter-spacing:0.03em;}
+  .brand-name small{display:block; font-family:'Inter',system-ui,sans-serif; font-weight:600; font-size:0.68rem; color:var(--text-dim); letter-spacing:0.03em;}
 
   nav.main-nav{display:flex; align-items:center; gap:4px;}
   nav.main-nav a{
     position:relative;
-    text-decoration:none; color:var(--text-soft); font-size:0.9rem; font-weight:500;
+    text-decoration:none; color:var(--text-soft); font-size:0.9rem; font-weight:600;
     padding:8px 14px; border-radius:999px; transition:0.2s;
   }
   nav.main-nav a::after{
@@ -261,7 +270,7 @@
     background:linear-gradient(135deg, var(--gold), #d16f0a); color:#1a0f00;
     font-weight:700; font-size:0.98rem; padding:14px 26px; border-radius:999px; text-decoration:none;
     box-shadow:0 12px 28px rgba(232,138,18,0.42); transition:0.22s; border:none; cursor:pointer;
-    font-family:'Inter', sans-serif;
+    font-family:'Inter', system-ui, sans-serif;
   }
   .btn-primary::before{
     content:""; position:absolute; top:0; left:-60%; width:40%; height:100%;
@@ -273,8 +282,8 @@
   .btn-ghost{
     display:inline-flex; align-items:center; gap:8px;
     background:transparent; border:1px solid var(--border); color:var(--text-soft);
-    font-weight:500; font-size:0.95rem; padding:13px 22px; border-radius:999px; text-decoration:none; transition:0.22s;
-    cursor:pointer; font-family:'Inter', sans-serif;
+    font-weight:600; font-size:0.95rem; padding:13px 22px; border-radius:999px; text-decoration:none; transition:0.22s;
+    cursor:pointer; font-family:'Inter', system-ui, sans-serif;
   }
   .btn-ghost:hover{border-color:var(--gold-soft); color:var(--text);}
 
@@ -284,7 +293,7 @@
     display:inline-flex; align-items:center; gap:10px; font-size:0.82rem; color:var(--text-dim);
     background:var(--card); border:1px solid var(--border); padding:8px 14px; border-radius:999px;
   }
-  .countdown b{color:var(--gold-soft); font-family:'JetBrains Mono',monospace; font-weight:700;}
+  .countdown b{color:var(--gold-soft); font-family:'JetBrains Mono',ui-monospace,monospace; font-weight:700;}
 
   /* TICKET */
   .ticket{
@@ -319,7 +328,7 @@
     position:relative; overflow:visible;
     background:var(--card-hi); border:1px solid var(--border); color:var(--text);
     font-size:0.8rem; font-weight:600; padding:8px 14px; border-radius:8px; cursor:pointer; transition:0.18s;
-    font-family:'Inter', sans-serif;
+    font-family:'Inter', system-ui, sans-serif;
   }
   .copy-btn:hover{border-color:var(--gold-soft); transform:translateY(-1px);}
   .copy-btn.copied{background:var(--gold); color:#181206; border-color:var(--gold);}
@@ -327,7 +336,7 @@
   .ticket-perf{border-top:1px dashed var(--border); margin:0 0 16px;}
   .stat-strip{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
   .stat-box{text-align:center; padding:10px 6px; background:var(--bg-alt); border-radius:10px; border:1px solid var(--border);}
-  .stat-box b{display:block; font-family:'Space Grotesk',sans-serif; font-size:1.15rem; color:var(--gold-soft);}
+  .stat-box b{display:block; font-family:'Space Grotesk',system-ui,sans-serif; font-size:1.15rem; color:var(--gold-soft);}
   .stat-box span{font-size:0.72rem; color:var(--text-dim);}
 
   /* SECTIONS */
@@ -385,7 +394,7 @@
     padding:28px 16px; transition:transform 0.3s ease, border-color 0.3s ease;
   }
   .stat-card:hover{transform:translateY(-4px); border-color:rgba(217,164,65,0.35);}
-  .stat-card b{display:block; font-family:'Space Grotesk',sans-serif; font-size:2rem; color:var(--gold-soft); margin-bottom:6px;}
+  .stat-card b{display:block; font-family:'Space Grotesk',system-ui,sans-serif; font-size:2rem; color:var(--gold-soft); margin-bottom:6px;}
   .stat-card span{font-size:0.85rem; color:var(--text-soft);}
 
   /* CATEGORIES */
@@ -411,11 +420,11 @@
   .calc-input-group label{display:block; font-size:0.85rem; color:var(--text-soft); margin-bottom:8px;}
   .calc-input-wrap{display:flex; align-items:center; gap:10px; background:var(--bg-alt); border:1px solid var(--border); border-radius:12px; padding:12px 16px;}
   .calc-input-wrap input{
-    background:none; border:none; color:var(--text); font-size:1.1rem; font-family:'JetBrains Mono',monospace; width:100%; outline:none;
+    background:none; border:none; color:var(--text); font-size:1.1rem; font-family:'JetBrains Mono',ui-monospace,monospace; width:100%; outline:none;
   }
   .calc-input-wrap span{color:var(--text-dim); font-size:0.95rem;}
   .calc-result{text-align:center; padding:20px; background:var(--bg-alt); border-radius:14px; border:1px dashed var(--border);}
-  .calc-result .save-amount{font-family:'Space Grotesk',sans-serif; font-size:2rem; color:var(--gold-soft); font-weight:700;}
+  .calc-result .save-amount{font-family:'Space Grotesk',system-ui,sans-serif; font-size:2rem; color:var(--gold-soft); font-weight:700;}
   .calc-result .final-price{font-size:0.9rem; color:var(--text-soft); margin-top:6px;}
   @media (max-width:760px){ .calc-box{grid-template-columns:1fr;} }
 
@@ -452,7 +461,7 @@
   /* COUPON DOWNLOAD */
   .download-code-btn{
     display:inline-flex; align-items:center; gap:6px; margin-top:10px; background:none; border:none;
-    color:var(--text-dim); font-size:0.78rem; cursor:pointer; padding:4px 0; transition:0.2s; font-family:'Inter',sans-serif;
+    color:var(--text-dim); font-size:0.78rem; cursor:pointer; padding:4px 0; transition:0.2s; font-family:'Inter',system-ui,sans-serif;
   }
   .download-code-btn:hover{color:var(--gold-soft);}
   .download-code-btn svg{width:13px; height:13px; stroke:currentColor;}
@@ -465,7 +474,7 @@
     opacity:0; transform:translateY(8px); transition:0.4s; pointer-events:none;
   }
   .kbd-hint.show{opacity:1; transform:translateY(0);}
-  .kbd-hint kbd{background:var(--card-hi); border:1px solid var(--border); border-radius:5px; padding:1px 6px; font-family:'JetBrains Mono',monospace; color:var(--gold-soft);}
+  .kbd-hint kbd{background:var(--card-hi); border:1px solid var(--border); border-radius:5px; padding:1px 6px; font-family:'JetBrains Mono',ui-monospace,monospace; color:var(--gold-soft);}
   @media (max-width:900px){ .kbd-hint{display:none;} }
 
   /* ORDER GUIDE */
@@ -478,7 +487,7 @@
   .order-step-num{
     width:30px; height:30px; border-radius:50%; background:rgba(217,164,65,0.14); border:1px solid rgba(217,164,65,0.35);
     color:var(--gold-soft); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.85rem; flex-shrink:0;
-    font-family:'Space Grotesk',sans-serif;
+    font-family:'Space Grotesk',system-ui,sans-serif;
   }
   .order-step h3{font-size:0.96rem; margin-bottom:4px;}
   .order-step p{font-size:0.87rem; color:var(--text-soft); margin:0; line-height:1.5;}
@@ -493,7 +502,7 @@
   .stamp{
     position:absolute; top:-14px; right:18px; width:74px; height:74px; border-radius:50%;
     border:3px solid var(--coral); color:var(--coral); display:flex; align-items:center; justify-content:center;
-    flex-direction:column; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.62rem; text-align:center;
+    flex-direction:column; font-family:'Space Grotesk',system-ui,sans-serif; font-weight:700; font-size:0.62rem; text-align:center;
     transform:scale(0) rotate(-18deg); transition:transform 0.6s cubic-bezier(.34,1.56,.64,1);
     background:rgba(255,105,82,0.06); letter-spacing:0.02em; z-index:3;
   }
@@ -505,7 +514,7 @@
   .compare-panel{display:flex; align-items:center; justify-content:center; flex-direction:column; height:180px; gap:6px;}
   .compare-after{background:linear-gradient(135deg, rgba(217,164,65,0.18), rgba(255,105,82,0.1));}
   .compare-before{background:var(--card);}
-  .compare-price{font-family:'Space Grotesk',sans-serif; font-size:2.2rem; font-weight:700;}
+  .compare-price{font-family:'Space Grotesk',system-ui,sans-serif; font-size:2.2rem; font-weight:700;}
   .compare-before .compare-price{color:var(--text-dim); text-decoration:line-through;}
   .compare-after .compare-price{color:var(--gold-soft);}
   .compare-label{font-size:0.8rem; color:var(--text-soft); text-transform:uppercase; letter-spacing:0.04em;}
@@ -533,7 +542,7 @@
     flex-direction:column; position:relative; overflow:hidden;
   }
   .showcase-visual.v-code{background:var(--bg-alt); border:2px dashed rgba(217,164,65,0.4);}
-  .showcase-visual.v-code b{font-family:'Space Grotesk',sans-serif; font-size:1.7rem; color:var(--gold-soft);}
+  .showcase-visual.v-code b{font-family:'Space Grotesk',system-ui,sans-serif; font-size:1.7rem; color:var(--gold-soft);}
   .showcase-visual.v-code span{font-size:0.62rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.04em;}
   .showcase-visual.v-cat{background:linear-gradient(160deg, rgba(90,200,250,0.18), var(--card)); border:1px solid var(--border); font-size:2.2rem;}
   .showcase-visual.v-tg{background:linear-gradient(160deg, rgba(217,164,65,0.2), rgba(255,105,82,0.12)); border:1px solid rgba(217,164,65,0.35);}
@@ -561,7 +570,7 @@
   .newsletter-form{display:flex; gap:10px; max-width:440px; margin:0 auto; flex-wrap:wrap;}
   .newsletter-form input[type="email"]{
     flex:1; min-width:200px; background:var(--bg-alt); border:1px solid var(--border); color:var(--text);
-    padding:13px 18px; border-radius:999px; font-size:0.95rem; font-family:'Inter',sans-serif; outline:none;
+    padding:13px 18px; border-radius:999px; font-size:0.95rem; font-family:'Inter',system-ui,sans-serif; outline:none;
   }
   .newsletter-form input[type="email"]:focus{border-color:var(--gold-soft);}
   .newsletter-form button{white-space:nowrap;}
@@ -604,7 +613,7 @@
   .fab-wrap.open .fab-menu{opacity:1; pointer-events:auto; transform:translateY(0);}
   .fab-item{
     display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border);
-    color:var(--text); text-decoration:none; padding:10px 16px; border-radius:999px; font-size:0.85rem; font-weight:500;
+    color:var(--text); text-decoration:none; padding:10px 16px; border-radius:999px; font-size:0.85rem; font-weight:600;
     white-space:nowrap; cursor:pointer; transition:0.2s;
   }
   .fab-item:hover{border-color:var(--gold-soft); transform:translateX(3px);}
@@ -616,7 +625,7 @@
     width:38px; height:38px; border-radius:50%; margin-bottom:12px;
     background:linear-gradient(135deg, var(--gold), var(--coral)); color:#181206;
     display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.85rem;
-    font-family:'Space Grotesk',sans-serif;
+    font-family:'Space Grotesk',system-ui,sans-serif;
   }
   .testi-top{display:flex; align-items:center; gap:10px; margin-bottom:6px;}
 
@@ -643,7 +652,7 @@
   .step-num{
     width:52px; height:52px; border-radius:50%; margin:0 auto 16px; position:relative; z-index:1;
     background:var(--bg); border:2px solid var(--gold-soft); color:var(--gold-soft);
-    display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.15rem;
+    display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',system-ui,sans-serif; font-weight:700; font-size:1.15rem;
     transition:transform 0.3s ease;
   }
   .step:hover .step-num{transform:scale(1.1);}
@@ -760,7 +769,7 @@
   .montre-coupon-label{font-size:0.76rem; color:#e7d3ab; text-align:center; max-width:34ch;}
   .montre-coupon-label b{color:#f0c368;}
   .montre-coupon-row{display:flex; align-items:center; gap:12px;}
-  .montre-coupon-code{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:1.2rem; color:var(--gold-soft); letter-spacing:0.03em;}
+  .montre-coupon-code{font-family:'JetBrains Mono',ui-monospace,monospace; font-weight:700; font-size:1.2rem; color:var(--gold-soft); letter-spacing:0.03em;}
   .montre-coupon-scope{font-size:0.7rem; color:#a8916a; text-transform:uppercase; letter-spacing:0.04em;}
   .montre-guarantees{
     display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:28px;
@@ -801,7 +810,7 @@
     background:linear-gradient(135deg, var(--gold), var(--coral)); background-size:200% 200%;
     animation:logoShift 1.4s ease-in-out infinite, preloaderPulse 1.4s ease-in-out infinite;
     display:flex; align-items:center; justify-content:center;
-    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; color:#0b0f14;
+    font-family:'Space Grotesk',system-ui,sans-serif; font-weight:700; font-size:22px; color:#0b0f14;
   }
   @keyframes preloaderPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
 
@@ -834,7 +843,7 @@
   }
   .coupon:hover::before{transform:translateX(100%);}
   .coupon-head{display:flex; justify-content:space-between; align-items:center;}
-  .coupon-pct{font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.7rem; color:var(--coral); animation:pctPulse 2.6s ease-in-out infinite;}
+  .coupon-pct{font-family:'Space Grotesk',system-ui,sans-serif; font-weight:800; font-size:1.7rem; color:var(--coral); animation:pctPulse 2.6s ease-in-out infinite;}
   @keyframes pctPulse{0%,100%{text-shadow:0 0 0 transparent;}50%{text-shadow:0 0 16px rgba(240,195,104,0.55);}}
   .coupon-name{font-size:0.85rem; color:var(--text-soft);}
   .coupon-code-line{display:flex; align-items:center; justify-content:space-between; border:1px dashed var(--border); border-radius:10px; padding:12px 14px;}
@@ -863,7 +872,7 @@
   .faq-item{border-bottom:1px solid var(--border);}
   .faq-q{
     width:100%; text-align:left; background:none; border:none; color:var(--text);
-    font-family:'Inter',sans-serif; font-weight:600; font-size:1rem;
+    font-family:'Inter',system-ui,sans-serif; font-weight:600; font-size:1rem;
     padding:20px 0; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:16px;
   }
   .faq-q-text{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
@@ -878,7 +887,7 @@
   .faq-a p{color:var(--text-soft); font-size:0.92rem; line-height:1.6; margin:0;}
   .faq-search{
     width:100%; background:var(--card); border:1px solid var(--border); color:var(--text);
-    padding:12px 16px; border-radius:12px; font-size:0.92rem; margin-bottom:24px; font-family:'Inter',sans-serif;
+    padding:12px 16px; border-radius:12px; font-size:0.92rem; margin-bottom:24px; font-family:'Inter',system-ui,sans-serif;
   }
   .faq-search::placeholder{color:var(--text-dim);}
   .faq-item.hidden{display:none;}
@@ -893,7 +902,7 @@
   .social-btn:hover{transform:translateY(-4px) scale(1.03); border-color:var(--gold-soft); box-shadow:0 14px 30px rgba(0,0,0,0.32);}
   .social-btn svg{width:22px; height:22px; fill:var(--gold-soft); transition:transform 0.3s ease;}
   .social-btn:hover svg{transform:scale(1.15);}
-  .social-btn span{font-size:0.82rem; font-weight:500;}
+  .social-btn span{font-size:0.82rem; font-weight:600;}
 
   /* FINAL CTA */
   .final-cta{
@@ -1001,7 +1010,7 @@
   .shortcuts-box h3{font-size:1.05rem; margin-bottom:16px;}
   .shortcuts-row{display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); font-size:0.88rem; color:var(--text-soft);}
   .shortcuts-row:last-of-type{border-bottom:none;}
-  .shortcuts-row kbd{background:var(--card-hi); border:1px solid var(--border); border-radius:5px; padding:2px 8px; font-family:'JetBrains Mono',monospace; color:var(--gold-soft);}
+  .shortcuts-row kbd{background:var(--card-hi); border:1px solid var(--border); border-radius:5px; padding:2px 8px; font-family:'JetBrains Mono',ui-monospace,monospace; color:var(--gold-soft);}
   .shortcuts-close{margin-top:16px; width:100%;}
 
   /* COMMAND PALETTE (Ctrl/Cmd+K) */
@@ -1013,7 +1022,7 @@
   .cmdk-box{background:var(--card); border:1px solid var(--border); border-radius:16px; width:100%; max-width:520px; overflow:hidden; box-shadow:0 30px 70px rgba(0,0,0,0.5);}
   .cmdk-input{
     width:100%; border:none; border-bottom:1px solid var(--border); background:none; color:var(--text);
-    padding:18px 20px; font-size:1rem; outline:none; font-family:'Inter',sans-serif;
+    padding:18px 20px; font-size:1rem; outline:none; font-family:'Inter',system-ui,sans-serif;
   }
   .cmdk-results{max-height:50vh; overflow-y:auto; padding:8px;}
   .cmdk-item{display:flex; align-items:center; gap:12px; padding:11px 14px; border-radius:10px; cursor:pointer; color:var(--text);}
@@ -1044,7 +1053,7 @@
   .catalog-search{max-width:420px; margin:0 auto 24px;}
   .catalog-search input{
     width:100%; background:var(--card); border:1px solid var(--border); color:var(--text);
-    padding:12px 18px; border-radius:999px; font-size:0.92rem; outline:none; font-family:'Inter',sans-serif;
+    padding:12px 18px; border-radius:999px; font-size:0.92rem; outline:none; font-family:'Inter',system-ui,sans-serif;
   }
   .catalog-search input:focus{border-color:var(--gold-soft);}
   .catalog-no-results{text-align:center; color:var(--text-dim); padding:20px; display:none;}
@@ -1068,7 +1077,7 @@
     display:flex; flex-wrap:wrap; gap:18px; align-items:center; justify-content:center; max-width:640px; margin:0 auto;
   }
   .session-recap-item{display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--text-soft);}
-  .session-recap-item b{color:var(--gold-soft); font-family:'Space Grotesk',sans-serif;}
+  .session-recap-item b{color:var(--gold-soft); font-family:'Space Grotesk',system-ui,sans-serif;}
 
   /* TWO SHOPS EXPLAINER */
   .shops-explainer{display:grid; grid-template-columns:1fr auto 1fr; gap:18px; align-items:center; max-width:680px; margin:0 auto;}
@@ -1085,27 +1094,232 @@
     display:none; align-items:center; gap:8px;
     background:linear-gradient(135deg, var(--gold), #d16f0a); color:#1a0f00;
     border:none; padding:11px 18px; border-radius:999px; font-weight:700; font-size:0.86rem;
-    cursor:pointer; box-shadow:0 10px 26px rgba(232,138,18,0.4); font-family:'Inter',sans-serif;
+    cursor:pointer; box-shadow:0 10px 26px rgba(232,138,18,0.4); font-family:'Inter',system-ui,sans-serif;
   }
   .install-app-btn.show{display:flex;}
   .install-app-btn svg{width:16px; height:16px; flex-shrink:0;}
   @media (max-width:760px){ .install-app-btn{right:16px; bottom:144px; font-size:0.8rem; padding:10px 14px;} }
 
-  /* iOS INSTALL MODAL */
+  /* INSTALL MODAL (Android / iOS / ordinateur) */
   .ios-install-modal{
-    position:fixed; inset:0; z-index:270; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px);
-    display:none; align-items:center; justify-content:center; padding:20px;
+    position:fixed; inset:0; z-index:270; background:rgba(0,0,0,0.66); backdrop-filter:blur(6px);
+    display:none; align-items:flex-end; justify-content:center;
+    padding:20px calc(16px + env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) calc(16px + env(safe-area-inset-left,0px));
   }
   .ios-install-modal.show{display:flex;}
+  @media (min-width:761px){ .ios-install-modal{align-items:center;} }
   .ios-install-box{
-    position:relative; background:var(--card); border:1px solid var(--border); border-radius:18px;
-    padding:28px; max-width:340px; width:100%;
+    position:relative; background:var(--card); border:1px solid var(--border); border-radius:24px;
+    padding:26px 24px 24px; max-width:400px; width:100%;
+    box-shadow:0 30px 70px rgba(0,0,0,0.55);
+    animation:installUp .34s cubic-bezier(.2,.9,.25,1) both;
+    max-height:86vh; overflow-y:auto; -webkit-overflow-scrolling:touch;
   }
-  .ios-install-box h3{font-size:1.05rem; margin-bottom:16px;}
-  .ios-install-box ol{margin:0 0 14px; padding-left:20px; color:var(--text-soft); font-size:0.9rem; line-height:1.8;}
+  @keyframes installUp{from{opacity:0; transform:translateY(26px) scale(.97);} to{opacity:1; transform:none;}}
+  .ios-install-box h3{font-size:1.12rem; margin:0 0 4px;}
+  .ios-install-sub{color:var(--text-dim); font-size:0.82rem; margin:0 0 18px;}
+  .ios-install-box ol{margin:0 0 14px; padding:0; list-style:none; counter-reset:step;}
+  .ios-install-box ol li{
+    counter-increment:step; position:relative; padding:0 0 14px 40px;
+    color:var(--text-soft); font-size:0.9rem; line-height:1.55;
+  }
+  .ios-install-box ol li::before{
+    content:counter(step); position:absolute; left:0; top:-1px; width:26px; height:26px; border-radius:50%;
+    background:linear-gradient(135deg,var(--gold-soft),var(--gold)); color:#1a0f00;
+    font-family:'Space Grotesk',system-ui,sans-serif; font-weight:700; font-size:0.82rem;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .ios-install-box ol li:not(:last-child)::after{
+    content:''; position:absolute; left:13px; top:27px; bottom:2px; width:1px; background:var(--border);
+  }
   .ios-install-box p{color:var(--text-dim); font-size:0.82rem; margin:0;}
-  .ios-install-close{position:absolute; top:14px; right:14px; background:none; border:none; color:var(--text-dim); font-size:1.1rem; cursor:pointer;}
+  .ios-install-close{position:absolute; top:14px; right:14px; background:none; border:none; color:var(--text-dim); font-size:1.15rem; cursor:pointer; width:34px; height:34px; border-radius:50%;}
+  .ios-install-close:hover{background:var(--card-hi); color:var(--text);}
   .ios-icon{display:inline-block; transform:scale(1.1);}
+  .install-hero{display:flex; align-items:center; gap:13px; margin-bottom:18px;}
+  .install-hero img{width:56px; height:56px; border-radius:14px; object-fit:cover; border:1px solid var(--border);}
+  .install-hero-meta b{display:block; font-family:'Space Grotesk',system-ui,sans-serif; font-size:1rem;}
+  .install-hero-meta span{color:var(--text-dim); font-size:0.78rem;}
+  .install-perks{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 16px;}
+  .install-perks span{
+    font-size:0.72rem; color:var(--text-soft); background:var(--card-hi); border:1px solid var(--border);
+    padding:5px 10px; border-radius:999px;
+  }
+  .install-do-btn{
+    width:100%; border:none; cursor:pointer; margin-top:4px;
+    background:linear-gradient(135deg,var(--gold),#d16f0a); color:#1a0f00;
+    font-family:'Inter',system-ui,sans-serif; font-weight:800; font-size:0.95rem;
+    padding:14px; border-radius:999px;
+  }
+  .install-do-btn[hidden]{display:none;}
+
+  /* SECTION INSTALLATION */
+  .install-section-card{
+    display:grid; grid-template-columns:1fr auto; gap:26px; align-items:center;
+    background:linear-gradient(135deg, var(--card), var(--card-hi));
+    border:1px solid var(--border); border-radius:24px; padding:30px;
+  }
+  .install-section-card h3{font-size:1.35rem; margin:0 0 8px;}
+  .install-section-card p{color:var(--text-soft); font-size:0.92rem; margin:0 0 18px; max-width:52ch;}
+  .install-section-list{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;}
+  .install-section-list span{font-size:0.76rem; color:var(--text-soft); background:rgba(217,164,65,0.08); border:1px solid rgba(217,164,65,0.25); padding:6px 12px; border-radius:999px;}
+  .install-phone{
+    width:132px; height:250px; border-radius:26px; border:2px solid var(--border);
+    background:var(--bg-alt); position:relative; flex-shrink:0; overflow:hidden;
+    box-shadow:0 18px 40px rgba(0,0,0,0.4);
+  }
+  .install-phone::before{content:''; position:absolute; top:8px; left:50%; transform:translateX(-50%); width:44px; height:5px; border-radius:99px; background:var(--border);}
+  .install-phone-grid{position:absolute; inset:26px 14px 14px; display:grid; grid-template-columns:repeat(3,1fr); gap:11px; align-content:start;}
+  .install-phone-grid i{display:block; aspect-ratio:1; border-radius:9px; background:var(--card-hi);}
+  .install-phone-grid img{width:100%; aspect-ratio:1; border-radius:9px; object-fit:cover; box-shadow:0 0 0 2px var(--gold-soft); animation:appPop 2.8s ease-in-out infinite;}
+  @keyframes appPop{0%,100%{transform:none;} 50%{transform:scale(1.12);}}
+  .install-already{
+    display:none; align-items:center; gap:10px; background:rgba(60,190,120,0.1);
+    border:1px solid rgba(60,190,120,0.3); color:#7ee2a8; border-radius:14px; padding:12px 16px; font-size:0.88rem;
+  }
+  .install-already.show{display:flex;}
+  @media (max-width:760px){
+    .install-section-card{grid-template-columns:1fr; padding:24px; text-align:left;}
+    .install-phone{display:none;}
+  }
+
+  /* BANDEAU HORS-LIGNE + BANDEAU MISE A JOUR */
+  .net-banner{
+    position:fixed; left:50%; transform:translateX(-50%) translateY(-140%);
+    top:calc(10px + env(safe-area-inset-top,0px)); z-index:300;
+    display:flex; align-items:center; gap:10px; max-width:calc(100vw - 28px);
+    background:var(--card); border:1px solid var(--border); border-radius:999px;
+    padding:10px 18px; font-size:0.84rem; color:var(--text-soft);
+    box-shadow:0 14px 34px rgba(0,0,0,0.45); transition:transform .35s cubic-bezier(.2,.9,.25,1);
+  }
+  .net-banner.show{transform:translateX(-50%) translateY(0);}
+  .net-banner b{color:var(--text);}
+  .net-banner.offline{border-color:rgba(255,105,82,0.45);}
+  .net-banner.online{border-color:rgba(60,190,120,0.45);}
+  .net-dot{width:8px; height:8px; border-radius:50%; flex-shrink:0;}
+  .net-banner.offline .net-dot{background:var(--coral); animation:pctPulse 1.6s ease-in-out infinite;}
+  .net-banner.online .net-dot{background:#3cbe78;}
+  .update-banner{
+    position:fixed; left:50%; transform:translateX(-50%) translateY(150%);
+    bottom:calc(86px + env(safe-area-inset-bottom,0px)); z-index:300;
+    display:flex; align-items:center; gap:12px; max-width:calc(100vw - 28px);
+    background:var(--card); border:1px solid var(--gold); border-radius:16px;
+    padding:12px 14px 12px 16px; font-size:0.85rem; color:var(--text-soft);
+    box-shadow:0 16px 40px rgba(0,0,0,0.5); transition:transform .38s cubic-bezier(.2,.9,.25,1);
+  }
+  .update-banner.show{transform:translateX(-50%) translateY(0);}
+  .update-banner button{
+    border:none; cursor:pointer; background:linear-gradient(135deg,var(--gold),#d16f0a); color:#1a0f00;
+    font-family:'Inter',system-ui,sans-serif; font-weight:700; font-size:0.8rem; padding:8px 14px; border-radius:999px; white-space:nowrap;
+  }
+  .update-banner .upd-later{background:none; color:var(--text-dim); padding:8px 4px; font-weight:600;}
+  body.app-standalone .install-app-btn{display:none !important;}
+
+  /* BARRE D'ONGLETS — visible uniquement quand l'app est installée */
+  .app-tabbar{
+    display:none; position:fixed; left:0; right:0; bottom:0; z-index:72;
+    background:var(--sticky-bg); backdrop-filter:blur(16px); border-top:1px solid var(--border);
+    padding:6px 4px calc(4px + env(safe-area-inset-bottom, 0px));
+  }
+  body.app-standalone .app-tabbar{display:grid; grid-template-columns:repeat(5,1fr);}
+  body.app-standalone .sticky-cta{display:none !important;}
+  body.app-standalone{padding-bottom:calc(66px + env(safe-area-inset-bottom, 0px));}
+  .app-tab{
+    display:flex; flex-direction:column; align-items:center; gap:3px;
+    background:none; border:none; cursor:pointer; padding:7px 2px 5px;
+    color:var(--text-dim); font-size:0.62rem; font-family:'Inter',system-ui,sans-serif; font-weight:600;
+    text-decoration:none; border-radius:12px; transition:color .18s ease;
+  }
+  .app-tab svg{width:21px; height:21px; stroke-width:1.9;}
+  .app-tab.active{color:var(--gold-soft);}
+  .app-tab.active svg{stroke:var(--gold-soft);}
+  .app-tab-badge{
+    position:absolute; transform:translate(13px,-6px); background:var(--coral); color:#fff;
+    font-size:0.58rem; font-weight:700; min-width:15px; height:15px; border-radius:999px;
+    display:none; align-items:center; justify-content:center; padding:0 4px;
+  }
+  .app-tab-badge.show{display:flex;}
+
+  /* PANNEAU FAVORIS (feuille glissante) */
+  .fav-sheet-backdrop{
+    position:fixed; inset:0; z-index:274; background:rgba(0,0,0,0.6); backdrop-filter:blur(5px);
+    display:none;
+  }
+  .fav-sheet-backdrop.show{display:block;}
+  .fav-sheet{
+    position:fixed; left:0; right:0; bottom:0; z-index:275;
+    background:var(--card); border-top:1px solid var(--border);
+    border-radius:24px 24px 0 0; padding:10px 20px calc(20px + env(safe-area-inset-bottom,0px));
+    max-height:76vh; overflow-y:auto; transform:translateY(102%);
+    transition:transform .36s cubic-bezier(.2,.9,.25,1); box-shadow:0 -20px 60px rgba(0,0,0,0.5);
+  }
+  .fav-sheet.show{transform:translateY(0);}
+  @media (min-width:761px){
+    .fav-sheet{left:auto; right:22px; bottom:22px; width:380px; border-radius:22px; border:1px solid var(--border); max-height:70vh;}
+  }
+  .fav-sheet-grip{width:38px; height:4px; border-radius:99px; background:var(--border); margin:0 auto 14px;}
+  .fav-sheet h3{font-size:1.05rem; margin:0 0 4px;}
+  .fav-sheet-sub{color:var(--text-dim); font-size:0.8rem; margin:0 0 16px;}
+  .fav-sheet-item{
+    display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--border);
+  }
+  .fav-sheet-item:last-of-type{border-bottom:none;}
+  .fav-sheet-item img{width:46px; height:46px; border-radius:11px; object-fit:cover; background:var(--bg-alt); flex-shrink:0;}
+  .fav-sheet-item .fsi-txt{flex:1; min-width:0;}
+  .fav-sheet-item .fsi-txt b{display:block; font-size:0.86rem; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .fav-sheet-item .fsi-txt span{color:var(--gold-soft); font-size:0.8rem;}
+  .fav-sheet-item a.fsi-go{
+    background:var(--card-hi); border:1px solid var(--border); color:var(--text);
+    font-size:0.76rem; font-weight:600; padding:7px 12px; border-radius:999px; text-decoration:none; white-space:nowrap;
+  }
+  .fav-sheet-item button.fsi-del{background:none; border:none; color:var(--text-dim); cursor:pointer; font-size:1rem; padding:6px;}
+  .fav-sheet-actions{display:flex; gap:9px; margin-top:18px;}
+  .fav-sheet-actions button{
+    flex:1; border:none; cursor:pointer; font-family:'Inter',system-ui,sans-serif; font-weight:700;
+    font-size:0.84rem; padding:12px; border-radius:999px;
+    background:var(--card-hi); color:var(--text); border:1px solid var(--border);
+  }
+  .fav-sheet-actions button.primary{background:linear-gradient(135deg,var(--gold),#d16f0a); color:#1a0f00; border:none;}
+  .fav-sheet-empty{color:var(--text-dim); font-size:0.88rem; text-align:center; padding:26px 0;}
+
+  /* ACTION COMBINÉE : COPIER + OUVRIR */
+  .combo-btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:9px; width:100%;
+    margin-top:10px; border:1px solid var(--border); background:var(--card-hi); color:var(--text);
+    font-family:'Inter',system-ui,sans-serif; font-weight:700; font-size:0.88rem;
+    padding:13px 16px; border-radius:999px; cursor:pointer; text-decoration:none;
+  }
+  .combo-btn svg{width:16px; height:16px; flex-shrink:0;}
+  .combo-btn.done{border-color:var(--gold); color:var(--gold-soft);}
+
+  /* CONFORT TACTILE (Android / iOS) */
+  html{ -webkit-text-size-adjust:100%; }
+  body{ overscroll-behavior-y:contain; -webkit-tap-highlight-color:transparent; }
+  a, button, summary, [role="button"], input, select{ touch-action:manipulation; }
+  a:focus-visible, button:focus-visible, input:focus-visible{
+    outline:2px solid var(--gold-soft); outline-offset:3px; border-radius:6px;
+  }
+  @supports (-webkit-touch-callout:none){
+    input, select, textarea{ font-size:16px; } /* empêche le zoom auto de Safari iOS */
+  }
+
+  /* REPRENDRE LA LECTURE */
+  .resume-chip{
+    position:fixed; left:50%; transform:translateX(-50%) translateY(150%);
+    bottom:calc(86px + env(safe-area-inset-bottom,0px)); z-index:299;
+    display:flex; align-items:center; gap:10px; max-width:calc(100vw - 28px);
+    background:var(--card); border:1px solid var(--border); border-radius:16px;
+    padding:11px 12px 11px 16px; font-size:0.84rem; color:var(--text-soft);
+    box-shadow:0 16px 40px rgba(0,0,0,0.5); transition:transform .38s cubic-bezier(.2,.9,.25,1);
+  }
+  .resume-chip.show{transform:translateX(-50%) translateY(0);}
+  .resume-chip b{color:var(--text);}
+  .resume-chip button{
+    border:none; cursor:pointer; background:var(--card-hi); color:var(--text);
+    font-family:'Inter',system-ui,sans-serif; font-weight:700; font-size:0.8rem;
+    padding:8px 13px; border-radius:999px; white-space:nowrap;
+  }
+  .resume-chip button.primary{background:linear-gradient(135deg,var(--gold),#d16f0a); color:#1a0f00;}
 
   /* PRINT STYLES */
   @media print{
@@ -1190,6 +1404,11 @@
     background:linear-gradient(135deg, var(--gold-soft), var(--coral)); padding:9px; border-radius:999px;
   }
   .shop-card-img{width:100%; aspect-ratio:1/1; overflow:hidden; background:var(--bg-alt); position:relative;}
+  /* SQUELETTE D'IMAGE — évite l'écran vide pendant le chargement */
+  .shop-card-img{background:linear-gradient(100deg, var(--bg-alt) 30%, var(--card-hi) 50%, var(--bg-alt) 70%); background-size:220% 100%; animation:skelSweep 1.5s linear infinite;}
+  .shop-card-img.loaded{animation:none; background:var(--bg-alt);}
+  @keyframes skelSweep{from{background-position:120% 0;} to{background-position:-20% 0;}}
+  body.comfort-mode .shop-card-img{animation:none; background:var(--bg-alt);}
   .shop-card-img img{width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;}
   .shop-card:hover .shop-card-img img{transform:scale(1.06);}
   .shop-new-badge{
@@ -1201,7 +1420,7 @@
   .shop-price-row{display:flex; align-items:baseline; gap:10px; margin-top:auto;}
   .shop-price-old{font-size:0.85rem; color:var(--text-dim); text-decoration:line-through;}
   .shop-price-new{
-    font-family:'Space Grotesk',sans-serif; font-size:1.3rem; font-weight:800; color:#fff;
+    font-family:'Space Grotesk',system-ui,sans-serif; font-size:1.3rem; font-weight:800; color:#fff;
     background:linear-gradient(135deg, var(--coral), #ff7a4a); padding:3px 12px; border-radius:8px;
   }
   .shop-cta{
@@ -1263,7 +1482,7 @@
   .quiz-options{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
   .quiz-opt{
     background:var(--bg-alt); border:1px solid var(--border); color:var(--text); padding:14px; border-radius:12px;
-    cursor:pointer; font-size:0.9rem; text-align:center; transition:0.2s; font-family:'Inter',sans-serif;
+    cursor:pointer; font-size:0.9rem; text-align:center; transition:0.2s; font-family:'Inter',system-ui,sans-serif;
   }
   .quiz-opt:hover{border-color:var(--gold-soft); background:rgba(217,164,65,0.08);}
   .quiz-result{text-align:center;}
@@ -1288,7 +1507,7 @@
   }
   .marquee-track{display:inline-flex; gap:48px; animation:marqueeScroll 28s linear infinite;}
   .marquee:hover .marquee-track{animation-play-state:paused;}
-  .marquee-item{display:inline-flex; align-items:center; gap:10px; font-size:0.85rem; color:var(--text-soft); font-weight:500;}
+  .marquee-item{display:inline-flex; align-items:center; gap:10px; font-size:0.85rem; color:var(--text-soft); font-weight:600;}
   .marquee-item b{color:var(--gold-soft);}
   .marquee-dot{width:4px; height:4px; border-radius:50%; background:var(--text-dim);}
   @keyframes marqueeScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
@@ -1300,7 +1519,7 @@
   .faq-reactions{display:flex; gap:8px; margin-top:8px;}
   .faq-react-btn{
     background:var(--bg-alt); border:1px solid var(--border); color:var(--text-dim); font-size:0.78rem;
-    padding:5px 12px; border-radius:999px; cursor:pointer; transition:0.2s; font-family:'Inter',sans-serif;
+    padding:5px 12px; border-radius:999px; cursor:pointer; transition:0.2s; font-family:'Inter',system-ui,sans-serif;
   }
   .faq-react-btn:hover{border-color:var(--gold-soft); color:var(--text);}
   .faq-react-btn.picked{background:rgba(217,164,65,0.15); border-color:var(--gold-soft); color:var(--gold-soft);}
@@ -1363,7 +1582,7 @@
       "name": "Où utiliser les codes promo ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Cela dépend de la boutique. Sur Hacoo : collez Promofinance ou Frbonplan directement au moment du paiement, sur l'app ou le site Hacoo (-14% dans les deux cas). Sur notre boutique de montres : le code FRBONPLAN y donne -40%, pas -14% — il s'applique automatiquement via nos liens \"Découvrir la collection\", sinon collez-le vous-même au paiement sur frbonplan.myshopify.com."
+        "text": "Cela dépend de la boutique. Sur Hacoo : collez Promofinance ou Frbonplan directement au moment du paiement, sur l'app ou le site Hacoo (-14% dans les deux cas). Sur notre boutique de montres : le code FRBONPLAN y donne -40%, pas -14% — il s'applique automatiquement via nos liens \"Découvrir la collection\", sinon collez-le vous-même au moment du paiement sur notre boutique de montres."
       }
     },
     {
@@ -1371,7 +1590,7 @@
       "name": "Le code FRBONPLAN, c'est pour Hacoo ou pour la boutique de montres ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Les deux — c'est le même mot, mais l'avantage change selon où vous l'utilisez : -14% sur Hacoo, -40% sur notre boutique de montres (frbonplan.myshopify.com). Ce sont deux boutiques totalement distinctes, chacune avec ses propres conditions, même si le code partage le même nom."
+        "text": "Les deux — c'est le même mot, mais l'avantage change selon où vous l'utilisez : -14% sur Hacoo, -40% sur notre boutique de montres Frbonplan. Ce sont deux boutiques totalement distinctes, chacune avec ses propres conditions, même si le code partage le même nom."
       }
     },
     {
@@ -1379,7 +1598,7 @@
       "name": "Frbonplan est-il fiable ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui : Frbonplan ne demande jamais de paiement, ne vend rien en direct et ne gère aucune donnée bancaire — vous achetez toujours directement sur Hacoo. Chaque code est vérifié manuellement avant publication, et le canal Telegram reste ouvert et consultable à tout moment pour voir l'historique des offres partagées."
+        "text": "Oui : sur la partie Hacoo, Frbonplan ne demande jamais de paiement et ne gère aucune donnée bancaire — vous achetez directement sur Hacoo. Notre boutique de montres, elle, est notre propre boutique, avec un paiement sécurisé et ses propres conditions. Chaque code est vérifié manuellement avant publication, et le canal Telegram reste ouvert et consultable à tout moment pour voir l'historique des offres partagées."
       }
     },
     {
@@ -1501,7 +1720,11 @@
   ]
 }
 </script>
-<!-- Google Analytics 4 — déjà configuré avec l'identifiant G-X63CVF6T6L -->
+<!-- Google Analytics 4 — chargement asynchrone natif (async) : le script est
+     demandé tout de suite mais n'a jamais bloqué l'affichage de la page, et
+     chaque visite est comptée dès l'arrivée, y compris les rebonds rapides. -->
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://www.google-analytics.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-X63CVF6T6L"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -1537,6 +1760,7 @@
   <a href="#offres" data-section="offres" data-label="Offres"></a>
   <a href="#codes" data-section="codes" data-label="Codes"></a>
   <a href="#avis" data-section="avis" data-label="Avis"></a>
+  <a href="#installer" data-section="installer" data-label="Installer l'app"></a>
   <a href="#faq" data-section="faq" data-label="FAQ"></a>
 </nav>
 
@@ -1557,6 +1781,7 @@
       <a href="#offres" data-section="offres">Offres</a>
       <a href="#codes" data-section="codes">Codes promo</a>
       <a href="#avis" data-section="avis">Avis</a>
+      <a href="#installer" data-section="installer">App</a>
       <a href="#faq" data-section="faq">FAQ</a>
     </nav>
     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Changer de thème" title="Changer de thème">🌙</button>
@@ -1571,6 +1796,7 @@
     <a href="#offres" onclick="toggleMenu()">Offres</a>
     <a href="#codes" onclick="toggleMenu()">Codes promo</a>
     <a href="#avis" onclick="toggleMenu()">Avis</a>
+    <a href="#installer" onclick="toggleMenu()">Installer l'app</a>
     <a href="#faq" onclick="toggleMenu()">FAQ</a>
     <a href="https://t.me/promohacoo" target="_blank" rel="noopener">Rejoindre le Telegram</a>
   </div>
@@ -1628,11 +1854,15 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"/></svg>
           Télécharger le code en image
         </button>
+        <button class="combo-btn" id="comboBtn" type="button" onclick="copyAndGo(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copier le code puis ouvrir Hacoo
+        </button>
         <div class="ticket-perf"></div>
         <div class="stat-strip">
           <div class="stat-box"><b><span id="counterMembers">0</span>+</b><span>Membres</span></div>
+          <div class="stat-box"><b>1200+</b><span>Commandes</span></div>
           <div class="stat-box"><b>14%</b><span>Réduction</span></div>
-          <div class="stat-box"><b>2026</b><span>Depuis</span></div>
         </div>
       </div>
     </div>
@@ -1644,10 +1874,10 @@
 
   <div class="wrap">
     <div class="trust-bar reveal in-view">
-      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg>Aucun paiement jamais demandé</div>
+      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg>Aucun paiement sur cette page</div>
       <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Codes vérifiés manuellement</div>
       <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Support direct sur Telegram</div>
-      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Aucune donnée bancaire collectée</div>
+      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Aucune donnée bancaire collectée ici</div>
     </div>
   </div>
 
@@ -1667,7 +1897,7 @@
         <div class="shops-explainer-card">
           <div class="se-icon">⌚</div>
           <h3>Notre boutique de montres</h3>
-          <p>Une boutique que nous gérons nous-mêmes (Shopify), avec son propre code <b style="color:var(--gold-soft);">-40%</b> et ses propres conditions.</p>
+          <p>Notre propre boutique, que nous gérons de A à Z : sélection, stock, expédition et service client. Son propre code <b style="color:var(--gold-soft);">-40%</b> et ses propres conditions.</p>
         </div>
       </div>
       <p style="text-align:center; font-size:0.82rem; color:var(--text-dim); margin-top:20px; max-width:56ch; margin-left:auto; margin-right:auto;">💡 Le code <b style="color:var(--text-soft);">FRBONPLAN</b> existe sur les deux boutiques, mais son avantage n'est pas le même selon où vous l'utilisez : -14% sur Hacoo, -40% chez nous.</p>
@@ -1738,8 +1968,8 @@
       <div class="grid-3">
         <div class="card reveal">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-          <h3>On ne vous vend rien</h3>
-          <p>Frbonplan ne prend jamais votre argent. Chaque achat se fait uniquement sur Hacoo, jamais ici.</p>
+          <h3>Chaque euro est assumé</h3>
+          <p>Sur Hacoo, on ne fait que sélectionner : l'achat et le service après-vente restent chez Hacoo. Sur nos montres, c'est nous qui expédions et qui répondons. Vous savez toujours à qui vous avez affaire.</p>
         </div>
         <div class="card reveal reveal-delay-1">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
@@ -1754,7 +1984,7 @@
       </div>
       <div class="protection-note reveal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4m0 4h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L14.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
-        <p><b>Avertissement :</b> Frbonplan met en avant une sélection d'articles et de codes promo Hacoo. Nous ne vendons rien nous-mêmes, ne stockons aucun article et ne recevons aucun paiement de votre part : chaque commande est passée directement auprès de Hacoo, qui reste seul responsable de la qualité, de la conformité et de la livraison des produits. En conséquence, Frbonplan ne peut être tenu responsable d'un article qui ne correspondrait pas à vos attentes, d'un retard, d'un défaut ou de tout litige lié à un achat effectué via nos liens ou codes — pour toute réclamation, le contact est le support Hacoo.</p>
+        <p><b>Avertissement :</b> Frbonplan met en avant une sélection d'articles et de codes promo Hacoo. Sur cette partie, nous ne vendons rien, ne stockons aucun article et ne recevons aucun paiement : chaque commande Hacoo est passée directement auprès de Hacoo, seul responsable de la qualité, de la conformité et de la livraison. Frbonplan ne peut donc être tenu responsable d'un article qui ne correspondrait pas à vos attentes, d'un retard, d'un défaut ou d'un litige lié à un achat effectué via nos liens ou codes Hacoo — pour toute réclamation, le contact est le support Hacoo. Notre boutique de montres est une entité distincte, avec ses propres conditions de vente, son propre service client et ses propres garanties : pour toute question la concernant, écrivez-nous directement.</p>
       </div>
     </div>
   </section>
@@ -1798,10 +2028,12 @@
         <h2>Frbonplan en chiffres</h2>
       </div>
       <div class="stats-grid">
-        <div class="stat-card reveal"><b id="statMembers">700+</b><span>Membres Telegram</span></div>
-        <div class="stat-card reveal reveal-delay-1"><b id="statOffers">800+</b><span>Posts sur Hacoo</span></div>
-        <div class="stat-card reveal reveal-delay-2"><b>14%</b><span>Réduction moyenne</span></div>
-        <div class="stat-card reveal reveal-delay-3"><b>2026</b><span>Actif depuis</span></div>
+        <div class="stat-card reveal"><b id="statMembers">850+</b><span>Membres Telegram</span></div>
+        <div class="stat-card reveal reveal-delay-1"><b id="statOffers">1000+</b><span>Posts sur Hacoo</span></div>
+        <div class="stat-card reveal reveal-delay-2"><b id="statOrders">1200+</b><span>Commandes passées via Hacoo</span></div>
+        <div class="stat-card reveal reveal-delay-3"><b id="statWatches">25+</b><span>Montres expédiées par nos soins</span></div>
+        <div class="stat-card reveal"><b>14%</b><span>Réduction Hacoo</span></div>
+        <div class="stat-card reveal reveal-delay-1"><b>2026</b><span>Actif depuis</span></div>
       </div>
     </div>
   </section>
@@ -2228,6 +2460,40 @@
     </div>
   </section>
 
+  <section id="installer">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow"><span class="dot"></span>Application</div>
+        <h2>Frbonplan, directement sur votre écran d'accueil</h2>
+        <p>Une vraie application, sans passer par un store et sans occuper d'espace sur votre téléphone.</p>
+      </div>
+      <div class="install-section-card reveal">
+        <div>
+          <h3>Installation en 10 secondes</h3>
+          <p>Ouverture immédiate, navigation plein écran, et les codes du jour restent consultables même sans réseau. Compatible Android et iPhone, y compris les dernières versions.</p>
+          <div class="install-section-list">
+            <span>✓ Aucun compte requis</span>
+            <span>✓ Aucune autorisation demandée</span>
+            <span>✓ Désinstallable en un geste</span>
+          </div>
+          <button class="btn-primary" id="installSectionBtn" onclick="triggerInstall()" style="border:none; cursor:pointer;">Installer l'application</button>
+          <div class="install-already" id="installAlready">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex-shrink:0;"><path d="M20 6 9 17l-5-5"/></svg>
+            Application déjà installée — vous y êtes. Bonne visite !
+          </div>
+        </div>
+        <div class="install-phone" aria-hidden="true">
+          <div class="install-phone-grid">
+            <i></i><i></i><i></i>
+            <i></i><img src="unnamed.png" alt=""><i></i>
+            <i></i><i></i><i></i>
+            <i></i><i></i><i></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="faq">
     <div class="wrap" style="max-width:760px;">
       <div class="section-head reveal">
@@ -2249,15 +2515,15 @@
       </div>
       <div class="faq-item reveal" data-q="codes promo utiliser paiement">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-hacoo">🛍️ Hacoo</span><span class="faq-tag faq-tag-montres">⌚ Montres</span>Où utiliser les codes promo ?</span><span class="plus">+</span></button>
-        <div class="faq-a"><p>Cela dépend de la boutique. Sur <b>Hacoo</b> : collez Promofinance ou Frbonplan directement au moment du paiement, sur l'app ou le site Hacoo (-14% dans les deux cas). Sur notre <b>boutique de montres</b> : le code FRBONPLAN y donne -40%, pas -14% — il s'applique automatiquement via nos liens "Découvrir la collection", sinon collez-le vous-même au paiement sur frbonplan.myshopify.com.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr4',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr4',false)">👎 Pas clair</button></div></div>
+        <div class="faq-a"><p>Cela dépend de la boutique. Sur <b>Hacoo</b> : collez Promofinance ou Frbonplan directement au moment du paiement, sur l'app ou le site Hacoo (-14% dans les deux cas). Sur notre <b>boutique de montres</b> : le code FRBONPLAN y donne -40%, pas -14% — il s'applique automatiquement via nos liens "Découvrir la collection", sinon collez-le vous-même au moment du paiement sur notre boutique de montres.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr4',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr4',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="frbonplan code hacoo ou montre confusion pourcentage 14 40">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-hacoo">🛍️ Hacoo</span><span class="faq-tag faq-tag-montres">⌚ Montres</span>Le code FRBONPLAN, c'est pour Hacoo ou pour la boutique de montres ?</span><span class="plus">+</span></button>
-        <div class="faq-a"><p><b>Les deux</b> — c'est le même mot, mais l'avantage change selon où vous l'utilisez : <b>-14%</b> si vous le collez sur <b>Hacoo</b>, <b>-40%</b> si vous l'utilisez sur notre <b>boutique de montres</b> (frbonplan.myshopify.com). Ce ne sont pas deux erreurs différentes ni une coquille sur le site : Hacoo et la boutique de montres sont deux boutiques totalement distinctes, chacune avec ses propres conditions, même si le code partage le même nom.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr14',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr14',false)">👎 Pas clair</button></div></div>
+        <div class="faq-a"><p><b>Les deux</b> — c'est le même mot, mais l'avantage change selon où vous l'utilisez : <b>-14%</b> si vous le collez sur <b>Hacoo</b>, <b>-40%</b> si vous l'utilisez sur notre <b>boutique de montres</b>. Ce ne sont pas deux erreurs différentes ni une coquille sur le site : Hacoo et la boutique de montres sont deux boutiques totalement distinctes, chacune avec ses propres conditions, même si le code partage le même nom.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr14',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr14',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="fiable fiabilité sérieux confiance arnaque">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-general">ℹ️ Général</span>Frbonplan est-il fiable ?</span><span class="plus">+</span></button>
-        <div class="faq-a"><p>Oui : Frbonplan ne demande jamais de paiement, ne vend rien en direct et ne gère aucune donnée bancaire — vous achetez toujours directement sur Hacoo. Chaque code est vérifié manuellement avant publication, et le canal Telegram reste ouvert et consultable à tout moment pour voir l'historique des offres partagées.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr5',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr5',false)">👎 Pas clair</button></div></div>
+        <div class="faq-a"><p>Oui. Sur la partie <b>Hacoo</b>, nous ne touchons jamais votre paiement et ne gérons aucune donnée bancaire : vous achetez directement sur Hacoo. Sur notre <b>boutique de montres</b>, c'est notre propre boutique — paiement sécurisé, expédition et service client assurés par nous. Chaque code est vérifié manuellement avant publication, et le canal Telegram reste ouvert et consultable à tout moment pour voir l'historique des offres partagées.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr5',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr5',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="délai livraison expédition combien temps recevoir colis">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-hacoo">🛍️ Hacoo</span>Quel est le délai de livraison (articles Hacoo) ?</span><span class="plus">+</span></button>
@@ -2283,7 +2549,7 @@
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-general">ℹ️ Général</span>Que se passe-t-il si un article ne correspond pas à mes attentes ?</span><span class="plus">+</span></button>
         <div class="faq-a"><p>Frbonplan est une sélection indépendante : nous ne fabriquons, ne stockons et ne vendons aucun article Hacoo. Chaque achat est conclu directement avec Hacoo, qui reste seul responsable de la conformité, de la qualité et du service après-vente du produit. Pour un retour, un remboursement ou une réclamation, le contact est le support Hacoo, pas Frbonplan. Pour un achat sur notre boutique de montres, les conditions de vente, garanties et retours de cette boutique s'appliquent — consultez-les avant de commander.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr11',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr11',false)">👎 Pas clair</button></div></div>
       </div>
-      <div class="faq-item reveal" data-q="montre livraison délai boutique shopify">
+      <div class="faq-item reveal" data-q="montre livraison délai boutique frbonplan expédition">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-montres">⌚ Montres</span>Quel délai de livraison pour une montre ?</span><span class="plus">+</span></button>
         <div class="faq-a"><p>Les délais sont indiqués directement sur la fiche produit et à l'étape de commande sur notre boutique — ils peuvent varier selon le modèle. Vérifiez l'estimation affichée avant de valider votre commande.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr12',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr12',false)">👎 Pas clair</button></div></div>
       </div>
@@ -2295,7 +2561,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="contact">
     <div class="wrap">
       <div class="section-head reveal">
         <div class="eyebrow"><span class="dot"></span>Retrouvez-nous partout</div>
@@ -2374,6 +2640,7 @@
           <li><a href="#offres">Offres</a></li>
           <li><a href="#codes">Codes promo</a></li>
           <li><a href="#avis">Avis</a></li>
+          <li><a href="#installer">Installer l'application</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
       </div>
@@ -2394,7 +2661,7 @@
       </div>
     </div>
     <div class="footer-legal">
-      <p>© 2026 Frbonplan. Frbonplan relaie une sélection d'articles et de codes promo Hacoo — il ne vend rien directement sur cette page et ne demande jamais de paiement. Tout achat Hacoo s'effectue exclusivement sur Hacoo, sous la responsabilité exclusive de Hacoo en tant que vendeur (conformité, qualité, livraison, service après-vente et litiges). Notre boutique de montres (frbonplan.myshopify.com) est une boutique distincte, avec ses propres conditions de vente et garanties. Dans tous les cas, Frbonplan décline toute responsabilité quant à la qualité, l'état, la conformité ou la livraison d'un article acheté via ses liens, ses codes, ou sa boutique ; toute réclamation relève du vendeur concerné (Hacoo ou notre boutique). Aucun résultat ni gain n'est garanti.</p>
+      <p>© 2026 Frbonplan. Frbonplan relaie une sélection d'articles et de codes promo Hacoo — il ne vend rien directement sur cette page et ne demande jamais de paiement. Tout achat Hacoo s'effectue exclusivement sur Hacoo, sous la responsabilité exclusive de Hacoo en tant que vendeur (conformité, qualité, livraison, service après-vente et litiges). Notre boutique de montres Frbonplan est une boutique distincte, avec ses propres conditions de vente et garanties. Dans tous les cas, Frbonplan décline toute responsabilité quant à la qualité, l'état, la conformité ou la livraison d'un article acheté via ses liens, ses codes, ou sa boutique ; toute réclamation relève du vendeur concerné (Hacoo ou notre boutique). Aucun résultat ni gain n'est garanti.</p>
       <div class="footer-badge" style="margin-top:10px;"><img src="unnamed.png" alt=""> Site officiel Frbonplan · <a href="https://t.me/promohacoo" target="_blank" rel="noopener" style="margin-left:4px;">Contact via Telegram</a></div>
     </div>
   </div>
@@ -2403,6 +2670,42 @@
 <div class="sticky-cta">
   <a class="btn-primary" href="https://t.me/promohacoo" target="_blank" rel="noopener">Telegram</a>
   <a class="montre-cta" style="padding:12px 10px; font-size:0.86rem;" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener">⌚ Montres</a>
+</div>
+
+<nav class="app-tabbar" id="appTabbar" aria-label="Navigation de l'application">
+  <a class="app-tab" href="#accueil" data-tab="accueil">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M9 22V12h6v10"/></svg>
+    Accueil
+  </a>
+  <a class="app-tab" href="#offres" data-tab="offres">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    Offres
+  </a>
+  <a class="app-tab" href="#codes" data-tab="codes">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a2 2 0 0 1 0-4V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v2a2 2 0 0 1 0 4v2a2 2 0 0 1 0 4v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2a2 2 0 0 1 0-4Z"/><path d="M13 7v10"/></svg>
+    Codes
+  </a>
+  <a class="app-tab" href="#montres" data-tab="montres">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 1"/><path d="M9 3h6M9 21h6"/></svg>
+    Montres
+  </a>
+  <button class="app-tab" type="button" onclick="openFavSheet()" data-tab="favoris">
+    <span class="app-tab-badge" id="tabFavBadge">0</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+    Favoris
+  </button>
+</nav>
+
+<div class="fav-sheet-backdrop" id="favSheetBackdrop" onclick="closeFavSheet()"></div>
+<div class="fav-sheet" id="favSheet" role="dialog" aria-modal="true" aria-label="Mes favoris">
+  <div class="fav-sheet-grip"></div>
+  <h3>Mes favoris</h3>
+  <p class="fav-sheet-sub" id="favSheetSub">Conservés sur cet appareil.</p>
+  <div id="favSheetList"></div>
+  <div class="fav-sheet-actions" id="favSheetActions">
+    <button type="button" onclick="shareFavorites()">Partager</button>
+    <button type="button" class="primary" onclick="closeFavSheet()">Fermer</button>
+  </div>
 </div>
 
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">↑</button>
@@ -2452,17 +2755,38 @@
   Installer l'application
 </button>
 
-<div class="ios-install-modal" id="iosInstallModal">
+<div class="ios-install-modal" id="iosInstallModal" role="dialog" aria-modal="true" aria-labelledby="installModalTitle">
   <div class="ios-install-box">
-    <button class="ios-install-close" onclick="document.getElementById('iosInstallModal').classList.remove('show')" aria-label="Fermer">✕</button>
-    <h3>Installer sur iPhone</h3>
-    <ol>
-      <li>Appuyez sur <strong>Partager</strong> <span class="ios-icon">􀈂</span> en bas de Safari</li>
-      <li>Choisissez <strong>"Sur l'écran d'accueil"</strong></li>
-      <li>Appuyez sur <strong>Ajouter</strong></li>
-    </ol>
-    <p>L'app Frbonplan apparaîtra comme n'importe quelle autre, avec son icône.</p>
+    <button class="ios-install-close" onclick="closeInstallModal()" aria-label="Fermer">✕</button>
+    <div class="install-hero">
+      <img src="unnamed.png" alt="">
+      <div class="install-hero-meta">
+        <b>Frbonplan</b>
+        <span>Bons plans &amp; montres · Gratuit</span>
+      </div>
+    </div>
+    <h3 id="installModalTitle">Installer l'application</h3>
+    <p class="ios-install-sub" id="installModalSub">Suivez ces trois étapes, c'est instantané.</p>
+    <div class="install-perks">
+      <span>⚡ Ouverture instantanée</span>
+      <span>📴 Consultable hors-ligne</span>
+      <span>🔕 Sans publicité</span>
+      <span>📦 0 Mo à télécharger</span>
+    </div>
+    <ol id="installSteps"></ol>
+    <button class="install-do-btn" id="installDoBtn" hidden onclick="runNativeInstall()">Installer maintenant</button>
+    <p id="installModalNote">L'icône Frbonplan rejoindra votre écran d'accueil, comme n'importe quelle autre application.</p>
   </div>
+</div>
+
+<div class="net-banner" id="netBanner" role="status" aria-live="polite">
+  <span class="net-dot"></span><span id="netBannerText"></span>
+</div>
+
+<div class="update-banner" id="updateBanner" role="status" aria-live="polite">
+  <span>Une nouvelle version de l'app est prête.</span>
+  <button onclick="applyAppUpdate()">Mettre à jour</button>
+  <button class="upd-later" onclick="document.getElementById('updateBanner').classList.remove('show')">Plus tard</button>
 </div>
 
 <div class="cmdk-overlay" id="cmdkOverlay">
@@ -2672,14 +2996,14 @@
   }, { threshold:0.15 });
   revealEls.forEach(el => revealObserver.observe(el));
 
-  // Animated member counter (0 -> 600)
+  // Compteur animé des membres Telegram
   let counted = false;
   const counterEl = document.getElementById('counterMembers');
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if(entry.isIntersecting && !counted){
         counted = true;
-        const target = 700;
+        const target = 850;
         const duration = 1400;
         const start = performance.now();
         function step(now){
@@ -3008,9 +3332,38 @@
     document.getElementById('quizBar2').classList.remove('done');
   }
 
-  // Favorites (session-only, no storage needed — resets on reload by design)
+  // Favoris — conservés d'une visite à l'autre, comme dans une vraie application
+  const FAV_KEY = 'frbonplan_favs';
   let favCount = 0;
   const favItems = [];
+  function saveFavs(){
+    try {
+      const ids = Array.from(document.querySelectorAll('.shop-fav.active')).map(b => b.dataset.favId);
+      localStorage.setItem(FAV_KEY, JSON.stringify(ids));
+    } catch(e){}
+  }
+  function restoreFavs(){
+    let ids = [];
+    try { ids = JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch(e){ return; }
+    if(!Array.isArray(ids) || ids.length === 0) return;
+    ids.forEach(id => {
+      const btn = document.querySelector('.shop-fav[data-fav-id="' + id + '"]');
+      if(!btn || btn.classList.contains('active')) return;
+      btn.classList.add('active');
+      favCount++;
+      const name = btn.closest('.shop-card')?.querySelector('h3')?.textContent?.trim() || 'Article';
+      favItems.push(name);
+    });
+    if(favCount > 0){
+      const wrap = document.getElementById('favCounterWrap');
+      document.getElementById('favCount').textContent = favCount;
+      document.getElementById('favPlural').textContent = favCount > 1 ? 's' : '';
+      if(wrap) wrap.classList.add('show');
+      updateFaviconBadge(favCount);
+      const tabBadge = document.getElementById('tabFavBadge');
+      if(tabBadge){ tabBadge.textContent = favCount; tabBadge.classList.add('show'); }
+    }
+  }
   function toggleFav(btn){
     const isActive = btn.classList.toggle('active');
     btn.classList.add('pop');
@@ -3025,13 +3378,17 @@
     document.getElementById('favPlural').textContent = favCount > 1 ? 's' : '';
     wrap.classList.toggle('show', favCount > 0);
     updateFaviconBadge(favCount);
+    const tabBadge = document.getElementById('tabFavBadge');
+    if(tabBadge){ tabBadge.textContent = favCount; tabBadge.classList.toggle('show', favCount > 0); }
+    if(document.getElementById('favSheet')?.classList.contains('show')) renderFavSheet();
+    saveFavs();
     trackEvent('toggle_favorite', { active: isActive, product: btn.dataset.favId });
     if(favCount === 3){
       showToast('Vous avez du goût ! Rejoignez le canal pour ne rien manquer 👀');
     }
   }
   function scrollToFavSection(){
-    document.querySelector('.shop-fav.active')?.closest('section')?.scrollIntoView({ behavior:'smooth', block:'start' });
+    openFavSheet();
   }
   function shareFavorites(){
     if(favItems.length === 0) return;
@@ -3090,6 +3447,7 @@
     { icon:'❓', label:'FAQ', hint:'section', action: () => scrollToId('faq') },
     { icon:'📋', label:'Copier le code Frbonplan', hint:'action', action: () => copyCode(document.getElementById('copyBtn')) },
     { icon:'📨', label:'Ouvrir Telegram', hint:'lien', action: () => window.open('https://t.me/promohacoo','_blank','noopener') },
+    { icon:'📲', label:"Installer l'application", hint:'app', action: () => triggerInstall() },
     { icon:'⌚', label:'Ouvrir la boutique montres', hint:'lien', action: () => window.open('https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F','_blank','noopener') },
     { icon:'🎡', label:'Faire tourner la roue', hint:'action', action: () => { scrollToId('codes'); setTimeout(spinWheel, 500); } },
     { icon:'🌙', label:'Changer de thème', hint:'action', action: () => toggleTheme() },
@@ -3643,41 +4001,228 @@
     setTimeout(() => pre.classList.add('hide'), 350);
   });
 
-  // Service Worker — active le mode application installable (PWA) et le chargement quasi-instantané
-  // au retour. Échec silencieux si sw.js n'est pas encore en ligne : ne casse jamais le site.
-  if('serviceWorker' in navigator){
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
-    });
+  /* =========================================================
+     MOTEUR APPLICATION (PWA)
+     Détection de la plateforme, installation guidée, mise à
+     jour en arrière-plan et état du réseau. Chaque bloc échoue
+     en silence : le site fonctionne même si tout est indisponible.
+     ========================================================= */
+
+  const ua = navigator.userAgent || '';
+  const isIOS = /iphone|ipad|ipod/i.test(ua) ||
+                (/Macintosh/.test(ua) && typeof document !== 'undefined' && 'ontouchend' in document);
+  const isAndroid = /android/i.test(ua);
+  const isSafari = /^((?!chrome|android|crios|fxios|edgios).)*safari/i.test(ua);
+  const isFirefox = /firefox|fxios/i.test(ua);
+  const isSamsung = /samsungbrowser/i.test(ua);
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+                       window.matchMedia('(display-mode: fullscreen)').matches ||
+                       window.matchMedia('(display-mode: minimal-ui)').matches ||
+                       window.navigator.standalone === true;
+
+  const installBtn = document.getElementById('installAppBtn');
+  const installSectionBtn = document.getElementById('installSectionBtn');
+  const installAlready = document.getElementById('installAlready');
+  let deferredInstallPrompt = null;
+
+  function markAsInstalled(){
+    document.body.classList.add('app-standalone');
+    if(installBtn) installBtn.classList.remove('show');
+    if(installSectionBtn) installSectionBtn.style.display = 'none';
+    if(installAlready) installAlready.classList.add('show');
+  }
+  if(isStandalone) markAsInstalled();
+
+  // Étapes affichées selon l'appareil réellement utilisé
+  function installStepsFor(){
+    if(isIOS && isSafari){
+      return {
+        title: "Ajouter à l'écran d'accueil",
+        sub: "Sur iPhone et iPad, l'ajout se fait depuis Safari.",
+        steps: [
+          'Appuyez sur <strong>Partager</strong> <span class="ios-icon">􀈂</span> dans la barre de Safari',
+          'Faites défiler puis choisissez <strong>« Sur l\'écran d\'accueil »</strong>',
+          'Appuyez sur <strong>Ajouter</strong> en haut à droite'
+        ],
+        note: "L'icône Frbonplan rejoindra votre écran d'accueil, comme n'importe quelle autre application."
+      };
+    }
+    if(isIOS){
+      return {
+        title: "Ouvrez d'abord Safari",
+        sub: "iOS n'autorise l'installation que depuis Safari.",
+        steps: [
+          'Appuyez sur <strong>⋯</strong> puis <strong>« Ouvrir dans Safari »</strong>',
+          'Dans Safari, touchez <strong>Partager</strong> <span class="ios-icon">􀈂</span>',
+          'Choisissez <strong>« Sur l\'écran d\'accueil »</strong> puis <strong>Ajouter</strong>'
+        ],
+        note: "Une fois ajoutée, l'app s'ouvre en plein écran, sans barre de navigateur."
+      };
+    }
+    if(isAndroid && (isFirefox || isSamsung)){
+      return {
+        title: "Installer sur Android",
+        sub: isSamsung ? "Depuis Samsung Internet." : "Depuis Firefox.",
+        steps: [
+          'Ouvrez le menu <strong>☰</strong> de votre navigateur',
+          'Choisissez <strong>« Ajouter la page à »</strong> → <strong>Écran d\'accueil</strong>',
+          'Validez avec <strong>Ajouter</strong>'
+        ],
+        note: "Astuce : sur Chrome, l'installation se fait en un seul appui."
+      };
+    }
+    if(isAndroid){
+      return {
+        title: "Installer sur Android",
+        sub: "Un appui suffit.",
+        steps: [
+          'Ouvrez le menu <strong>⋮</strong> en haut à droite',
+          'Choisissez <strong>« Installer l\'application »</strong> ou <strong>« Ajouter à l\'écran d\'accueil »</strong>',
+          'Confirmez avec <strong>Installer</strong>'
+        ],
+        note: "L'app s'ouvre en plein écran et démarre instantanément."
+      };
+    }
+    return {
+      title: "Installer sur ordinateur",
+      sub: "Chrome, Edge, Brave et Opera.",
+      steps: [
+        'Cliquez sur l\'icône <strong>⊕ Installer</strong> dans la barre d\'adresse',
+        'Ou ouvrez le menu <strong>⋮</strong> → <strong>« Installer Frbonplan »</strong>',
+        'Confirmez : l\'app s\'ouvre dans sa propre fenêtre'
+      ],
+      note: "Vous pourrez l'épingler à votre barre des tâches ou à votre Dock."
+    };
   }
 
-  // Installable app prompt (Android/Chrome/Edge) + manual instructions for iOS
-  let deferredInstallPrompt = null;
-  const installBtn = document.getElementById('installAppBtn');
+  function openInstallModal(){
+    const cfg = installStepsFor();
+    document.getElementById('installModalTitle').innerHTML = cfg.title;
+    document.getElementById('installModalSub').textContent = cfg.sub;
+    document.getElementById('installSteps').innerHTML = cfg.steps.map(x => '<li>' + x + '</li>').join('');
+    document.getElementById('installModalNote').textContent = cfg.note;
+    const doBtn = document.getElementById('installDoBtn');
+    if(doBtn) doBtn.hidden = !deferredInstallPrompt;
+    document.getElementById('iosInstallModal').classList.add('show');
+    document.body.style.overflow = 'hidden';
+    trackEvent('pwa_install_guide', { platform: isIOS ? 'ios' : (isAndroid ? 'android' : 'desktop') });
+  }
+  function closeInstallModal(){
+    document.getElementById('iosInstallModal').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('iosInstallModal').addEventListener('click', (e) => {
+    if(e.target.id === 'iosInstallModal') closeInstallModal();
+  });
+
+  function runNativeInstall(){
+    if(!deferredInstallPrompt){ return; }
+    const prompt = deferredInstallPrompt;
+    deferredInstallPrompt = null;
+    closeInstallModal();
+    prompt.prompt();
+    prompt.userChoice.then((choice) => {
+      trackEvent('pwa_install_prompt', { outcome: choice.outcome });
+      if(choice.outcome === 'accepted'){
+        if(installBtn) installBtn.classList.remove('show');
+      } else {
+        deferredInstallPrompt = prompt;
+        showToast("Vous pourrez installer l'app à tout moment depuis cette page");
+      }
+    }).catch(() => {});
+  }
+
+  function triggerInstall(){
+    if(isStandalone){
+      showToast("L'application est déjà installée 🎉");
+      return;
+    }
+    openInstallModal();
+  }
+
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredInstallPrompt = e;
-    if(installBtn) installBtn.classList.add('show');
+    if(installBtn && !isStandalone) installBtn.classList.add('show');
+    const doBtn = document.getElementById('installDoBtn');
+    if(doBtn) doBtn.hidden = false;
   });
-  function triggerInstall(){
-    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-    if(deferredInstallPrompt){
-      deferredInstallPrompt.prompt();
-      deferredInstallPrompt.userChoice.then((choice) => {
-        trackEvent('pwa_install_prompt', { outcome: choice.outcome });
-        deferredInstallPrompt = null;
-        if(installBtn) installBtn.classList.remove('show');
-      });
-    } else if(isIOS){
-      document.getElementById('iosInstallModal').classList.add('show');
-      trackEvent('pwa_install_ios_instructions', {});
+
+  window.addEventListener('appinstalled', () => {
+    trackEvent('pwa_installed', {});
+    deferredInstallPrompt = null;
+    markAsInstalled();
+    showToast('Frbonplan est installée. À bientôt sur votre écran d\'accueil !');
+  });
+
+  // Le bouton flottant reste visible sur iOS (aucun événement natif n'existe là-bas)
+  if(!isStandalone && (isIOS || isSamsung || isFirefox) && installBtn) installBtn.classList.add('show');
+
+  // --- Service Worker : cache + détection de nouvelle version ---
+  let swWaiting = null;
+  function applyAppUpdate(){
+    document.getElementById('updateBanner').classList.remove('show');
+    if(swWaiting){
+      try { swWaiting.postMessage({ type:'SKIP_WAITING' }); } catch(e){}
+      setTimeout(() => window.location.reload(), 320);
     } else {
-      showToast("Ouvrez le menu ⋮ de votre navigateur → Installer l'application");
+      window.location.reload();
     }
   }
-  window.addEventListener('appinstalled', () => trackEvent('pwa_installed', {}));
-  // Show the button on iOS too, since there's no native prompt event there
-  if(/iphone|ipad|ipod/i.test(navigator.userAgent) && installBtn) installBtn.classList.add('show');
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').then((reg) => {
+        if(reg.waiting){
+          swWaiting = reg.waiting;
+          document.getElementById('updateBanner').classList.add('show');
+        }
+        reg.addEventListener('updatefound', () => {
+          const sw = reg.installing;
+          if(!sw) return;
+          sw.addEventListener('statechange', () => {
+            if(sw.state === 'installed' && navigator.serviceWorker.controller){
+              swWaiting = sw;
+              document.getElementById('updateBanner').classList.add('show');
+              trackEvent('pwa_update_available', {});
+            }
+          });
+        });
+        // Vérifie discrètement les mises à jour au retour sur l'app
+        document.addEventListener('visibilitychange', () => {
+          if(document.visibilityState === 'visible'){ reg.update().catch(() => {}); }
+        });
+      }).catch(() => {});
+    });
+  }
+
+  // Restaure les favoris de la visite précédente
+  try { restoreFavs(); } catch(e){}
+
+  // --- État du réseau : bandeau hors-ligne / retour en ligne ---
+  (function(){
+    const banner = document.getElementById('netBanner');
+    const text = document.getElementById('netBannerText');
+    if(!banner || !text) return;
+    let hideTimer = null;
+    function show(kind, msg, autohide){
+      clearTimeout(hideTimer);
+      banner.classList.remove('offline', 'online');
+      banner.classList.add(kind, 'show');
+      text.innerHTML = msg;
+      if(autohide) hideTimer = setTimeout(() => banner.classList.remove('show'), 2600);
+    }
+    window.addEventListener('offline', () => {
+      show('offline', '<b>Hors connexion</b> — les codes déjà chargés restent lisibles', false);
+      trackEvent('network_offline', {});
+    });
+    window.addEventListener('online', () => {
+      show('online', '<b>De nouveau en ligne</b>', true);
+      trackEvent('network_online', {});
+    });
+    if(!navigator.onLine){
+      show('offline', '<b>Hors connexion</b> — les codes déjà chargés restent lisibles', false);
+    }
+  })();
 
   // Ripple effect on primary/ghost buttons
   document.querySelectorAll('.btn-primary, .btn-ghost, .copy-btn').forEach(btn => {
@@ -3695,6 +4240,317 @@
       setTimeout(() => ripple.remove(), 650);
     });
   });
+
+  /* =========================================================
+     AMÉLIORATIONS COMPLÉMENTAIRES
+     ========================================================= */
+
+  // --- A. Copier le code puis ouvrir Hacoo dans la foulée ---
+  function copyAndGo(btn){
+    const code = document.getElementById('codeText')?.textContent?.trim() || 'Frbonplan';
+    const open = () => window.open('https://www.hacoo.pl/@frbonplan', '_blank', 'noopener');
+    const done = () => {
+      btn.classList.add('done');
+      btn.childNodes[btn.childNodes.length - 1].textContent = ' Code ' + code + ' copié — Hacoo s\'ouvre…';
+      if('vibrate' in navigator){ try{ navigator.vibrate(18); }catch(e){} }
+      setTimeout(() => {
+        btn.classList.remove('done');
+        btn.childNodes[btn.childNodes.length - 1].textContent = ' Copier le code puis ouvrir Hacoo';
+      }, 3200);
+      trackEvent('copy_and_go', { code });
+      setTimeout(open, 450);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(code).then(done).catch(() => { showToast('Code : ' + code); open(); });
+    } else {
+      showToast('Code : ' + code); open();
+    }
+  }
+
+  // --- B. Panneau « Mes favoris » ---
+  function favCardData(btn){
+    const card = btn.closest('.shop-card');
+    return {
+      id: btn.dataset.favId,
+      name: card?.querySelector('h3')?.textContent?.trim() || 'Article',
+      price: card?.querySelector('.shop-price-new')?.textContent?.trim() || '',
+      img: card?.querySelector('.shop-card-img img')?.getAttribute('src') || 'unnamed.png',
+      url: card?.getAttribute('href') || '#'
+    };
+  }
+  function renderFavSheet(){
+    const list = document.getElementById('favSheetList');
+    const actions = document.getElementById('favSheetActions');
+    const sub = document.getElementById('favSheetSub');
+    if(!list) return;
+    const actives = Array.from(document.querySelectorAll('.shop-fav.active'));
+    if(actives.length === 0){
+      list.innerHTML = '<p class="fav-sheet-empty">Aucun favori pour l\'instant.<br>Touchez le cœur sur un article pour le retrouver ici.</p>';
+      if(actions) actions.style.display = 'none';
+      if(sub) sub.textContent = 'Conservés sur cet appareil.';
+      return;
+    }
+    if(actions) actions.style.display = 'flex';
+    if(sub) sub.textContent = actives.length + ' article' + (actives.length > 1 ? 's' : '') + ' conservé' + (actives.length > 1 ? 's' : '') + ' sur cet appareil.';
+    list.innerHTML = actives.map(btn => {
+      const d = favCardData(btn);
+      return '<div class="fav-sheet-item" data-fav-ref="' + d.id + '">' +
+        '<img src="' + d.img + '" alt="" loading="lazy" decoding="async">' +
+        '<div class="fsi-txt"><b>' + d.name + '</b><span>' + d.price + '</span></div>' +
+        '<a class="fsi-go" href="' + d.url + '" target="_blank" rel="noopener">Voir</a>' +
+        '<button class="fsi-del" type="button" aria-label="Retirer des favoris">✕</button>' +
+        '</div>';
+    }).join('');
+    list.querySelectorAll('.fsi-del').forEach(del => {
+      del.addEventListener('click', () => {
+        const ref = del.closest('.fav-sheet-item').dataset.favRef;
+        const src = document.querySelector('.shop-fav[data-fav-id="' + ref + '"]');
+        if(src && src.classList.contains('active')) toggleFav(src);
+        renderFavSheet();
+      });
+    });
+  }
+  function openFavSheet(){
+    renderFavSheet();
+    document.getElementById('favSheetBackdrop').classList.add('show');
+    document.getElementById('favSheet').classList.add('show');
+    document.body.style.overflow = 'hidden';
+    trackEvent('fav_sheet_opened', { count: document.querySelectorAll('.shop-fav.active').length });
+  }
+  function closeFavSheet(){
+    document.getElementById('favSheetBackdrop').classList.remove('show');
+    document.getElementById('favSheet').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && document.getElementById('favSheet')?.classList.contains('show')) closeFavSheet();
+  });
+
+  // --- C. Barre d'onglets : onglet actif selon la section visible ---
+  (function(){
+    const tabs = Array.from(document.querySelectorAll('.app-tab[data-tab]'));
+    if(tabs.length === 0) return;
+    const targets = tabs.map(t => document.getElementById(t.dataset.tab)).filter(Boolean);
+    let ticking = false;
+    function sync(){
+      ticking = false;
+      const mid = window.innerHeight * 0.4;
+      let active = 'accueil';
+      targets.forEach(sec => {
+        const r = sec.getBoundingClientRect();
+        if(r.top <= mid && r.bottom > mid) active = sec.id;
+      });
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === active));
+    }
+    window.addEventListener('scroll', () => {
+      if(!ticking){ ticking = true; requestAnimationFrame(sync); }
+    }, { passive:true });
+    sync();
+  })();
+
+  // --- D. Mode léger automatique (connexion lente, batterie faible, économiseur) ---
+  (function(){
+    const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    let reason = null;
+    if(conn && conn.saveData) reason = 'économiseur de données';
+    else if(conn && /^(slow-2g|2g|3g)$/.test(conn.effectiveType || '')) reason = 'connexion lente';
+    else if(navigator.deviceMemory && navigator.deviceMemory <= 2) reason = 'appareil léger';
+
+    function enableLight(why){
+      if(document.body.classList.contains('comfort-mode')) return;
+      document.body.classList.add('comfort-mode');
+      const canvas = document.getElementById('particleCanvas');
+      if(canvas) canvas.style.display = 'none';
+      try { if(typeof particleRAF !== 'undefined' && particleRAF){ cancelAnimationFrame(particleRAF); particleRAF = null; particleRunning = false; } } catch(e){}
+      document.querySelectorAll('.blob, .sparkle').forEach(el => el.style.display = 'none');
+      trackEvent('light_mode_auto', { reason: why });
+      setTimeout(() => showToast('Mode léger activé (' + why + ') — touche ✨ pour revenir'), 1500);
+    }
+    if(reason){ enableLight(reason); return; }
+    if(navigator.getBattery){
+      navigator.getBattery().then(b => {
+        if(b.level <= 0.2 && !b.charging) enableLight('batterie faible');
+      }).catch(() => {});
+    }
+  })();
+
+  // --- E. Squelettes d'images : retrait dès que l'image est arrivée ---
+  (function(){
+    document.querySelectorAll('.shop-card-img').forEach(box => {
+      const img = box.querySelector('img');
+      if(!img) return;
+      const mark = () => box.classList.add('loaded');
+      if(img.complete && img.naturalWidth > 0) mark();
+      else { img.addEventListener('load', mark, { once:true }); img.addEventListener('error', mark, { once:true }); }
+    });
+  })();
+
+  // --- 1. Le bouton « retour » ferme les fenêtres au lieu de quitter l'app ---
+  (function(){
+    const panels = [
+      { id:'iosInstallModal', isOpen:(el) => el.classList.contains('show'), close:() => closeInstallModal() },
+      { id:'cmdkOverlay',     isOpen:(el) => el.classList.contains('show'), close:() => closeCmdk() },
+      { id:'shortcutsModal',  isOpen:(el) => el.classList.contains('show'), close:() => toggleShortcuts(false) },
+      { id:'favSheet',        isOpen:(el) => el.classList.contains('show'), close:() => closeFavSheet() }
+    ];
+    const stack = [];
+    let closingFromHistory = false;
+
+    panels.forEach(cfg => {
+      const el = document.getElementById(cfg.id);
+      if(!el) return;
+      let wasOpen = cfg.isOpen(el);
+      new MutationObserver(() => {
+        const open = cfg.isOpen(el);
+        if(open === wasOpen) return;
+        wasOpen = open;
+        if(open){
+          stack.push(cfg);
+          try { history.pushState({ frbPanel: cfg.id }, ''); } catch(e){}
+        } else {
+          const i = stack.lastIndexOf(cfg);
+          if(i > -1) stack.splice(i, 1);
+          if(!closingFromHistory){ try { history.back(); } catch(e){} }
+        }
+      }).observe(el, { attributes:true, attributeFilter:['class','style'] });
+    });
+
+    window.addEventListener('popstate', () => {
+      const cfg = stack[stack.length - 1];
+      if(!cfg) return;
+      closingFromHistory = true;
+      try { cfg.close(); } catch(e){}
+      setTimeout(() => { closingFromHistory = false; }, 60);
+    });
+  })();
+
+  // --- 2. Rappel du code au retour d'un lien sortant ---
+  (function(){
+    const OUT_KEY = 'frbonplan_outbound';
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest && e.target.closest('a[href^="http"]');
+      if(!a) return;
+      const href = a.getAttribute('href') || '';
+      let code = null;
+      if(href.includes('hacoo')) code = 'Frbonplan';
+      else if(href.includes('myshopify.com')) code = 'FRBONPLAN';
+      if(!code) return;
+      try { sessionStorage.setItem(OUT_KEY, JSON.stringify({ code, t: Date.now() })); } catch(err){}
+    }, true);
+
+    let reminded = false;
+    document.addEventListener('visibilitychange', () => {
+      if(document.visibilityState !== 'visible' || reminded) return;
+      let data = null;
+      try { data = JSON.parse(sessionStorage.getItem(OUT_KEY) || 'null'); } catch(err){ return; }
+      if(!data) return;
+      const elapsed = Date.now() - data.t;
+      if(elapsed < 8000 || elapsed > 3600000) return;
+      reminded = true;
+      try { sessionStorage.removeItem(OUT_KEY); } catch(err){}
+      setTimeout(() => {
+        showToast('De retour ? Pensez au code ' + data.code + ' au moment de payer 💡');
+      }, 900);
+      trackEvent('code_reminder_shown', { code: data.code });
+    });
+  })();
+
+  // --- 3. Reprendre la lecture là où on s'était arrêté ---
+  (function(){
+    const POS_KEY = 'frbonplan_lastsection';
+    const labels = {
+      montres:'les montres', mission:'la mission', fonctionnement:'le fonctionnement',
+      chiffres:'les chiffres', categories:'les catégories', conseils:'les conseils',
+      quiz:'le quiz', boutique:'la boutique', offres:'les offres', codes:'les codes promo',
+      avis:'les avis', installer:"l'installation de l'app", faq:'la FAQ', contact:'les réseaux'
+    };
+    const sections = Array.from(document.querySelectorAll('main section[id]'));
+    let saveTimer = null;
+    window.addEventListener('scroll', () => {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        const mid = window.innerHeight * 0.35;
+        let current = null;
+        sections.forEach(sec => {
+          const r = sec.getBoundingClientRect();
+          if(r.top <= mid && r.bottom > mid) current = sec.id;
+        });
+        try {
+          if(current && labels[current]) localStorage.setItem(POS_KEY, JSON.stringify({ id:current, t:Date.now() }));
+          else if(window.scrollY < 300) localStorage.removeItem(POS_KEY);
+        } catch(e){}
+      }, 700);
+    }, { passive:true });
+
+    if(window.scrollY > 200 || location.hash) return;
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem(POS_KEY) || 'null'); } catch(e){ return; }
+    if(!saved || !labels[saved.id]) return;
+    if(Date.now() - saved.t > 7 * 24 * 3600 * 1000) return;
+
+    const chip = document.createElement('div');
+    chip.className = 'resume-chip';
+    chip.setAttribute('role', 'status');
+    chip.innerHTML = '<span>Reprendre à <b>' + labels[saved.id] + '</b> ?</span>' +
+                     '<button class="primary" type="button">Reprendre</button>' +
+                     '<button type="button">Non</button>';
+    document.body.appendChild(chip);
+    const btns = chip.querySelectorAll('button');
+    const hide = () => chip.classList.remove('show');
+    btns[0].addEventListener('click', () => {
+      document.getElementById(saved.id)?.scrollIntoView({ behavior:'smooth', block:'start' });
+      hide();
+      trackEvent('resume_reading', { section: saved.id });
+    });
+    btns[1].addEventListener('click', () => {
+      hide();
+      try { localStorage.removeItem(POS_KEY); } catch(e){}
+    });
+    setTimeout(() => chip.classList.add('show'), 1600);
+    setTimeout(hide, 12000);
+  })();
+
+  // --- 4. Images : décodage asynchrone + priorité au logo ---
+  (function(){
+    document.querySelectorAll('img').forEach(img => {
+      if(!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+      if(img.classList.contains('logo-photo')){
+        img.setAttribute('fetchpriority', 'high');
+      } else if(!img.hasAttribute('loading')){
+        img.setAttribute('loading', 'lazy');
+      }
+    });
+  })();
+
+  // --- 5. Accessibilité des fenêtres : Échap, focus piégé, focus rendu ---
+  (function(){
+    const modal = document.getElementById('iosInstallModal');
+    if(!modal) return;
+    let lastFocus = null;
+    const focusables = () => Array.from(modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
+      .filter(el => el.offsetParent !== null);
+
+    new MutationObserver(() => {
+      if(modal.classList.contains('show')){
+        lastFocus = document.activeElement;
+        setTimeout(() => focusables()[0]?.focus(), 60);
+      } else if(lastFocus){
+        try { lastFocus.focus(); } catch(e){}
+        lastFocus = null;
+      }
+    }).observe(modal, { attributes:true, attributeFilter:['class'] });
+
+    document.addEventListener('keydown', (e) => {
+      if(!modal.classList.contains('show')) return;
+      if(e.key === 'Escape'){ e.preventDefault(); closeInstallModal(); return; }
+      if(e.key !== 'Tab') return;
+      const list = focusables();
+      if(list.length === 0) return;
+      const first = list[0], last = list[list.length - 1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    });
+  })();
 
   // Touch swipe for testimonial carousel
   let touchStartX = 0;
