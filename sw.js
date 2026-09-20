@@ -1,42 +1,95 @@
-// Service Worker Frbonplan — mise en cache légère, stratégie "réseau d'abord"
-// pour ne jamais bloquer une mise à jour du site, avec repli hors-ligne.
-const CACHE_NAME = 'frbonplan-cache-v1';
-const PRECACHE_URLS = [
+/* Frbonplan — Service Worker
+   Stratégie :
+   - navigation (index.html)  : réseau d'abord, cache en secours (= page lisible hors-ligne)
+   - images / css / js locaux : cache d'abord, rafraîchi en arrière-plan
+   - tout le reste (CDN, Shopify, Google) : jamais mis en cache
+   Pour publier une nouvelle version : incrémentez CACHE_VERSION. */
+
+const CACHE_VERSION = 'v4';
+const CACHE_NAME = 'frbonplan-' + CACHE_VERSION;
+
+const PRECACHE = [
   './',
   './index.html',
-  './unnamed.png'
+  './manifest.json',
+  './unnamed.png',
+  './produit-ecouteurs.jpg',
+  './produit-polo.png',
+  './produit-sneakers.png',
+  './produit-tshirt.png'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(PRECACHE_URLS))
-      .catch(() => {}) // ne bloque jamais l'installation si un fichier manque
+      .then((cache) => Promise.allSettled(PRECACHE.map((url) => cache.add(url))))
+      .catch(() => {})
   );
-  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
-    )
-  );
-  self.clients.claim();
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)));
+    if (self.registration.navigationPreload) {
+      try { await self.registration.navigationPreload.enable(); } catch (e) {}
+    }
+    await self.clients.claim();
+  })());
+});
+
+// Permet au bandeau « Mettre à jour » d'activer immédiatement la nouvelle version
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') self.skipWaiting();
 });
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
+  const req = event.request;
+  if (req.method !== 'GET') return;
 
-  event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy)).catch(() => {});
-        return response;
-      })
-      .catch(() =>
-        caches.match(event.request).then((cached) => cached || caches.match('./index.html'))
-      )
-  );
+  const url = new URL(req.url);
+  const sameOrigin = url.origin === self.location.origin;
+
+  // Pages : réseau d'abord pour toujours avoir le contenu à jour
+  if (req.mode === 'navigate') {
+    event.respondWith((async () => {
+      try {
+        const preload = await event.preloadResponse;
+        if (preload) {
+          const cache = await caches.open(CACHE_NAME);
+          cache.put('./index.html', preload.clone()).catch(() => {});
+          return preload;
+        }
+        const fresh = await fetch(req);
+        const cache = await caches.open(CACHE_NAME);
+        cache.put('./index.html', fresh.clone()).catch(() => {});
+        return fresh;
+      } catch (e) {
+        const cached = await caches.match('./index.html');
+        return cached || new Response(
+          '<!doctype html><meta charset="utf-8"><title>Hors connexion</title>' +
+          '<body style="background:#0b0f14;color:#f5f3ee;font-family:system-ui;text-align:center;padding:60px 24px">' +
+          '<h1 style="font-size:1.2rem">Pas de connexion</h1>' +
+          '<p style="color:#a8b0bc;font-size:.9rem">Reconnectez-vous puis rouvrez Frbonplan.</p></body>',
+          { headers: { 'Content-Type': 'text/html; charset=utf-8' } }
+        );
+      }
+    })());
+    return;
+  }
+
+  // Ressources du site : cache d'abord, mise à jour silencieuse ensuite
+  if (sameOrigin) {
+    event.respondWith((async () => {
+      const cached = await caches.match(req);
+      const network = fetch(req).then((res) => {
+        if (res && res.status === 200 && res.type === 'basic') {
+          caches.open(CACHE_NAME).then((c) => c.put(req, res.clone())).catch(() => {});
+        }
+        return res;
+      }).catch(() => cached);
+      return cached || network;
+    })());
+  }
+  // Domaines externes : on laisse passer sans jamais mettre en cache
 });
