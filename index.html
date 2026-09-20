@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <title>Frbonplan — Bons plans Hacoo & boutique de montres</title>
 <meta name="description" content="Frbonplan : bons plans Hacoo sélectionnés à la main et boutique de montres en propre. Codes promo, qualité vérifiée, aucune fausse promesse.">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
 <meta name="theme-color" content="#0b0f14" id="themeColorMeta">
 <meta property="og:title" content="Frbonplan — Bons plans Hacoo & boutique de montres">
 <meta property="og:description" content="Une sélection des meilleurs articles et bons plans Hacoo, avec des codes promo vérifiés en bonus.">
@@ -12,6 +13,7 @@
 <meta property="og:url" content="https://frbonplan.github.io/Frbonplan/">
 <link rel="canonical" href="https://frbonplan.github.io/Frbonplan/">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Frbonplan — Bons plans Hacoo & boutique de montres">
 <meta name="twitter:description" content="Sélection quotidienne d'articles et codes promo Hacoo, vérifiés à la main — et boutique officielle Frbonplan dédiée aux montres.">
@@ -19,6 +21,10 @@
 <link rel="icon" type="image/png" href="unnamed.png">
 <link rel="apple-touch-icon" href="unnamed.png">
 <link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Frbonplan">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://frbonplan.myshopify.com">
@@ -153,6 +159,7 @@
     background:var(--header-bg);
     backdrop-filter:blur(14px);
     border-bottom:1px solid var(--border);
+    padding-top:env(safe-area-inset-top, 0px);
   }
   .header-inner{display:flex; align-items:center; justify-content:space-between; padding:12px 24px; max-width:1600px; margin:0 auto;}
   .brand{display:flex; align-items:center; gap:11px; text-decoration:none;}
@@ -859,10 +866,15 @@
     font-family:'Inter',sans-serif; font-weight:600; font-size:1rem;
     padding:20px 0; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:16px;
   }
+  .faq-q-text{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .faq-tag{font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; padding:3px 9px; border-radius:999px; flex-shrink:0; white-space:nowrap;}
+  .faq-tag-hacoo{background:rgba(90,200,250,0.14); color:#7cc4ea; border:1px solid rgba(90,200,250,0.32);}
+  .faq-tag-montres{background:rgba(240,195,104,0.14); color:var(--gold-soft); border:1px solid rgba(240,195,104,0.32);}
+  .faq-tag-general{background:var(--card-hi); color:var(--text-dim); border:1px solid var(--border);}
   .faq-q .plus{transition:transform 0.3s ease; color:var(--gold-soft); font-size:1.2rem; flex-shrink:0;}
   .faq-item.open .faq-q .plus{transform:rotate(45deg);}
-  .faq-a{max-height:0; overflow:hidden; transition:max-height 0.35s ease, padding 0.35s ease;}
-  .faq-item.open .faq-a{max-height:200px; padding-bottom:20px;}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.4s ease;}
+  .faq-item.open .faq-a{max-height:600px; padding-bottom:20px;}
   .faq-a p{color:var(--text-soft); font-size:0.92rem; line-height:1.6; margin:0;}
   .faq-search{
     width:100%; background:var(--card); border:1px solid var(--border); color:var(--text);
@@ -901,7 +913,7 @@
   .sticky-cta{
     display:none; position:fixed; bottom:0; left:0; right:0; z-index:70;
     background:var(--sticky-bg); backdrop-filter:blur(14px); border-top:1px solid var(--border);
-    padding:10px 12px; align-items:center; justify-content:center; gap:8px;
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom, 0px)); align-items:center; justify-content:center; gap:8px;
   }
   .sticky-cta a{flex:1; text-align:center; justify-content:center; padding:12px 10px; font-size:0.86rem;}
   .sticky-cta a.montre-cta{padding:12px 10px;}
@@ -944,7 +956,7 @@
     .grid-3, .grid-2{grid-template-columns:1fr;}
     .social-grid{grid-template-columns:repeat(2,1fr);}
     .sticky-cta{display:flex;}
-    body{padding-bottom:74px;}
+    body{padding-bottom:calc(74px + env(safe-area-inset-bottom, 0px));}
     section{padding:44px 0;}
     .back-top{right:16px; bottom:88px;}
   }
@@ -1351,7 +1363,15 @@
       "name": "Où utiliser les codes promo ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Directement sur l'application ou le site Hacoo, au moment du paiement."
+        "text": "Cela dépend de la boutique. Sur Hacoo : collez Promofinance ou Frbonplan directement au moment du paiement, sur l'app ou le site Hacoo (-14% dans les deux cas). Sur notre boutique de montres : le code FRBONPLAN y donne -40%, pas -14% — il s'applique automatiquement via nos liens \"Découvrir la collection\", sinon collez-le vous-même au paiement sur frbonplan.myshopify.com."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le code FRBONPLAN, c'est pour Hacoo ou pour la boutique de montres ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les deux — c'est le même mot, mais l'avantage change selon où vous l'utilisez : -14% sur Hacoo, -40% sur notre boutique de montres (frbonplan.myshopify.com). Ce sont deux boutiques totalement distinctes, chacune avec ses propres conditions, même si le code partage le même nom."
       }
     },
     {
@@ -1391,7 +1411,7 @@
       "name": "Le code Promofinance ne fonctionne pas, que faire ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Vérifiez d'abord la casse exacte (Promofinance) et qu'il n'y a pas d'espace collé. Un code à usage unique refusé signifie généralement qu'il a déjà été utilisé une première fois sur votre compte — dans ce cas, essayez le second code disponible (Frbonplan), ou contactez le support Hacoo directement pour toute question sur son fonctionnement. Nous ne pouvons pas garantir la validité d'un code au-delà de sa première utilisation par compte."
+        "text": "Vérifiez d'abord la casse exacte (Promofinance) et qu'il n'y a pas d'espace collé. Un code à usage unique refusé signifie généralement qu'il a déjà été utilisé une première fois sur votre compte — dans ce cas, essayez le second code disponible (Frbonplan, toujours sur Hacoo — pas le -40% de notre boutique de montres), ou contactez le support Hacoo directement pour toute question sur son fonctionnement. Nous ne pouvons pas garantir la validité d'un code au-delà de sa première utilisation par compte."
       }
     },
     {
@@ -1494,7 +1514,7 @@
 
 <div class="announce-bar" id="announceBar">
   <span class="announce-emoji">⌚</span>
-  <span><b>Boutique de montres Frbonplan</b> : -20% avec le code <b>FRBONPLAN</b> — <a href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener">découvrir →</a></span>
+  <span><b>Boutique de montres Frbonplan</b> : -40% avec le code <b>FRBONPLAN</b> — <a href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener">découvrir →</a></span>
   <button class="announce-close" id="announceClose" aria-label="Fermer ce message">✕</button>
 </div>
 
@@ -1641,15 +1661,16 @@
         <div class="shops-explainer-card">
           <div class="se-icon">🛍️</div>
           <h3>Sélection Hacoo</h3>
-          <p>On repère et vérifie des articles déjà en vente sur Hacoo. L'achat se fait sur Hacoo, sous leur responsabilité.</p>
+          <p>On repère et vérifie des articles déjà en vente sur Hacoo. L'achat se fait sur Hacoo, sous leur responsabilité. Code : <b style="color:var(--gold-soft);">-14%</b></p>
         </div>
         <div class="shops-explainer-vs">+</div>
         <div class="shops-explainer-card">
           <div class="se-icon">⌚</div>
           <h3>Notre boutique de montres</h3>
-          <p>Une boutique que nous gérons nous-mêmes (Shopify), avec son propre code -20% et ses propres conditions.</p>
+          <p>Une boutique que nous gérons nous-mêmes (Shopify), avec son propre code <b style="color:var(--gold-soft);">-40%</b> et ses propres conditions.</p>
         </div>
       </div>
+      <p style="text-align:center; font-size:0.82rem; color:var(--text-dim); margin-top:20px; max-width:56ch; margin-left:auto; margin-right:auto;">💡 Le code <b style="color:var(--text-soft);">FRBONPLAN</b> existe sur les deux boutiques, mais son avantage n'est pas le même selon où vous l'utilisez : -14% sur Hacoo, -40% chez nous.</p>
     </div>
   </section>
 
@@ -1677,12 +1698,12 @@
         </a>
         <div class="montre-note">Nouvelle sélection ajoutée régulièrement — jetez-y un œil avant qu'un modèle ne disparaisse.</div>
         <div class="montre-coupon">
-          <div class="montre-coupon-label"><b>-20% sur votre 1ère commande</b> — déjà appliqué automatiquement en cliquant "Découvrir la collection"</div>
+          <div class="montre-coupon-label"><b>-40% sur votre 1ère commande</b> — déjà appliqué automatiquement en cliquant "Découvrir la collection"</div>
           <div class="montre-coupon-row">
             <span class="montre-coupon-code mono" id="montreCodeText">FRBONPLAN</span>
             <button class="copy-btn" onclick="copyGeneric(this, 'FRBONPLAN')">Copier</button>
           </div>
-          <div class="montre-coupon-scope">⌚ Valable uniquement sur notre boutique de montres — pas sur Hacoo. Gardez ce code de côté si vous naviguez autrement sur la boutique.</div>
+          <div class="montre-coupon-scope">⌚ Ce -40% s'applique uniquement ici, sur la boutique de montres. Le même code FRBONPLAN utilisé sur Hacoo donne -14%, pas -40% — ce sont deux boutiques différentes.</div>
         </div>
       </div>
       <div class="montre-guarantees">
@@ -2098,10 +2119,11 @@
       <div class="coupon-head-row">
         <div class="section-head reveal" style="text-align:left; margin:0; max-width:none;">
           <div class="eyebrow"><span class="dot"></span>Réservé aux membres</div>
-          <h2>Les codes actifs, rien de plus</h2>
+          <h2>Les codes Hacoo, rien de plus</h2>
         </div>
         <button class="btn-ghost" style="padding:10px 18px; font-size:0.85rem;" onclick="copyAllCodes(this)">Copier tous les codes</button>
       </div>
+      <p style="color:var(--text-dim); font-size:0.82rem; margin:-14px 0 24px;">🛍️ Les deux codes ci-dessous sont à utiliser sur <b style="color:var(--text-soft);">Hacoo</b> uniquement.</p>
       <div class="coupon-grid">
         <div class="coupon reveal">
           <div class="coupon-head">
@@ -2123,6 +2145,7 @@
             <span class="mono" style="font-weight:700; color:var(--gold-soft);">Frbonplan</span>
             <button class="copy-btn" onclick="copyGeneric(this, 'Frbonplan')">Copier</button>
           </div>
+          <div style="font-size:0.76rem; color:var(--text-dim); margin-top:2px;">ℹ️ Ce même code existe aussi sur notre <a href="#montres" style="color:var(--gold-soft);">boutique de montres</a>, mais y donne -40% — pas -14%. Deux boutiques, deux avantages différents.</div>
         </div>
       </div>
 
@@ -2213,55 +2236,59 @@
       </div>
       <input class="faq-search reveal" type="text" placeholder="Rechercher une question…" id="faqSearch" oninput="filterFaq(this.value)">
       <div class="faq-item reveal open" data-q="frbonplan gratuit prix coût">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="true">Frbonplan est-il gratuit ?<span class="plus">+</span></button>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="true"><span class="faq-q-text"><span class="faq-tag faq-tag-general">ℹ️ Général</span>Frbonplan est-il gratuit ?</span><span class="plus">+</span></button>
         <div class="faq-a"><p>Oui. Le canal Telegram est entièrement gratuit et sans engagement.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr1',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr1',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="promesses gains argent revenus">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Faites-vous des promesses de gains ?<span class="plus">+</span></button>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-general">ℹ️ Général</span>Faites-vous des promesses de gains ?</span><span class="plus">+</span></button>
         <div class="faq-a"><p>Non. Frbonplan met en avant des offres, pas des résultats garantis.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr2',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr2',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="sélection choix offres critères">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Comment les offres sont-elles choisies ?<span class="plus">+</span></button>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-hacoo">🛍️ Hacoo</span>Comment les offres sont-elles choisies ?</span><span class="plus">+</span></button>
         <div class="faq-a"><p>Repérage, vérification, puis publication sur le canal Telegram et la page Hacoo associée.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr3',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr3',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="codes promo utiliser paiement">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Où utiliser les codes promo ?<span class="plus">+</span></button>
-        <div class="faq-a"><p>Directement sur l'application ou le site Hacoo, au moment du paiement.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr4',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr4',false)">👎 Pas clair</button></div></div>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-hacoo">🛍️ Hacoo</span><span class="faq-tag faq-tag-montres">⌚ Montres</span>Où utiliser les codes promo ?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Cela dépend de la boutique. Sur <b>Hacoo</b> : collez Promofinance ou Frbonplan directement au moment du paiement, sur l'app ou le site Hacoo (-14% dans les deux cas). Sur notre <b>boutique de montres</b> : le code FRBONPLAN y donne -40%, pas -14% — il s'applique automatiquement via nos liens "Découvrir la collection", sinon collez-le vous-même au paiement sur frbonplan.myshopify.com.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr4',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr4',false)">👎 Pas clair</button></div></div>
+      </div>
+      <div class="faq-item reveal" data-q="frbonplan code hacoo ou montre confusion pourcentage 14 40">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-hacoo">🛍️ Hacoo</span><span class="faq-tag faq-tag-montres">⌚ Montres</span>Le code FRBONPLAN, c'est pour Hacoo ou pour la boutique de montres ?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p><b>Les deux</b> — c'est le même mot, mais l'avantage change selon où vous l'utilisez : <b>-14%</b> si vous le collez sur <b>Hacoo</b>, <b>-40%</b> si vous l'utilisez sur notre <b>boutique de montres</b> (frbonplan.myshopify.com). Ce ne sont pas deux erreurs différentes ni une coquille sur le site : Hacoo et la boutique de montres sont deux boutiques totalement distinctes, chacune avec ses propres conditions, même si le code partage le même nom.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr14',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr14',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="fiable fiabilité sérieux confiance arnaque">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Frbonplan est-il fiable ?<span class="plus">+</span></button>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-general">ℹ️ Général</span>Frbonplan est-il fiable ?</span><span class="plus">+</span></button>
         <div class="faq-a"><p>Oui : Frbonplan ne demande jamais de paiement, ne vend rien en direct et ne gère aucune donnée bancaire — vous achetez toujours directement sur Hacoo. Chaque code est vérifié manuellement avant publication, et le canal Telegram reste ouvert et consultable à tout moment pour voir l'historique des offres partagées.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr5',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr5',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="délai livraison expédition combien temps recevoir colis">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Quel est le délai de livraison ?<span class="plus">+</span></button>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-hacoo">🛍️ Hacoo</span>Quel est le délai de livraison (articles Hacoo) ?</span><span class="plus">+</span></button>
         <div class="faq-a"><p>En général entre 7 et 14 jours. Exceptionnellement, certaines commandes peuvent prendre jusqu'à 28 jours selon la disponibilité et la destination.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr6',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr6',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="fréquence mise à jour souvent quotidien">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">À quelle fréquence la sélection est-elle mise à jour ?<span class="plus">+</span></button>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-hacoo">🛍️ Hacoo</span>À quelle fréquence la sélection est-elle mise à jour ?</span><span class="plus">+</span></button>
         <div class="faq-a"><p>Quotidiennement. Une nouvelle offre du jour est publiée chaque jour sur le canal Telegram et reprise ici.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr7',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr7',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="pourquoi cliquer lien affilié commission liens">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Pourquoi cliquer sur vos liens avant d'acheter ?<span class="plus">+</span></button>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-general">ℹ️ Général</span>Pourquoi cliquer sur vos liens avant d'acheter ?</span><span class="plus">+</span></button>
         <div class="faq-a"><p>Frbonplan touche une petite commission quand un achat est fait en passant par nos liens — le prix reste strictement identique pour vous. C'est ce qui permet de continuer cette sélection gratuitement. Si un article ou un code vous a été utile, penser à cliquer depuis ici (plutôt que d'aller chercher l'article directement dans l'app) nous soutient directement, sans rien vous coûter de plus.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr8',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr8',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="code ne fonctionne pas erreur invalide">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Le code Promofinance ne fonctionne pas, que faire ?<span class="plus">+</span></button>
-        <div class="faq-a"><p>Vérifiez d'abord la casse exacte (Promofinance) et qu'il n'y a pas d'espace collé. Un code à usage unique refusé signifie généralement qu'il a déjà été utilisé une première fois sur votre compte — dans ce cas, essayez le second code disponible (Frbonplan), ou contactez le support Hacoo directement pour toute question sur son fonctionnement. Nous ne pouvons pas garantir la validité d'un code au-delà de sa première utilisation par compte.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr9',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr9',false)">👎 Pas clair</button></div></div>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-hacoo">🛍️ Hacoo</span>Le code Promofinance ne fonctionne pas, que faire ?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Vérifiez d'abord la casse exacte (Promofinance) et qu'il n'y a pas d'espace collé. Un code à usage unique refusé signifie généralement qu'il a déjà été utilisé une première fois sur votre compte — dans ce cas, essayez le second code disponible (Frbonplan, toujours sur Hacoo — pas le -40% de notre boutique de montres), ou contactez le support Hacoo directement pour toute question sur son fonctionnement. Nous ne pouvons pas garantir la validité d'un code au-delà de sa première utilisation par compte.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr9',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr9',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="neuf occasion état produit condition">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Les articles de la sélection sont-ils neufs ?<span class="plus">+</span></button>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-hacoo">🛍️ Hacoo</span>Les articles de la sélection sont-ils neufs ?</span><span class="plus">+</span></button>
         <div class="faq-a"><p>Oui, tous les articles mis en avant sont neufs. Pour rester prudents, nous évitons de citer certains noms de marque directement sur le site — ce n'est pas un doute sur l'état du produit, juste une précaution. Pour toute question précise sur un article (matière, provenance, étiquetage), le mieux est de vérifier directement sa fiche sur Hacoo ou de demander au support Hacoo avant d'acheter.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr10',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr10',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="responsabilité problème litige article ne correspond pas garantie">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Que se passe-t-il si un article ne correspond pas à mes attentes ?<span class="plus">+</span></button>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-general">ℹ️ Général</span>Que se passe-t-il si un article ne correspond pas à mes attentes ?</span><span class="plus">+</span></button>
         <div class="faq-a"><p>Frbonplan est une sélection indépendante : nous ne fabriquons, ne stockons et ne vendons aucun article Hacoo. Chaque achat est conclu directement avec Hacoo, qui reste seul responsable de la conformité, de la qualité et du service après-vente du produit. Pour un retour, un remboursement ou une réclamation, le contact est le support Hacoo, pas Frbonplan. Pour un achat sur notre boutique de montres, les conditions de vente, garanties et retours de cette boutique s'appliquent — consultez-les avant de commander.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr11',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr11',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="montre livraison délai boutique shopify">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Quel délai de livraison pour une montre ?<span class="plus">+</span></button>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-montres">⌚ Montres</span>Quel délai de livraison pour une montre ?</span><span class="plus">+</span></button>
         <div class="faq-a"><p>Les délais sont indiqués directement sur la fiche produit et à l'étape de commande sur notre boutique — ils peuvent varier selon le modèle. Vérifiez l'estimation affichée avant de valider votre commande.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr12',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr12',false)">👎 Pas clair</button></div></div>
       </div>
       <div class="faq-item reveal" data-q="montre retour remboursement garantie échange">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Puis-je retourner ou échanger une montre ?<span class="plus">+</span></button>
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-montres">⌚ Montres</span>Puis-je retourner ou échanger une montre ?</span><span class="plus">+</span></button>
         <div class="faq-a"><p>Les conditions de retour, d'échange et de garantie de notre boutique de montres sont précisées sur le site au moment de la commande et dans l'email de confirmation. En cas de question, contactez-nous directement via Telegram avec votre numéro de commande.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr13',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr13',false)">👎 Pas clair</button></div></div>
       </div>
       <p id="faqEmpty" style="display:none; color:var(--text-dim); text-align:center; padding:20px 0;">Aucune question ne correspond à votre recherche.</p>
@@ -2485,7 +2512,7 @@
         product_name: link.querySelector('h3')?.textContent?.trim() || link.textContent.trim().slice(0,60)
       });
       if(href.includes('/discount/')){
-        showToast('✓ Code -20% appliqué — direction la boutique...');
+        showToast('✓ Code -40% appliqué — direction la boutique...');
       }
     }
   });
@@ -2575,6 +2602,7 @@
       showToast('Code "' + text + '" copié');
       trackEvent('copy_code', { code: text, location: 'hero' });
       sessionStats.copies++; updateSessionRecap();
+      if('vibrate' in navigator){ try{ navigator.vibrate(18); }catch(e){} }
       setTimeout(() => { btn.textContent = 'Copier'; btn.classList.remove('copied'); }, 1800);
     });
   }
@@ -2588,6 +2616,7 @@
       showToast('Code "' + text + '" copié');
       trackEvent('copy_code', { code: text, location: 'codes_section' });
       sessionStats.copies++; updateSessionRecap();
+      if('vibrate' in navigator){ try{ navigator.vibrate(18); }catch(e){} }
       setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1800);
     });
   }
