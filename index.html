@@ -70,6 +70,38 @@
 .referral-link-box.show{display:flex;}
 .referral-link-text{flex:1;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:0.78rem;color:var(--gold-soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;}
 @media (max-width:600px){.code-picker-tabs{flex-direction:column;}}
+
+/* Nouveautés banner */
+.whats-new{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 44px 12px 16px;margin-bottom:28px;position:relative;font-size:0.85rem;color:var(--text-soft);}
+.whats-new-tag{flex-shrink:0;background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:#1a0f00;font-weight:700;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.03em;padding:4px 10px;border-radius:999px;}
+.whats-new-text kbd{background:var(--card-hi);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-family:'JetBrains Mono',monospace;font-size:0.78em;color:var(--gold-soft);}
+.whats-new-close{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-dim);font-size:1rem;cursor:pointer;padding:6px;}
+.whats-new-close:hover{color:var(--text);}
+@media (max-width:600px){.whats-new{flex-direction:column;align-items:flex-start;gap:8px;}}
+
+/* Product comparator */
+.compare-fab{position:fixed;left:22px;bottom:190px;z-index:64;display:none;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);color:var(--text);padding:9px 16px;border-radius:999px;font-size:0.85rem;font-weight:600;cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,0.25);}
+.compare-fab.show{display:flex;}
+@media (max-width:760px){.compare-fab{bottom:256px;left:16px;}}
+.compare-modal{position:fixed;inset:0;z-index:290;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px;}
+.compare-modal.show{display:flex;}
+.compare-modal-box{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;max-width:560px;width:100%;max-height:82vh;overflow-y:auto;position:relative;}
+.compare-modal-close{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--text-dim);font-size:1.2rem;cursor:pointer;}
+.compare-modal-box h3{font-size:1.1rem;margin:0 0 18px;}
+.compare-table{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.compare-col{text-align:center;}
+.compare-col img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;margin-bottom:10px;background:var(--bg-alt);}
+.compare-col h4{font-size:0.88rem;margin:0 0 6px;min-height:2.4em;}
+.compare-row{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid var(--border);font-size:0.82rem;}
+.compare-row span:first-child{color:var(--text-dim);}
+.compare-row span:last-child{color:var(--text);font-weight:600;}
+.compare-empty{text-align:center;color:var(--text-dim);font-size:0.9rem;padding:30px 10px;}
+.recently-viewed-wrap{margin:0 0 24px;display:none;}
+.recently-viewed-wrap h4{font-size:0.82rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.04em;margin:0 0 10px;font-weight:700;}
+.recently-viewed-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;}
+.recently-viewed-item{flex:0 0 auto;width:88px;text-decoration:none;color:var(--text-soft);text-align:center;}
+.recently-viewed-item img{width:88px;height:88px;object-fit:cover;border-radius:12px;border:1px solid var(--border);margin-bottom:6px;}
+.recently-viewed-item span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:0.72rem;line-height:1.3;}
 </style>
 <script type="application/ld+json">
 {
@@ -448,6 +480,14 @@
   </div>
 
   <div class="wrap">
+    <div class="whats-new reveal in-view" id="whatsNewBox">
+      <span class="whats-new-tag">Nouveau</span>
+      <span class="whats-new-text">Comparez vos montres favorites en un clic, et retrouvez tout instantanément avec <kbd>Ctrl</kbd>+<kbd>K</kbd>.</span>
+      <button class="whats-new-close" onclick="document.getElementById('whatsNewBox').remove()" aria-label="Fermer">✕</button>
+    </div>
+  </div>
+
+  <div class="wrap">
     <div class="today-offer reveal in-view" id="dailyOfferBox" style="display:none;">
       <div>
         <span class="today-offer-badge">✨ Sélection du jour</span>
@@ -728,6 +768,10 @@
             Voir notre boutique officielle de montres
           </a>
         </div>
+      </div>
+      <div class="recently-viewed-wrap" id="recentlyViewedWrap">
+        <h4>Vus récemment</h4>
+        <div class="recently-viewed-row"></div>
       </div>
       <div class="catalog-search reveal">
         <input type="text" id="catalogSearchInput" placeholder="🔍 Chercher un article (Hacoo ou montres)..." oninput="filterCatalog(this.value)">
@@ -1612,9 +1656,7 @@
 
   // FAQ search filter
   // Recherche insensible aux accents et à la casse : "ecouteurs" trouve "écouteurs"
-  function normalizeSearch(str){
-    return (str || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
-  }
+  // (normalizeSearch est défini plus bas, dans le bloc filtres/tri catalogue, et réutilisé ici)
   function filterFaq(query){
     const q = normalizeSearch(query);
     const items = document.querySelectorAll('.faq-item');
@@ -1953,6 +1995,65 @@
     showToast(active ? 'Animations réduites' : 'Animations réactivées');
   }
 
+  // ===== 4 NOUVELLES AMÉLIORATIONS =====
+
+  // A) Mode "connexion lente" : active automatiquement le mode confort (moins d'animations)
+  // si le navigateur signale l'économiseur de données ou une connexion 2G/lente.
+  (function(){
+    const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if(conn && (conn.saveData || /2g/.test(conn.effectiveType || ''))){
+      document.body.classList.add('comfort-mode');
+      const toggleBtn = document.getElementById('comfortToggle');
+      if(toggleBtn) toggleBtn.classList.add('active');
+      trackEvent('auto_comfort_mode', { effectiveType: conn.effectiveType || 'saveData' });
+    }
+  })();
+
+  // B) Boucle du lien de parrainage : accueil personnalisé quand on arrive via ?ref=pseudo
+  (function(){
+    try {
+      const ref = new URLSearchParams(window.location.search).get('ref');
+      if(ref){
+        sessionStorage.setItem('frbonplan_ref', ref);
+        trackEvent('referral_visit', { ref });
+        setTimeout(() => showToast('👋 Bienvenue, vous venez du lien de ' + decodeURIComponent(ref)), 1200);
+      }
+    } catch(e){}
+  })();
+
+  // C) "Vus récemment" — mémorise les 4 derniers articles consultés (localStorage, rien envoyé nulle part)
+  function trackProductView(name, url, img){
+    try {
+      let list = JSON.parse(localStorage.getItem('frbonplan_recent') || '[]');
+      list = list.filter(p => p.url !== url);
+      list.unshift({ name, url, img });
+      list = list.slice(0, 4);
+      localStorage.setItem('frbonplan_recent', JSON.stringify(list));
+    } catch(e){}
+  }
+  function renderRecentlyViewed(){
+    const wrap = document.getElementById('recentlyViewedWrap');
+    if(!wrap) return;
+    let list = [];
+    try { list = JSON.parse(localStorage.getItem('frbonplan_recent') || '[]'); } catch(e){}
+    if(!list.length){ wrap.style.display = 'none'; return; }
+    wrap.style.display = 'block';
+    wrap.querySelector('.recently-viewed-row').innerHTML = list.map(p =>
+      `<a class="recently-viewed-item" href="${p.url}" target="_blank" rel="noopener">
+        <img src="${p.img}" alt="${p.name}" loading="lazy">
+        <span>${p.name}</span>
+      </a>`
+    ).join('');
+  }
+  document.querySelectorAll('.shop-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const name = card.querySelector('h3')?.textContent || '';
+      const img = card.querySelector('.shop-card-img img')?.src || '';
+      trackProductView(name, card.href, img);
+    });
+  });
+  renderRecentlyViewed();
+
   // Style quiz
   const quizAnswers = {};
   const quizOutcomes = {
@@ -2040,6 +2141,7 @@
     if(document.getElementById('favSheet')?.classList.contains('show')) renderFavSheet();
     updateAppBadge(favCount);
     saveFavs();
+    updateCompareFab();
     trackEvent('toggle_favorite', { active: isActive, product: btn.dataset.favId });
     if(favCount === 3){
       showToast('Vous avez du goût ! Rejoignez le canal pour ne rien manquer 👀');
@@ -2048,6 +2150,48 @@
   function scrollToFavSection(){
     openFavSheet();
   }
+
+  // ===== PRODUCT COMPARATOR (up to 2 favorited items, side by side) =====
+  function updateCompareFab(){
+    const activeCards = document.querySelectorAll('.shop-fav.active');
+    const fab = document.getElementById('compareFab');
+    document.getElementById('compareFabCount').textContent = activeCards.length;
+    fab.classList.toggle('show', activeCards.length >= 2);
+  }
+  function openCompare(){
+    renderCompare();
+    document.getElementById('compareModal').classList.add('show');
+    trackEvent('compare_opened', {});
+  }
+  function closeCompare(){
+    document.getElementById('compareModal').classList.remove('show');
+  }
+  function renderCompare(){
+    const cards = Array.from(document.querySelectorAll('.shop-fav.active')).slice(0, 2)
+      .map(fav => fav.closest('.shop-card'));
+    const wrap = document.getElementById('compareContent');
+    if(cards.length < 2){
+      wrap.innerHTML = '<p class="compare-empty">Ajoutez au moins 2 articles en favoris (cœur sur la photo) pour les comparer ici.</p>';
+      return;
+    }
+    const data = cards.map(card => ({
+      img: card.querySelector('img')?.src || '',
+      name: card.querySelector('h3')?.textContent.trim() || '',
+      priceNew: card.querySelector('.shop-price-new')?.textContent.trim() || '—',
+      priceOld: card.querySelector('.shop-price-old')?.textContent.trim() || '—',
+      link: card.href
+    }));
+    wrap.innerHTML = '<div class="compare-table">' + data.map(d => `
+      <div class="compare-col">
+        <img src="${d.img}" alt="${d.name}">
+        <h4>${d.name}</h4>
+        <div class="compare-row"><span>Prix</span><span>${d.priceNew}</span></div>
+        <div class="compare-row"><span>Avant réduction</span><span>${d.priceOld}</span></div>
+        <a class="btn-ghost" style="margin-top:12px; padding:9px 14px; font-size:0.8rem; width:100%; justify-content:center;" href="${d.link}" target="_blank" rel="noopener">Voir l'article →</a>
+      </div>
+    `).join('') + '</div>';
+  }
+
   function shareFavorites(){
     if(favItems.length === 0) return;
     const text = 'Ma sélection Frbonplan :\n' + favItems.map(n => '• ' + n).join('\n') + '\n\n' + window.location.href;
@@ -2203,18 +2347,8 @@
   }
 
   // ===== CATALOG SEARCH (filters every product card site-wide) =====
-  function filterCatalog(query){
-    const q = normalizeSearch(query);
-    const cards = document.querySelectorAll('.shop-card');
-    let visible = 0;
-    cards.forEach(card => {
-      const name = normalizeSearch(card.querySelector('h3')?.textContent || '');
-      const match = name.includes(q);
-      card.style.display = match ? '' : 'none';
-      if(match) visible++;
-    });
-    document.getElementById('catalogNoResults').classList.toggle('show', visible === 0 && q.length > 0);
-  }
+  // filterCatalog est défini plus bas (bloc filtres/tri), avec la prise en compte
+  // du filtre Hacoo/Montres en plus de la recherche texte.
 
   // ===== SESSION RECAP =====
   const sessionStats = { sectionsSeen: new Set(), copies: 0 };
@@ -3575,6 +3709,16 @@
     img.setAttribute('decoding', 'async');
   });
 </script>
+
+<button class="compare-fab" id="compareFab" onclick="openCompare()">⚖️ Comparer (<span id="compareFabCount">0</span>)</button>
+
+<div class="compare-modal" id="compareModal">
+  <div class="compare-modal-box">
+    <button class="compare-modal-close" onclick="closeCompare()" aria-label="Fermer">✕</button>
+    <h3>Comparer vos favoris</h3>
+    <div id="compareContent"></div>
+  </div>
+</div>
 
 </body>
 </html>
