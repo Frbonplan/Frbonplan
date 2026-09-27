@@ -3585,25 +3585,36 @@ body.comfort-mode .aurora,body.comfort-mode .particle-layer,body.comfort-mode .s
 .update-banner {
   position:fixed;
   left:50%;
-  transform:translateX(-50%) translateY(150%);
-  bottom:calc(86px + env(safe-area-inset-bottom,0px));
-  z-index:300;
+  top:calc(126px + env(safe-area-inset-top,0px));
+  transform:translateX(-50%) translateY(-200%);
+  bottom:auto;
+  z-index:299;
   display:flex;
+  flex-wrap:wrap;
   align-items:center;
-  gap:12px;
-  max-width:calc(100vw - 28px);
+  gap:8px 12px;
+  width:calc(100vw - 28px);
+  max-width:420px;
   background:var(--card);
   border:1px solid var(--gold);
   border-radius:16px;
-  padding:12px 14px 12px 16px;
+  padding:12px 14px;
   font-size:0.85rem;
   color:var(--text-soft);
   box-shadow:0 16px 40px rgba(0,0,0,0.5);
-  transition:transform .38s cubic-bezier(.2,.9,.25,1)
+  transition:transform .38s cubic-bezier(.2,.9,.25,1);
+  opacity:0;
+  pointer-events:none;
 }
 .update-banner.show {
-  transform:translateX(-50%) translateY(0)
+  transform:translateX(-50%) translateY(0);
+  opacity:1;
+  pointer-events:auto;
 }
+header.shrink ~ .update-banner {
+  top:calc(80px + env(safe-area-inset-top,0px));
+}
+.update-banner > span { flex:1 1 100%; min-width:0 }
 .update-banner button {
   border:none;
   cursor:pointer;
@@ -5156,6 +5167,170 @@ body.high-contrast .shop-card, body.high-contrast .card {
 .welcome-back-chip b {
   color:var(--gold-soft)
 }
+
+/* ===== ROUND 10 — 7 grosses + 5 légères améliorations ===== */
+
+/* GROS 1 : bouton Préférences (accessibilité + confort + éco-données) */
+.prefs-toggle {
+  position:fixed;
+  left:22px;
+  bottom:134px;
+  z-index:75;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:var(--card);
+  border:1px solid var(--border);
+  color:var(--text-dim);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:0.25s;
+  font-size:1.1rem
+}
+.prefs-toggle:hover { border-color:var(--gold-soft); color:var(--gold-soft) }
+.prefs-toggle .prefs-dot {
+  position:absolute; top:-2px; right:-2px; width:10px; height:10px; border-radius:50%;
+  background:var(--coral); border:2px solid var(--bg); display:none
+}
+.prefs-toggle.has-news .prefs-dot { display:block }
+@media (max-width:760px) {
+  .prefs-toggle { bottom:calc(150px + env(safe-area-inset-bottom,0px)) }
+}
+
+.prefs-sheet-backdrop, .prefs-sheet {
+  /* réutilise exactement le pattern visuel de fav-sheet, défini plus haut dans la feuille */
+}
+.prefs-sheet {
+  position:fixed; left:50%; bottom:0; transform:translate(-50%,110%);
+  width:min(440px, 100vw); max-height:82vh; overflow-y:auto;
+  background:var(--card); border:1px solid var(--border); border-bottom:none;
+  border-radius:20px 20px 0 0; padding:14px 22px calc(24px + env(safe-area-inset-bottom,0px));
+  z-index:301; transition:transform .38s cubic-bezier(.2,.9,.25,1);
+}
+.prefs-sheet.show { transform:translate(-50%,0) }
+.prefs-row {
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  padding:14px 0; border-bottom:1px solid var(--border);
+}
+.prefs-row:last-of-type { border-bottom:none }
+.prefs-row-txt b { display:block; font-size:0.92rem; color:var(--text-soft) }
+.prefs-row-txt span { display:block; font-size:0.78rem; color:var(--text-dim); margin-top:2px }
+.prefs-size-group { display:flex; gap:6px }
+.prefs-size-group button {
+  width:34px; height:34px; border-radius:10px; border:1px solid var(--border);
+  background:var(--bg-soft); color:var(--text-soft); cursor:pointer; font-weight:700
+}
+.prefs-size-group button.active { border-color:var(--gold-soft); color:var(--gold-soft); background:rgba(217,164,65,0.12) }
+.reminder-switch.prefs-switch {} /* alias visuel identique au switch existant */
+
+/* Taille de texte réglable */
+html[data-text-size="lg"] body { font-size:1.08em }
+html[data-text-size="xl"] body { font-size:1.18em }
+
+/* Police adaptée (meilleure lisibilité, espacement plus large) */
+body.dyslexia-font, body.dyslexia-font * {
+  font-family:Verdana, Arial, sans-serif !important;
+  letter-spacing:0.02em !important;
+  line-height:1.6 !important;
+}
+
+/* Mode économie de données : coupe les animations décoratives lourdes */
+body.data-saver .hero-bg, body.data-saver .particle-layer, body.data-saver #particleCanvas,
+body.data-saver .aurora, body.data-saver .sparkle-trail {
+  display:none !important;
+}
+body.data-saver * { animation:none !important; transition:none !important }
+.data-saver-banner {
+  display:none; align-items:center; gap:8px; justify-content:center;
+  background:rgba(217,164,65,0.12); color:var(--gold-soft); font-size:0.78rem;
+  padding:7px 10px; text-align:center;
+}
+body.data-saver .data-saver-banner { display:flex }
+
+/* GROS 4/5 : file d'attente hors-ligne */
+.offline-queue-banner {
+  position:fixed; left:50%; transform:translateX(-50%) translateY(150%);
+  bottom:calc(86px + env(safe-area-inset-bottom,0px)); z-index:300;
+  display:flex; align-items:center; gap:12px; max-width:calc(100vw - 28px);
+  background:var(--card); border:1px solid var(--gold); border-radius:16px;
+  padding:12px 14px; font-size:0.85rem; color:var(--text-soft);
+  box-shadow:0 16px 40px rgba(0,0,0,0.5); transition:transform .38s cubic-bezier(.2,.9,.25,1), opacity .38s;
+  opacity:0; pointer-events:none;
+}
+.offline-queue-banner.show { transform:translateX(-50%) translateY(0); opacity:1; pointer-events:auto }
+.offline-queue-banner button {
+  border:none; cursor:pointer; background:linear-gradient(135deg,var(--gold),#d16f0a);
+  color:#1a0f00; font-weight:700; font-size:0.8rem; padding:8px 14px; border-radius:999px; white-space:nowrap;
+}
+
+/* GROS 6 : carte de fidélité exportable — pas de CSS spécifique, dessin sur canvas caché */
+
+/* GROS 7 : programme de partage / parrainage */
+.referral-card {
+  margin-top:18px; padding:16px 18px; border:1px dashed var(--gold-soft);
+  border-radius:14px; background:rgba(217,164,65,0.06);
+}
+.referral-card b { color:var(--gold-soft) }
+.referral-row { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap }
+.referral-row input {
+  flex:1; min-width:160px; background:var(--bg-soft); border:1px solid var(--border);
+  border-radius:10px; padding:9px 12px; color:var(--text-soft); font-size:0.82rem;
+}
+.referral-row button {
+  border:none; background:var(--gold); color:#1a0f00; font-weight:700; font-size:0.82rem;
+  padding:9px 16px; border-radius:10px; cursor:pointer; white-space:nowrap;
+}
+.referral-stat { font-size:0.76rem; color:var(--text-dim); margin-top:8px }
+
+/* Recherche vocale : bouton micro accolé aux champs de recherche */
+.search-with-mic { position:relative }
+.mic-btn {
+  position:absolute; right:6px; top:50%; transform:translateY(-50%);
+  width:32px; height:32px; border-radius:50%; border:none; cursor:pointer;
+  background:transparent; color:var(--text-dim); display:flex; align-items:center; justify-content:center;
+}
+.mic-btn:hover { color:var(--gold-soft) }
+.mic-btn.listening { color:var(--coral); animation:micPulse 1s infinite }
+@keyframes micPulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+/* LÉGÈRE 1 : menu contextuel (long-press / clic droit) sur les cartes produit */
+.ctx-menu {
+  position:fixed; z-index:400; background:var(--card); border:1px solid var(--border);
+  border-radius:14px; padding:6px; box-shadow:0 16px 40px rgba(0,0,0,0.5);
+  display:none; min-width:190px;
+}
+.ctx-menu.show { display:block }
+.ctx-menu button {
+  display:flex; align-items:center; gap:10px; width:100%; text-align:left;
+  background:none; border:none; color:var(--text-soft); padding:10px 12px;
+  border-radius:8px; cursor:pointer; font-size:0.86rem;
+}
+.ctx-menu button:hover { background:var(--bg-soft); color:var(--gold-soft) }
+
+/* LÉGÈRE 2 : badge temps de lecture */
+.read-time-badge {
+  display:inline-flex; align-items:center; gap:5px; font-size:0.76rem;
+  color:var(--text-dim); margin-top:6px;
+}
+
+/* LÉGÈRE 4 : historique des codes copiés (dans la fiche profil) */
+.code-history { margin-top:18px }
+.code-history h4 { font-size:0.82rem; color:var(--text-dim); margin-bottom:8px; font-weight:600 }
+.code-history-row {
+  display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-soft);
+  padding:6px 0; border-bottom:1px solid var(--border);
+}
+.code-history-row:last-child { border-bottom:none }
+.code-history-empty { font-size:0.8rem; color:var(--text-dim) }
+
+/* LÉGÈRE 5 : pastille "Nouveau" générique, réutilisable */
+.new-dot {
+  display:inline-block; width:7px; height:7px; border-radius:50%;
+  background:var(--coral); margin-left:6px; vertical-align:middle;
+}
+
 </style>
 <script type="application/ld+json">
 {
@@ -5824,7 +5999,7 @@ body.high-contrast .shop-card, body.high-contrast .card {
         </div>
       </div>
       <div class="catalog-search reveal">
-        <input type="text" id="catalogSearchInput" placeholder="🔍 Chercher un article (Hacoo ou montres)..." oninput="filterCatalog(this.value)">
+        <div class="search-with-mic"><input type="text" id="catalogSearchInput" placeholder="🔍 Chercher un article (Hacoo ou montres)..." oninput="filterCatalog(this.value)" style="width:100%;"><button type="button" class="mic-btn" id="catalogMicBtn" aria-label="Recherche vocale" title="Recherche vocale"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4"/></svg></button></div>
       </div>
       <p class="catalog-no-results" id="catalogNoResults">Aucun article ne correspond à votre recherche.</p>
       <div class="shop-grid">
@@ -6184,6 +6359,17 @@ body.high-contrast .shop-card, body.high-contrast .card {
             </div>
             <button class="reminder-switch" id="reminderSwitch" onclick="toggleDailyReminder()" role="switch" aria-checked="false" aria-label="Activer le rappel quotidien"></button>
           </div>
+
+          <!-- GROS : programme de partage honnête (pas de fausse promesse de gain) -->
+          <div class="referral-card reveal">
+            <b>Partagez Frbonplan</b>
+            <p style="margin:4px 0 0; font-size:0.82rem; color:var(--text-soft);">Votre lien personnel, pratique pour l'envoyer directement à quelqu'un — pas de récompense automatique, juste plus simple à partager.</p>
+            <div class="referral-row">
+              <input type="text" id="referralLinkInput" readonly onclick="this.select()">
+              <button type="button" onclick="copyReferralLink()">Copier le lien</button>
+            </div>
+            <div class="referral-stat" id="referralStat"></div>
+          </div>
         </div>
         <div class="install-phone" aria-hidden="true">
           <div class="install-phone-grid">
@@ -6202,8 +6388,9 @@ body.high-contrast .shop-card, body.high-contrast .card {
       <div class="section-head reveal">
         <div class="eyebrow"><span class="dot"></span>Questions fréquentes</div>
         <h2>Les questions qu'on nous pose vraiment</h2>
+        <div class="read-time-badge">🕐 <span id="faqReadTime">1 min</span> de lecture</div>
       </div>
-      <input class="faq-search reveal" type="text" placeholder="Rechercher une question…" id="faqSearch" oninput="filterFaq(this.value)">
+      <div class="search-with-mic reveal"><input class="faq-search" type="text" placeholder="Rechercher une question…" id="faqSearch" oninput="filterFaq(this.value)" style="width:100%;"><button type="button" class="mic-btn" id="faqMicBtn" aria-label="Recherche vocale" title="Recherche vocale"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4"/></svg></button></div>
       <div class="faq-item reveal open" data-q="frbonplan gratuit prix coût">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="true"><span class="faq-q-text"><span class="faq-tag faq-tag-general">ℹ️ Général</span>Frbonplan est-il gratuit ?</span><span class="plus">+</span></button>
         <div class="faq-a"><p>Oui. Le canal Telegram est entièrement gratuit et sans engagement.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr1',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr1',false)">👎 Pas clair</button></div></div>
@@ -6451,14 +6638,52 @@ body.high-contrast .shop-card, body.high-contrast .card {
   <div class="profile-actions">
     <button type="button" onclick="exportMyData()">Exporter mes données</button>
     <button type="button" onclick="document.getElementById('importFileInput').click()">Importer</button>
+    <button type="button" onclick="exportLoyaltyCard()">Ma carte membre</button>
   </div>
   <input type="file" id="importFileInput" accept="application/json" style="display:none;" onchange="importMyData(this.files[0])">
+  <div class="code-history" id="codeHistoryBox">
+    <h4>Codes copiés récemment</h4>
+    <div id="codeHistoryList"><p class="code-history-empty">Aucun code copié pour l'instant.</p></div>
+  </div>
 </div>
 
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">↑</button>
 <div class="kbd-hint" id="kbdHint"><kbd>C</kbd> copier · <kbd>T</kbd> Telegram · <kbd>⌘K</kbd> rechercher · <kbd>?</kbd> aide</div>
 
 <button class="comfort-toggle" id="comfortToggle" onclick="toggleComfort()" aria-label="Réduire les animations" title="Réduire les animations">✨</button>
+
+<button class="prefs-toggle" id="prefsToggle" onclick="openPrefsSheet()" aria-label="Préférences d'affichage" title="Préférences d'affichage">
+  ⚙️<span class="prefs-dot"></span>
+</button>
+<div class="fav-sheet-backdrop" id="prefsSheetBackdrop" onclick="closePrefsSheet()"></div>
+<div class="prefs-sheet" id="prefsSheet" role="dialog" aria-modal="true" aria-label="Préférences d'affichage">
+  <div class="fav-sheet-grip"></div>
+  <h3>Confort &amp; accessibilité</h3>
+  <div class="prefs-row">
+    <div class="prefs-row-txt"><b>Taille du texte</b><span>S'applique à tout le site</span></div>
+    <div class="prefs-size-group" id="prefsSizeGroup">
+      <button type="button" data-size="md" onclick="setTextSize('md')">A</button>
+      <button type="button" data-size="lg" onclick="setTextSize('lg')">A+</button>
+      <button type="button" data-size="xl" onclick="setTextSize('xl')">A++</button>
+    </div>
+  </div>
+  <div class="prefs-row">
+    <div class="prefs-row-txt"><b>Police plus lisible</b><span>Lettres plus espacées, meilleure lecture</span></div>
+    <button class="reminder-switch" id="prefsDyslexiaSwitch" onclick="toggleDyslexiaFont()" role="switch" aria-checked="false" aria-label="Activer la police plus lisible"></button>
+  </div>
+  <div class="prefs-row">
+    <div class="prefs-row-txt"><b>Contraste élevé</b><span>Textes et bordures plus marqués</span></div>
+    <button class="reminder-switch" id="prefsContrastSwitch" onclick="togglePrefsContrast()" role="switch" aria-checked="false" aria-label="Activer le contraste élevé"></button>
+  </div>
+  <div class="prefs-row">
+    <div class="prefs-row-txt"><b>Réduire les animations</b><span>Confort visuel, moins de mouvement</span></div>
+    <button class="reminder-switch" id="prefsComfortSwitch" onclick="togglePrefsComfort()" role="switch" aria-checked="false" aria-label="Réduire les animations"></button>
+  </div>
+  <div class="prefs-row">
+    <div class="prefs-row-txt"><b>Mode économie de données</b><span>Coupe les effets visuels lourds — utile en 4G/3G</span></div>
+    <button class="reminder-switch" id="prefsDataSwitch" onclick="togglePrefsDataSaver()" role="switch" aria-checked="false" aria-label="Activer le mode économie de données"></button>
+  </div>
+</div>
 
 <div class="shortcuts-modal" id="shortcutsModal">
   <div class="shortcuts-box">
@@ -6538,11 +6763,19 @@ body.high-contrast .shop-card, body.high-contrast .card {
   <span class="net-dot"></span><span id="netBannerText"></span>
 </div>
 
+<div class="data-saver-banner">📶 Mode économie de données activé — animations et effets désactivés</div>
 <div class="update-banner" id="updateBanner" role="status" aria-live="polite">
   <span>Une nouvelle version de l'app est prête.</span>
   <button onclick="applyAppUpdate()">Mettre à jour</button>
   <button class="upd-later" onclick="document.getElementById('updateBanner').classList.remove('show')">Plus tard</button>
 </div>
+
+<div class="offline-queue-banner" id="offlineQueueBanner" role="status" aria-live="polite">
+  <span id="offlineQueueTxt">1 lien en attente</span>
+  <button onclick="openQueuedLinks()">Ouvrir</button>
+</div>
+
+<div class="ctx-menu" id="ctxMenu" role="menu"></div>
 
 <div class="cmdk-overlay" id="cmdkOverlay">
   <div class="cmdk-box">
@@ -6695,6 +6928,7 @@ body.high-contrast .shop-card, body.high-contrast .card {
       showToast('Code "' + text + '" copié');
       trackEvent('copy_code', { code: text, location: 'codes_section' });
       sessionStats.copies++; updateSessionRecap();
+      logCodeHistory(text);
       if('vibrate' in navigator){ try{ navigator.vibrate(18); }catch(e){} }
       setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1800);
     });
@@ -8964,6 +9198,355 @@ body.high-contrast .shop-card, body.high-contrast .card {
     if(e.target.closest && e.target.closest('.shop-fav.active')) addLoyaltyPoints(2, 'first_fav');
     if(e.target.closest && e.target.closest('.shop-compare.active')) addLoyaltyPoints(2, 'comparateur');
   }, true);
+
+  // ============================================================
+  // ROUND 10 — 7 grosses + 5 légères améliorations
+  // ============================================================
+
+  // ---------- Pastille "Nouveau" générique (légère 5) ----------
+  // Affiche un petit point tant que la personne n'a pas ouvert/essayé la fonctionnalité une fois
+  function markSeen(flag){ try { localStorage.setItem('frbonplan_seen_' + flag, '1'); } catch(e){} }
+  function hasSeen(flag){ try { return localStorage.getItem('frbonplan_seen_' + flag) === '1'; } catch(e){ return true; } }
+  (function(){
+    const prefsBtn = document.getElementById('prefsToggle');
+    if(prefsBtn && !hasSeen('prefs_panel')) prefsBtn.classList.add('has-news');
+  })();
+
+  // ---------- GROS : panneau Confort & accessibilité ----------
+  function openPrefsSheet(){
+    document.getElementById('prefsSheetBackdrop').classList.add('show');
+    document.getElementById('prefsSheet').classList.add('show');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('prefsToggle').classList.remove('has-news');
+    markSeen('prefs_panel');
+    trackEvent('prefs_sheet_opened', {});
+  }
+  function closePrefsSheet(){
+    document.getElementById('prefsSheetBackdrop').classList.remove('show');
+    document.getElementById('prefsSheet').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('prefsSheetBackdrop').addEventListener('click', closePrefsSheet);
+
+  // Taille du texte — persistée, appliquée via un attribut sur <html>
+  function setTextSize(size){
+    document.documentElement.setAttribute('data-text-size', size === 'md' ? '' : size);
+    document.querySelectorAll('#prefsSizeGroup button').forEach(b => b.classList.toggle('active', b.dataset.size === size));
+    try { localStorage.setItem('frbonplan_text_size', size); } catch(e){}
+    trackEvent('text_size_changed', { size });
+  }
+  (function(){
+    let size = 'md';
+    try { size = localStorage.getItem('frbonplan_text_size') || 'md'; } catch(e){}
+    if(size !== 'md') document.documentElement.setAttribute('data-text-size', size);
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.querySelector('#prefsSizeGroup button[data-size="' + size + '"]');
+      if(btn) btn.classList.add('active');
+    });
+  })();
+
+  // Police plus lisible — persistée
+  function toggleDyslexiaFont(){
+    const active = document.body.classList.toggle('dyslexia-font');
+    document.getElementById('prefsDyslexiaSwitch').setAttribute('aria-checked', String(active));
+    document.getElementById('prefsDyslexiaSwitch').classList.toggle('active', active);
+    try { localStorage.setItem('frbonplan_dyslexia_font', active ? '1' : '0'); } catch(e){}
+    showToast(active ? 'Police plus lisible activée' : 'Police plus lisible désactivée');
+  }
+  (function(){
+    let on = false;
+    try { on = localStorage.getItem('frbonplan_dyslexia_font') === '1'; } catch(e){}
+    if(on){ document.body.classList.add('dyslexia-font'); }
+  })();
+
+  // Contraste élevé — relié à la fonction existante toggleHighContrast (jusqu'ici sans bouton)
+  function togglePrefsContrast(){
+    if(typeof toggleHighContrast === 'function') toggleHighContrast();
+    const sw = document.getElementById('prefsContrastSwitch');
+    const active = document.body.classList.contains('high-contrast');
+    sw.setAttribute('aria-checked', String(active));
+    sw.classList.toggle('active', active);
+  }
+
+  // Réduire les animations — même mécanisme que le bouton ✨ existant, mais persisté
+  function togglePrefsComfort(){
+    toggleComfort();
+    syncComfortSwitch();
+    try { localStorage.setItem('frbonplan_comfort_mode', document.body.classList.contains('comfort-mode') ? '1' : '0'); } catch(e){}
+  }
+  function syncComfortSwitch(){
+    const active = document.body.classList.contains('comfort-mode');
+    const sw = document.getElementById('prefsComfortSwitch');
+    if(sw){ sw.setAttribute('aria-checked', String(active)); sw.classList.toggle('active', active); }
+  }
+  (function(){
+    let on = false;
+    try { on = localStorage.getItem('frbonplan_comfort_mode') === '1'; } catch(e){}
+    if(on) document.body.classList.add('comfort-mode');
+  })();
+
+  // Mode économie de données — manuel + suggestion automatique si connexion lente
+  function togglePrefsDataSaver(force){
+    const active = force !== undefined ? force : !document.body.classList.contains('data-saver');
+    document.body.classList.toggle('data-saver', active);
+    const sw = document.getElementById('prefsDataSwitch');
+    if(sw){ sw.setAttribute('aria-checked', String(active)); sw.classList.toggle('active', active); }
+    try { localStorage.setItem('frbonplan_data_saver', active ? '1' : '0'); } catch(e){}
+    if(force === undefined) showToast(active ? 'Mode économie de données activé' : 'Mode économie de données désactivé');
+    if(particleRunning !== undefined){
+      if(active) particleRunning = false; // stoppe la boucle du canvas de particules
+    }
+  }
+  (function(){
+    let on = false;
+    try { on = localStorage.getItem('frbonplan_data_saver') === '1'; } catch(e){}
+    const conn = navigator.connection || navigator.webkitConnection || navigator.mozConnection;
+    const slow = conn && (conn.saveData || ['slow-2g','2g'].includes(conn.effectiveType));
+    if(on || slow) togglePrefsDataSaver(true);
+  })();
+  window.addEventListener('DOMContentLoaded', () => {
+    syncComfortSwitch();
+    const dOn = document.body.classList.contains('data-saver');
+    const dSw = document.getElementById('prefsDataSwitch');
+    if(dSw){ dSw.setAttribute('aria-checked', String(dOn)); dSw.classList.toggle('active', dOn); }
+    const cOn = document.body.classList.contains('high-contrast');
+    const cSw = document.getElementById('prefsContrastSwitch');
+    if(cSw){ cSw.setAttribute('aria-checked', String(cOn)); cSw.classList.toggle('active', cOn); }
+    const yOn = document.body.classList.contains('dyslexia-font');
+    const ySw = document.getElementById('prefsDyslexiaSwitch');
+    if(ySw){ ySw.setAttribute('aria-checked', String(yOn)); ySw.classList.toggle('active', yOn); }
+  });
+
+  // ---------- GROS : recherche vocale (Web Speech API) ----------
+  (function(){
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    function wireMic(btnId, inputId, onResult){
+      const btn = document.getElementById(btnId);
+      const input = document.getElementById(inputId);
+      if(!btn || !input) return;
+      if(!SR){ btn.style.display = 'none'; return; }
+      let recog = null;
+      let listening = false;
+      btn.addEventListener('click', () => {
+        if(listening){ recog && recog.stop(); return; }
+        recog = new SR();
+        recog.lang = 'fr-FR';
+        recog.interimResults = false;
+        recog.maxAlternatives = 1;
+        recog.onstart = () => { listening = true; btn.classList.add('listening'); };
+        recog.onend = () => { listening = false; btn.classList.remove('listening'); };
+        recog.onerror = () => { listening = false; btn.classList.remove('listening'); };
+        recog.onresult = (e) => {
+          const text = e.results[0][0].transcript;
+          input.value = text;
+          onResult(text);
+          trackEvent('voice_search_used', { field: inputId });
+        };
+        try { recog.start(); } catch(e){}
+      });
+    }
+    wireMic('catalogMicBtn', 'catalogSearchInput', (t) => filterCatalog(t));
+    wireMic('faqMicBtn', 'faqSearch', (t) => filterFaq(t));
+  })();
+
+  // ---------- GROS : file d'attente des clics hors-ligne ----------
+  const OFFLINE_QUEUE_KEY = 'frbonplan_offline_queue';
+  function getOfflineQueue(){ try { return JSON.parse(localStorage.getItem(OFFLINE_QUEUE_KEY) || '[]'); } catch(e){ return []; } }
+  function saveOfflineQueue(q){ try { localStorage.setItem(OFFLINE_QUEUE_KEY, JSON.stringify(q)); } catch(e){} }
+  function paintOfflineQueueBanner(){
+    const q = getOfflineQueue();
+    const banner = document.getElementById('offlineQueueBanner');
+    if(!banner) return;
+    if(q.length > 0 && navigator.onLine){
+      document.getElementById('offlineQueueTxt').textContent = q.length + ' lien' + (q.length > 1 ? 's' : '') + ' en attente';
+      banner.classList.add('show');
+    } else {
+      banner.classList.remove('show');
+    }
+  }
+  function openQueuedLinks(){
+    const q = getOfflineQueue();
+    q.forEach(item => { try { window.open(item.url, '_blank', 'noopener'); } catch(e){} });
+    saveOfflineQueue([]);
+    paintOfflineQueueBanner();
+  }
+  document.addEventListener('click', (e) => {
+    if(navigator.onLine) return;
+    const link = e.target.closest('a[href]');
+    if(!link) return;
+    const href = link.href;
+    const isOutbound = href.includes('t.me/') || href.includes('hacoo.pl') || href.includes('onlyaff.app') || href.includes('myshopify.com');
+    if(!isOutbound) return;
+    e.preventDefault();
+    const q = getOfflineQueue();
+    q.push({ url: href, at: Date.now() });
+    saveOfflineQueue(q);
+    showToast("Hors ligne — ce lien s'ouvrira dès votre retour en ligne");
+  }, true);
+  window.addEventListener('online', () => { paintOfflineQueueBanner(); });
+  window.addEventListener('offline', () => { showToast('Vous êtes hors ligne'); });
+  paintOfflineQueueBanner();
+
+  // ---------- GROS : carte de fidélité exportable (image) ----------
+  function exportLoyaltyCard(){
+    const pts = getLoyaltyPts();
+    const lvl = currentLevel(pts);
+    const favs = document.querySelectorAll('.shop-fav.active').length;
+    const canvas = document.createElement('canvas');
+    canvas.width = 1000; canvas.height = 600;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createLinearGradient(0, 0, 1000, 600);
+    grad.addColorStop(0, '#151b24'); grad.addColorStop(1, '#0b0f14');
+    ctx.fillStyle = grad; ctx.fillRect(0, 0, 1000, 600);
+    ctx.strokeStyle = '#d9a441'; ctx.lineWidth = 3; ctx.strokeRect(20, 20, 960, 560);
+    ctx.fillStyle = '#d9a441'; ctx.font = '700 44px Arial'; ctx.fillText('FRBONPLAN', 60, 110);
+    ctx.fillStyle = '#a8b0bc'; ctx.font = '24px Arial'; ctx.fillText('Carte membre', 60, 150);
+    ctx.font = '80px Arial'; ctx.fillText(lvl.icon, 60, 280);
+    ctx.fillStyle = '#f5f3ee'; ctx.font = '700 46px Arial'; ctx.fillText(lvl.name, 200, 270);
+    ctx.fillStyle = '#a8b0bc'; ctx.font = '26px Arial'; ctx.fillText(pts + ' points cumulés · ' + favs + ' favoris', 200, 310);
+    ctx.fillStyle = '#a8b0bc'; ctx.font = '20px Arial';
+    ctx.fillText('Membre depuis ' + new Date().toLocaleDateString('fr-FR', { month:'long', year:'numeric' }), 60, 520);
+    ctx.fillText('frbonplan.github.io', 60, 555);
+    canvas.toBlob((blob) => {
+      const file = new File([blob], 'ma-carte-frbonplan.png', { type: 'image/png' });
+      if(navigator.share && navigator.canShare && navigator.canShare({ files: [file] })){
+        navigator.share({ files: [file], title: 'Ma carte Frbonplan' }).catch(() => {});
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'ma-carte-frbonplan.png'; a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 4000);
+      }
+      trackEvent('loyalty_card_exported', { points: pts });
+    }, 'image/png');
+  }
+
+  // ---------- GROS : programme de partage / parrainage (honnête, sans promesse de gain) ----------
+  (function(){
+    const KEY = 'frbonplan_referral_id';
+    let id;
+    try {
+      id = localStorage.getItem(KEY);
+      if(!id){ id = Math.random().toString(36).slice(2, 8); localStorage.setItem(KEY, id); }
+    } catch(e){ id = 'membre'; }
+    const link = location.origin + location.pathname + '?ref=' + id;
+    const input = document.getElementById('referralLinkInput');
+    if(input) input.value = link;
+
+    // Un visiteur arrive via un lien de parrainage
+    const params = new URLSearchParams(location.search);
+    const ref = params.get('ref');
+    if(ref && ref !== id){
+      try {
+        if(!sessionStorage.getItem('frbonplan_ref_welcomed')){
+          sessionStorage.setItem('frbonplan_ref_welcomed', '1');
+          setTimeout(() => showToast('Bienvenue 👋 — quelqu\'un vous a partagé Frbonplan'), 1500);
+        }
+      } catch(e){}
+      // On nettoie l'URL pour rester discret, sans recharger la page
+      try { history.replaceState({}, '', location.pathname); } catch(e){}
+    }
+  })();
+  function copyReferralLink(){
+    const input = document.getElementById('referralLinkInput');
+    if(!input) return;
+    navigator.clipboard.writeText(input.value).then(() => {
+      showToast('Lien copié — partagez-le où vous voulez');
+      trackEvent('referral_link_copied', {});
+      let count = 0;
+      try { count = parseInt(localStorage.getItem('frbonplan_referral_copies') || '0', 10) + 1; localStorage.setItem('frbonplan_referral_copies', String(count)); } catch(e){}
+      const stat = document.getElementById('referralStat');
+      if(stat) stat.textContent = 'Copié ' + count + ' fois depuis cet appareil';
+    }).catch(() => showToast(input.value));
+  }
+
+  // ---------- LÉGÈRE : menu contextuel (long-press / clic droit) sur les cartes produit ----------
+  (function(){
+    const menu = document.getElementById('ctxMenu');
+    if(!menu) return;
+    let pressTimer = null;
+    let currentCard = null;
+
+    function buildMenu(card, x, y){
+      const favBtn = card.querySelector('.shop-fav');
+      const cmpBtn = card.querySelector('.shop-compare');
+      menu.innerHTML =
+        '<button type="button" data-act="fav">' + (favBtn && favBtn.classList.contains('active') ? '💔 Retirer des favoris' : '❤️ Ajouter aux favoris') + '</button>' +
+        '<button type="button" data-act="cmp">' + (cmpBtn && cmpBtn.classList.contains('active') ? '⚖️ Retirer du comparateur' : '⚖️ Ajouter au comparateur') + '</button>' +
+        '<button type="button" data-act="link">🔗 Copier le lien de l\'article</button>';
+      const vw = window.innerWidth, vh = window.innerHeight;
+      menu.style.left = Math.min(x, vw - 210) + 'px';
+      menu.style.top = Math.min(y, vh - 160) + 'px';
+      menu.classList.add('show');
+      currentCard = card;
+    }
+    function closeMenu(){ menu.classList.remove('show'); currentCard = null; }
+
+    document.querySelectorAll('.shop-card').forEach(card => {
+      card.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        buildMenu(card, e.clientX, e.clientY);
+      });
+      card.addEventListener('touchstart', (e) => {
+        const touch = e.touches[0];
+        pressTimer = setTimeout(() => {
+          if('vibrate' in navigator){ try{ navigator.vibrate(15); }catch(err){} }
+          buildMenu(card, touch.clientX, touch.clientY);
+        }, 550);
+      }, { passive:true });
+      card.addEventListener('touchend', () => clearTimeout(pressTimer));
+      card.addEventListener('touchmove', () => clearTimeout(pressTimer));
+    });
+    menu.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-act]');
+      if(!btn || !currentCard) return;
+      const act = btn.dataset.act;
+      if(act === 'fav'){ const b = currentCard.querySelector('.shop-fav'); if(b) toggleFav(b); }
+      if(act === 'cmp'){ const b = currentCard.querySelector('.shop-compare'); if(b) toggleCompare(b, currentCard.querySelector('h3')?.textContent || ''); }
+      if(act === 'link'){ navigator.clipboard.writeText(currentCard.href).then(() => showToast('Lien copié')).catch(() => {}); }
+      closeMenu();
+    });
+    document.addEventListener('click', (e) => { if(!e.target.closest('.ctx-menu')) closeMenu(); });
+    window.addEventListener('scroll', closeMenu, { passive:true });
+  })();
+
+  // ---------- LÉGÈRE : temps de lecture estimé (FAQ) ----------
+  (function(){
+    const faqSection = document.getElementById('faq');
+    const badge = document.getElementById('faqReadTime');
+    if(!faqSection || !badge) return;
+    const words = faqSection.querySelectorAll('.faq-a p');
+    let total = 0;
+    words.forEach(p => { total += (p.textContent || '').trim().split(/\s+/).filter(Boolean).length; });
+    const minutes = Math.max(1, Math.round(total / 200));
+    badge.textContent = minutes + ' min';
+  })();
+
+  // ---------- LÉGÈRE : historique local des codes copiés ----------
+  const CODE_HISTORY_KEY = 'frbonplan_code_history';
+  function logCodeHistory(code){
+    let hist = [];
+    try { hist = JSON.parse(localStorage.getItem(CODE_HISTORY_KEY) || '[]'); } catch(e){}
+    hist.unshift({ code, at: Date.now() });
+    hist = hist.slice(0, 8);
+    try { localStorage.setItem(CODE_HISTORY_KEY, JSON.stringify(hist)); } catch(e){}
+  }
+  function renderCodeHistory(){
+    const box = document.getElementById('codeHistoryList');
+    if(!box) return;
+    let hist = [];
+    try { hist = JSON.parse(localStorage.getItem(CODE_HISTORY_KEY) || '[]'); } catch(e){}
+    if(hist.length === 0){ box.innerHTML = '<p class="code-history-empty">Aucun code copié pour l\'instant.</p>'; return; }
+    box.innerHTML = hist.map(h => {
+      const d = new Date(h.at);
+      const dateStr = d.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit' }) + ' à ' + d.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+      return '<div class="code-history-row"><span class="mono">' + h.code + '</span><span>' + dateStr + '</span></div>';
+    }).join('');
+  }
+  // Rafraîchit l'historique à chaque ouverture du profil, sans toucher à la fonction existante
+  const _openProfileSheetOriginal = openProfileSheet;
+  openProfileSheet = function(){ _openProfileSheetOriginal(); renderCodeHistory(); };
+
 </script>
 
 </body>
