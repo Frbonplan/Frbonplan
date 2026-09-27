@@ -5168,7 +5168,63 @@ body.high-contrast .shop-card, body.high-contrast .card {
   color:var(--gold-soft)
 }
 
-/* ===== ROUND 10 — 7 grosses + 5 légères améliorations ===== */
+/* ===== ROUND 11 — l'appli doit se sentir comme une vraie appli, pas comme le site ===== */
+
+/* Écran de démarrage natif, uniquement au lancement de l'appli installée */
+#appSplash {
+  position:fixed; inset:0; z-index:999; background:var(--bg);
+  display:none; align-items:center; justify-content:center; flex-direction:column; gap:16px;
+}
+body.app-standalone #appSplash.show { display:flex }
+#appSplash img { width:88px; height:88px; border-radius:22px; box-shadow:0 20px 50px rgba(217,164,65,0.3) }
+#appSplash .splash-name { font-family:'Space Grotesk',system-ui,sans-serif; font-weight:800; font-size:1.3rem; color:var(--text-soft); letter-spacing:0.02em }
+#appSplash .splash-name span { color:var(--gold-soft) }
+#appSplash.fade-out { animation:splashFade .45s ease forwards }
+@keyframes splashFade { to { opacity:0; visibility:hidden } }
+
+/* Masquer le folklore "site vitrine" une fois installée en appli */
+body.app-standalone .announce-bar { display:none !important }
+body.app-standalone .brand-name small { display:none }
+body.app-standalone .hero .eyebrow,
+body.app-standalone .hero h1,
+body.app-standalone .hero .greeting-badge,
+body.app-standalone .hero > .wrap > .reveal > .lede,
+body.app-standalone .hero .cta-row,
+body.app-standalone .hero .microtrust,
+body.app-standalone .hero > .wrap > .reveal > p:not(.lede) {
+  display:none !important;
+}
+
+/* Titre de section dynamique dans la barre d'appli (remplace le slogan marketing) */
+.app-bar-title {
+  display:none; font-size:0.78rem; font-weight:700; color:var(--gold-soft);
+  letter-spacing:0.03em; text-transform:uppercase; margin-top:1px;
+}
+body.app-standalone .app-bar-title { display:block }
+
+/* Tableau de bord natif — uniquement affiché dans l'appli installée */
+.app-dashboard { display:none }
+body.app-standalone .app-dashboard {
+  display:block; padding:6px 0 22px;
+}
+.app-dash-greet { font-size:1.3rem; font-weight:700; color:var(--text-soft); margin-bottom:2px }
+.app-dash-sub { font-size:0.88rem; color:var(--text-dim); margin-bottom:18px }
+.app-dash-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:6px;
+}
+.app-dash-btn {
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  background:var(--card); border:1px solid var(--border); border-radius:16px;
+  padding:16px 8px; color:var(--text-soft); text-decoration:none; cursor:pointer;
+  font-size:0.76rem; font-weight:600; text-align:center; transition:transform .2s, border-color .2s;
+}
+.app-dash-btn:active { transform:scale(0.94) }
+.app-dash-btn:hover { border-color:var(--gold-soft) }
+.app-dash-btn .app-dash-ico { font-size:1.5rem }
+.app-dash-btn .app-dash-badge {
+  background:var(--coral); color:#fff; font-size:0.62rem; font-weight:700;
+  border-radius:999px; padding:1px 7px; margin-top:-2px;
+}
 
 /* GROS 1 : bouton Préférences (accessibilité + confort + éco-données) */
 .prefs-toggle {
@@ -5547,6 +5603,11 @@ body.data-saver .data-saver-banner { display:flex }
 </head>
 <body>
 
+<div id="appSplash">
+  <img src="unnamed.png" alt="">
+  <div class="splash-name">FR<span>BONPLAN</span></div>
+</div>
+
 <div class="announce-bar" id="announceBar">
   <span class="announce-emoji">⌚</span>
   <span><b>Boutique de montres Frbonplan</b> : -40% avec le code <b>FRBONPLAN</b> — <a href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener">découvrir →</a></span>
@@ -5583,7 +5644,7 @@ body.data-saver .data-saver-banner { display:flex }
         <img class="logo-photo" src="unnamed.png" alt="Logo Frbonplan">
         <div class="logo-seal">F</div>
       </div>
-      <div class="brand-name">FR<span>BONPLAN</span><small>Bons plans &amp; montres</small></div>
+      <div class="brand-name">FR<span>BONPLAN</span><small>Bons plans &amp; montres</small><span class="app-bar-title" id="appBarTitle">Accueil</span></div>
     </a>
     <nav class="main-nav" id="mainNav">
       <a href="#mission" data-section="mission">Mission</a>
@@ -5627,6 +5688,18 @@ body.data-saver .data-saver-banner { display:flex }
       <div class="sparkle" style="top:20%; left:80%; animation-delay:0.6s;"></div>
     </div>
     <div class="wrap hero-grid">
+      <div class="app-dashboard" id="appDashboard">
+        <div class="app-dash-greet" id="appDashGreet">Bonjour 👋</div>
+        <div class="app-dash-sub">Votre sélection Frbonplan du jour</div>
+        <div class="app-dash-grid">
+          <a class="app-dash-btn" href="#codes"><span class="app-dash-ico">🎟️</span>Codes promo</a>
+          <a class="app-dash-btn" href="#boutique"><span class="app-dash-ico">🛍️</span>Boutique</a>
+          <a class="app-dash-btn" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener"><span class="app-dash-ico">⌚</span>Montres</a>
+          <button type="button" class="app-dash-btn" onclick="openFavSheet()"><span class="app-dash-ico">❤️</span>Favoris</button>
+          <a class="app-dash-btn" href="#offres"><span class="app-dash-ico">🔥</span>Offre du jour</a>
+          <a class="app-dash-btn" href="#faq"><span class="app-dash-ico">💬</span>Aide</a>
+        </div>
+      </div>
       <div class="reveal in-view">
         <div class="greeting-badge" id="greetingBadge"></div>
         <div class="eyebrow"><span class="dot"></span>Sélection mise à jour chaque jour</div>
@@ -7953,6 +8026,8 @@ body.data-saver .data-saver-banner { display:flex }
     else if(hour >= 18 && hour < 22) greeting = 'Bonsoir 👋';
     else if(hour >= 22 || hour < 6) greeting = 'De passage tard ? 🌙';
     greetingEl.textContent = greeting;
+    const dashGreetEl = document.getElementById('appDashGreet');
+    if(dashGreetEl) dashGreetEl.textContent = greeting;
   }
 
   // FAQ helpful reactions (local UI feedback only, no data sent anywhere)
@@ -9547,6 +9622,43 @@ body.data-saver .data-saver-banner { display:flex }
   const _openProfileSheetOriginal = openProfileSheet;
   openProfileSheet = function(){ _openProfileSheetOriginal(); renderCodeHistory(); };
 
+  // ============================================================
+  // ROUND 11 — l'appli doit se sentir comme une vraie appli, pas comme le site
+  // ============================================================
+
+  // ---------- Écran de démarrage natif (une seule fois par lancement de l'appli) ----------
+  (function(){
+    if(!isStandalone) return;
+    let already = false;
+    try { already = sessionStorage.getItem('frbonplan_splash_shown') === '1'; } catch(e){}
+    if(already) return;
+    const splash = document.getElementById('appSplash');
+    if(!splash) return;
+    splash.classList.add('show');
+    try { sessionStorage.setItem('frbonplan_splash_shown', '1'); } catch(e){}
+    setTimeout(() => {
+      splash.classList.add('fade-out');
+      setTimeout(() => splash.classList.remove('show', 'fade-out'), 500);
+    }, 650);
+  })();
+
+  // ---------- Titre de section dynamique dans la barre de l'appli ----------
+  (function(){
+    const titleEl = document.getElementById('appBarTitle');
+    if(!titleEl) return;
+    const names = {
+      accueil:'Accueil', offres:'Offres', codes:'Codes promo', boutique:'Boutique',
+      montres:'Montres', avis:'Avis', installer:'Application', faq:'Aide', contact:'Contact'
+    };
+    const sections = Object.keys(names).map(id => document.getElementById(id)).filter(Boolean);
+    if(!sections.length) return;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) titleEl.textContent = names[entry.target.id] || 'Accueil';
+      });
+    }, { rootMargin:'-45% 0px -50% 0px', threshold:0 });
+    sections.forEach(s => obs.observe(s));
+  })();
 </script>
 
 </body>
