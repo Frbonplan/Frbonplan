@@ -1047,6 +1047,17 @@ section {
 .cat-4 {
   background:linear-gradient(160deg,rgba(160,140,255,0.12),var(--card))
 }
+.calc-store-toggle {
+  display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap;
+}
+.calc-store-btn {
+  flex:1; min-width:140px; background:var(--bg-soft); border:1px solid var(--border);
+  border-radius:999px; padding:9px 14px; color:var(--text-dim); font-size:0.82rem;
+  font-weight:600; cursor:pointer; transition:0.2s;
+}
+.calc-store-btn.active {
+  background:linear-gradient(135deg,var(--gold-soft),var(--gold)); color:#1a0f00; border-color:transparent;
+}
 .calc-box {
   background:var(--card);
   border:1px solid var(--border);
@@ -3946,13 +3957,16 @@ a:focus-visible,button:focus-visible,input:focus-visible {
 .resume-chip {
   position:fixed;
   left:50%;
-  transform:translateX(-50%) translateY(150%);
-  bottom:calc(86px + env(safe-area-inset-bottom,0px));
+  top:calc(196px + env(safe-area-inset-top,0px));
+  bottom:auto;
+  transform:translateX(-50%) translateY(-250%);
   z-index:299;
   display:flex;
+  flex-wrap:wrap;
   align-items:center;
-  gap:10px;
-  max-width:calc(100vw - 28px);
+  gap:8px 10px;
+  width:calc(100vw - 28px);
+  max-width:380px;
   background:var(--card);
   border:1px solid var(--border);
   border-radius:16px;
@@ -3960,10 +3974,18 @@ a:focus-visible,button:focus-visible,input:focus-visible {
   font-size:0.84rem;
   color:var(--text-soft);
   box-shadow:0 16px 40px rgba(0,0,0,0.5);
-  transition:transform .38s cubic-bezier(.2,.9,.25,1)
+  transition:transform .38s cubic-bezier(.2,.9,.25,1), opacity .38s;
+  opacity:0;
+  pointer-events:none;
 }
+.resume-chip > span { flex:1 1 100%; min-width:0 }
 .resume-chip.show {
-  transform:translateX(-50%) translateY(0)
+  transform:translateX(-50%) translateY(0);
+  opacity:1;
+  pointer-events:auto;
+}
+header.shrink ~ .resume-chip {
+  top:calc(150px + env(safe-area-inset-top,0px));
 }
 .resume-chip b {
   color:var(--text)
@@ -4338,7 +4360,7 @@ body.comfort-mode .shop-card-img {
   justify-content:center;
   color:#fff;
   cursor:pointer;
-  z-index:2;
+  z-index:8;
   transition:0.2s
 }
 .shop-share:hover {
@@ -4364,7 +4386,7 @@ body.comfort-mode .shop-card-img {
   justify-content:center;
   color:#fff;
   cursor:pointer;
-  z-index:2;
+  z-index:8;
   transition:0.2s
 }
 .shop-fav svg {
@@ -4673,7 +4695,7 @@ body.time-night .aurora span {
   justify-content:center;
   color:#fff;
   cursor:pointer;
-  z-index:2;
+  z-index:8;
   transition:0.2s
 }
 .shop-compare svg {
@@ -4688,8 +4710,9 @@ body.time-night .aurora span {
 .compare-bar {
   position:fixed;
   left:50%;
-  bottom:calc(86px + env(safe-area-inset-bottom,0px));
-  transform:translate(-50%,150%);
+  top:calc(266px + env(safe-area-inset-top,0px));
+  bottom:auto;
+  transform:translateX(-50%) translateY(-250%);
   z-index:280;
   display:flex;
   align-items:center;
@@ -4700,10 +4723,17 @@ body.time-night .aurora span {
   border-radius:999px;
   padding:8px 8px 8px 16px;
   box-shadow:0 16px 40px rgba(0,0,0,0.5);
-  transition:transform 0.35s cubic-bezier(.2,.9,.25,1)
+  transition:transform 0.35s cubic-bezier(.2,.9,.25,1), opacity .35s;
+  opacity:0;
+  pointer-events:none;
 }
 .compare-bar.show {
-  transform:translate(-50%,0)
+  transform:translateX(-50%) translateY(0);
+  opacity:1;
+  pointer-events:auto;
+}
+header.shrink ~ .compare-bar {
+  top:calc(220px + env(safe-area-inset-top,0px));
 }
 .compare-bar span {
   font-size:0.82rem;
@@ -6192,6 +6222,36 @@ body.data-saver .data-saver-banner { display:flex }
             <div class="shop-cta-official">Voir sur notre boutique →</div>
           </div>
         </a>
+        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Folevs-9809-men-watch-original-brand-waterproof-quartz-watch-stainless-steel-strap-automatic-date-sports-watch-mens-gifts-box%3Fvariant%3D55040791806291" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav9" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
+            <span class="shop-badge-official">⌚ Boutique officielle</span>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre quartz strass, bracelet acier inoxydable', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp9" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Montre quartz strass, bracelet acier inoxydable')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S2de7a1363782460692939689117044e19.webp?v=1790192623&width=500" alt="Montre à quartz strass, bracelet en acier inoxydable" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
+          </div>
+          <div class="shop-card-body">
+            <h3>Montre quartz strass — bracelet acier inoxydable</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">53,33 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div style="font-size:0.74rem; color:var(--gold-soft);">🔒 Paiement sécurisé</div>
+            <div class="shop-cta-official">Voir sur notre boutique →</div>
+          </div>
+        </a>
+        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Folevs-5657-mens-watch-original-stainless-steel-date-quartz-watch-waterproof-luminous-sports-watches-for-man-box-gifts-reloj%3Fvariant%3D54864946561363" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav10" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
+            <span class="shop-badge-official">⌚ Boutique officielle</span>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('OLEVS 5657 — montre quartz acier, date, sport', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp10" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'OLEVS 5657 — montre quartz acier, date, sport')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S9981f9f4a6664e188e051a5728dd04a5l.webp?v=1788615353&width=500" alt="OLEVS 5657, montre homme quartz acier, date, sport" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
+          </div>
+          <div class="shop-card-body">
+            <h3>OLEVS 5657 — montre quartz acier, date, sport</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">63,59 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div style="font-size:0.74rem; color:var(--gold-soft);">🔒 Paiement sécurisé</div>
+            <div class="shop-cta-official">Voir sur notre boutique →</div>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -6328,6 +6388,10 @@ body.data-saver .data-saver-banner { display:flex }
         <h3 style="font-size:1.1rem; margin-bottom:4px; color:var(--gold-soft);">Calculez votre économie</h3>
         <p style="color:var(--text-soft); font-size:0.88rem; margin:0 0 16px;">Basé sur le montant total de votre panier, pas sur un article isolé.</p>
         <div class="calc-box reveal">
+          <div class="calc-store-toggle" role="group" aria-label="Choisir la boutique">
+            <button type="button" class="calc-store-btn active" data-rate="0.14" onclick="setCalcStore(this)">Hacoo · -14%</button>
+            <button type="button" class="calc-store-btn" data-rate="0.40" onclick="setCalcStore(this)">Boutique montres · -40%</button>
+          </div>
           <div class="calc-input-group">
             <label for="calcPrice">Montant total de votre commande (€)</label>
             <div class="calc-input-wrap">
@@ -6337,7 +6401,7 @@ body.data-saver .data-saver-banner { display:flex }
           </div>
           <div class="calc-result">
             <div class="save-amount" id="calcSave">0,00 €</div>
-            <div class="final-price">économisés avec <span class="mono">-14%</span> sur le total du panier — montant final : <b id="calcFinal">0,00 €</b></div>
+            <div class="final-price">économisés avec <span class="mono" id="calcRateLabel">-14%</span> sur le total du panier — montant final : <b id="calcFinal">0,00 €</b></div>
           </div>
         </div>
       </div>
@@ -6356,10 +6420,10 @@ body.data-saver .data-saver-banner { display:flex }
               <path d="M110 110 L45 197 A108 108 0 0 1 12 78 Z" fill="#242c38"/>
               <path d="M110 110 L12 78 A108 108 0 0 1 110 2 Z" fill="#1b222d"/>
               <text x="150" y="55" fill="#f0c368" font-size="15" font-weight="700" font-family="Space Grotesk">-14%</text>
-              <text x="158" y="145" fill="#a8b0bc" font-size="11" font-family="Inter">👑 VIP</text>
+              <text x="146" y="140" fill="#f0c368" font-size="12" font-weight="700" font-family="Space Grotesk">⌚ -40%</text>
               <text x="95" y="185" fill="#f0c368" font-size="15" font-weight="700" font-family="Space Grotesk">-14%</text>
-              <text x="35" y="150" fill="#a8b0bc" font-size="11" font-family="Inter">Hacoo</text>
-              <text x="35" y="55" fill="#f0c368" font-size="15" font-weight="700" font-family="Space Grotesk">-14%</text>
+              <text x="30" y="150" fill="#a8b0bc" font-size="12" font-family="Inter">👑 VIP</text>
+              <text x="26" y="58" fill="#f0c368" font-size="12" font-weight="700" font-family="Space Grotesk">⌚ -40%</text>
             </svg>
           </div>
           <button class="btn-primary wheel-btn" onclick="spinWheel()" id="wheelBtn">Faire tourner la roue</button>
@@ -7242,9 +7306,18 @@ body.data-saver .data-saver-banner { display:flex }
   }, { passive:true });
 
   // Savings calculator
+  let calcRate = 0.14;
+  function setCalcStore(btn){
+    document.querySelectorAll('.calc-store-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    calcRate = parseFloat(btn.dataset.rate);
+    document.getElementById('calcRateLabel').textContent = '-' + Math.round(calcRate * 100) + '%';
+    updateCalc();
+    trackEvent('calc_store_changed', { rate: calcRate });
+  }
   function updateCalc(){
     const price = parseFloat(document.getElementById('calcPrice').value) || 0;
-    const save = price * 0.14;
+    const save = price * calcRate;
     const final = price - save;
     document.getElementById('calcSave').textContent = save.toLocaleString('fr-FR', { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' €';
     document.getElementById('calcFinal').textContent = final.toLocaleString('fr-FR', { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' €';
@@ -7897,9 +7970,11 @@ body.data-saver .data-saver-banner { display:flex }
 
   // Wheel of savings — always lands on a real, available advantage
   const wheelOutcomes = [
-    { angle: 45,  label: '🎉 -14% avec Promofinance' },
-    { angle: 165, label: '🎉 -14% avec Frbonplan' },
-    { angle: 285, label: '👑 Accès VIP : DM Telegram pour la prochaine offre en avant-première' }
+    { angle: 36,  label: '🎉 -14% avec Promofinance' },
+    { angle: 108, label: '⌚ -40% sur la boutique de montres avec le code FRBONPLAN' },
+    { angle: 180, label: '🎉 -14% avec Frbonplan' },
+    { angle: 252, label: '👑 Accès VIP : DM Telegram pour la prochaine offre en avant-première' },
+    { angle: 324, label: '⌚ -40% sur la boutique de montres avec le code FRBONPLAN' }
   ];
   let wheelSpinning = false, wheelTotalRotation = 0, wheelLastResult = null;
   function spinWheel(){
