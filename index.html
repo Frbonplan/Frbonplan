@@ -840,6 +840,15 @@ section {
   content-visibility:auto;
   contain-intrinsic-size:1px 700px
 }
+main > section:nth-of-type(even):not(#accueil):not(#installer) {
+  background:linear-gradient(180deg, rgba(217,164,65,0.045), rgba(217,164,65,0.012) 45%, transparent);
+}
+main > section:nth-of-type(even):not(#accueil):not(#installer)::after {
+  content:"";
+  position:absolute; left:50%; bottom:0; transform:translateX(-50%);
+  width:min(600px, 70%); height:1px;
+  background:linear-gradient(90deg, transparent, rgba(217,164,65,0.28), transparent);
+}
 .section-head {
   text-align:center;
   max-width:640px;
@@ -1701,7 +1710,15 @@ header.shrink .logo-wrap {
   position:fixed;
   left:22px;
   bottom:22px;
-  z-index:65
+  z-index:65;
+  opacity:1;
+  pointer-events:auto;
+  transition:opacity .25s, transform .25s;
+}
+.fab-wrap.hero-hidden {
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(10px);
 }
 .fab-main {
   width:52px;
@@ -4945,6 +4962,10 @@ header.shrink ~ .compare-bar {
 .loyalty-pill.show {
   transform:scale(1)
 }
+.loyalty-pill.hero-hidden {
+  transform:scale(0) !important;
+  pointer-events:none;
+}
 body.app-standalone .loyalty-pill {
   bottom:calc(78px + env(safe-area-inset-bottom,0px))
 }
@@ -5272,8 +5293,15 @@ body.app-standalone .app-dashboard {
   align-items:center;
   justify-content:center;
   cursor:pointer;
-  transition:0.25s;
-  font-size:1.1rem
+  font-size:1.1rem;
+  opacity:1;
+  pointer-events:auto;
+  transition:opacity .25s, transform .25s, background .25s, color .25s, border-color .25s;
+}
+.prefs-toggle.hero-hidden {
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(10px);
 }
 .prefs-toggle:hover { border-color:var(--gold-soft); color:var(--gold-soft) }
 .prefs-toggle .prefs-dot {
@@ -5417,6 +5445,15 @@ body.data-saver .data-saver-banner { display:flex }
   background:var(--coral); margin-left:6px; vertical-align:middle;
 }
 
+.jump-articles-link {
+  display:inline-flex; align-items:center; gap:6px; margin:2px 0 22px;
+  color:var(--gold-soft); font-size:0.86rem; font-weight:600; text-decoration:none;
+  border-bottom:1px dashed var(--gold-soft); padding-bottom:2px;
+  animation:jumpBounce 2.2s ease-in-out infinite;
+}
+.jump-articles-link:hover { color:var(--gold) }
+@keyframes jumpBounce { 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(4px) } }
+body.app-standalone .jump-articles-link { display:none }
 </style>
 <script type="application/ld+json">
 {
@@ -5735,6 +5772,7 @@ body.data-saver .data-saver-banner { display:flex }
         <div class="eyebrow"><span class="dot"></span>Sélection mise à jour chaque jour</div>
         <h1>On trie. On teste. <em>On ne garde que les meilleurs articles.</em></h1>
         <p class="lede">Pendant que d'autres relaient tout ce qui passe, Frbonplan sélectionne les meilleurs articles et bons plans Hacoo — avec, en bonus, des codes promo vérifiés à la main.</p>
+        <a href="#boutique" class="jump-articles-link">Voir les articles du jour ↓</a>
         <div class="cta-row">
           <a class="btn-primary" href="https://t.me/promohacoo" target="_blank" rel="noopener">
             Rejoindre le canal Telegram
@@ -5894,6 +5932,182 @@ body.data-saver .data-saver-banner { display:flex }
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg>
           <span>Boutique officielle Frbonplan</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap" id="recentlyViewedSection">
+    <div class="section-head reveal" style="text-align:left; max-width:none; margin-bottom:16px;">
+      <div class="eyebrow"><span class="dot"></span>Historique</div>
+      <h2 style="font-size:1.3rem;">Vu récemment</h2>
+    </div>
+    <div class="recent-track" id="recentTrack"></div>
+  </div>
+
+  <section id="boutique">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow"><span class="dot"></span>Sélection épinglée</div>
+        <h2>Nos coups de cœur du moment</h2>
+        <p>Une poignée d'articles neufs, repérés et testés — le prix affiché inclut déjà la réduction du code.</p>
+        <div style="margin-top:18px;">
+          <a class="btn-primary" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex-shrink:0;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            Voir notre boutique officielle de montres
+          </a>
+        </div>
+      </div>
+      <div class="catalog-search reveal">
+        <div class="search-with-mic"><input type="text" id="catalogSearchInput" placeholder="🔍 Chercher un article (Hacoo ou montres)..." oninput="filterCatalog(this.value)" style="width:100%;"><button type="button" class="mic-btn" id="catalogMicBtn" aria-label="Recherche vocale" title="Recherche vocale"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4"/></svg></button></div>
+      </div>
+      <p class="catalog-no-results" id="catalogNoResults">Aucun article ne correspond à votre recherche.</p>
+      <div class="shop-grid">
+        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Fbinbond-luxury-hollow-out-quartz-wristwatch-for-men-luminous-waterproof-mens-watch-business-sport-fashion-reloj-hommes%3Fvariant%3D54834620662099" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav1" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
+            <span class="shop-badge-official">⌚ Boutique officielle</span>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre BINBOND Luxury squelette', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp1" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Montre BINBOND Luxury squelette')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/Sdb95a4d53c5b44fab7537fe9ff477aa1Y.webp?v=1788371227&width=500" alt="Montre BINBOND Luxury, cadran squelette" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
+          </div>
+          <div class="shop-card-body">
+            <h3>Montre BINBOND Luxury — cadran squelette</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">32,99 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div style="font-size:0.74rem; color:var(--gold-soft);">🔒 Paiement sécurisé</div>
+            <div class="shop-cta-official">Voir sur notre boutique →</div>
+          </div>
+        </a>
+        <a class="shop-card reveal" href="https://c.onlyaff.app/15arcP" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav2" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Chaussures de running, plusieurs coloris', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp2" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Chaussures de running, plusieurs coloris')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="produit-sneakers.png" alt="Chaussures de running, plusieurs coloris" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
+          </div>
+          <div class="shop-card-body">
+            <h3>Chaussures de running — plusieurs coloris</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-old">35,42 €</span>
+              <span class="shop-price-new">30,46 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div class="shop-cta">Voir sur Hacoo →</div>
+          </div>
+        </a>
+        <a class="shop-card reveal reveal-delay-1" href="https://c.onlyaff.app/aPGpP5" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav3" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('T-shirt oversize 100% coton', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp3" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'T-shirt oversize 100% coton')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="produit-tshirt.png" alt="T-shirt oversize 100% coton" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
+          </div>
+          <div class="shop-card-body">
+            <h3>T-shirt oversize — 100% coton</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-old">8,20 €</span>
+              <span class="shop-price-new">7,05 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div class="shop-cta">Voir sur Hacoo →</div>
+          </div>
+        </a>
+        <a class="shop-card reveal reveal-delay-2" href="https://c.onlyaff.app/aPGtEq" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav4" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Polo casual, plusieurs coloris', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp4" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Polo casual, plusieurs coloris')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="produit-polo.png" alt="Polo casual, plusieurs coloris" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
+          </div>
+          <div class="shop-card-body">
+            <h3>Polo casual — plusieurs coloris</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-old">12,71 €</span>
+              <span class="shop-price-new">10,93 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div class="shop-cta">Voir sur Hacoo →</div>
+          </div>
+        </a>
+        <a class="shop-card reveal reveal-delay-3" href="https://c.onlyaff.app/aTdSJV" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav5" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Écouteurs sans fil compatible Apple', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp5" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Écouteurs sans fil compatible Apple')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="produit-ecouteurs.jpg" alt="Écouteurs sans fil compatible Apple" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
+          </div>
+          <div class="shop-card-body">
+            <h3>Écouteurs sans fil — compatible Apple</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-old">11,46 €</span>
+              <span class="shop-price-new">9,86 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div class="shop-cta">Voir sur Hacoo →</div>
+          </div>
+        </a>
+        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Fmontre-automatique-pour-homme-elegante-de-luxe-mecanique-etanche-squelette-acier-inoxydable-montre-pour-homme-cadeau-pour-petit-ami" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav6" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
+            <span class="shop-badge-official">⌚ Boutique officielle</span>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre automatique squelette acier inoxydable', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp6" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Montre automatique squelette acier inoxydable')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S26b32faadb0a44abb145a26a635849a4W.webp?v=1788556371&width=500" alt="Montre automatique squelette en acier inoxydable" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
+          </div>
+          <div class="shop-card-body">
+            <h3>Montre automatique squelette — acier inoxydable</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">89,99 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div style="font-size:0.74rem; color:var(--gold-soft);">🔒 Paiement sécurisé</div>
+            <div class="shop-cta-official">Voir sur notre boutique →</div>
+          </div>
+        </a>
+        <a class="shop-card shop-card-official reveal reveal-delay-1" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Fbinbond-orginal-brand-quartz-watches-for-men-luxury-luminous-stainless-steel-chronograph-mens-watch-hombre-elegante-reloj" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav7" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
+            <span class="shop-badge-official">⌚ Boutique officielle</span>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre BINBOND chronographe', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp7" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Montre BINBOND chronographe')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S5768258e9db04a9ba8d74c3e9c58717e3.webp?v=1788555448&width=500" alt="Montre BINBOND chronographe cadran luminescent" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
+          </div>
+          <div class="shop-card-body">
+            <h3>Montre BINBOND — chronographe luminescent</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">64,99 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div style="font-size:0.74rem; color:var(--gold-soft);">🔒 Paiement sécurisé</div>
+            <div class="shop-cta-official">Voir sur notre boutique →</div>
+          </div>
+        </a>
+        <a class="shop-card shop-card-official reveal reveal-delay-2" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Fpoedagar-luxury-military-man-watch-square-waterproof-luminous-date-week-men-watch-stainless-steel-quartz-mens-watches-reloj-box" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav8" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
+            <span class="shop-badge-official">⌚ Boutique officielle</span>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre POEDAGAR carrée', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp8" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Montre POEDAGAR carrée')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S69a867ac68cf48808359d02d4f3f93b7J.webp?v=1788292824&width=500" alt="Montre POEDAGAR design carré militaire" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
+          </div>
+          <div class="shop-card-body">
+            <h3>Montre POEDAGAR — design carré militaire</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">42,99 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div style="font-size:0.74rem; color:var(--gold-soft);">🔒 Paiement sécurisé</div>
+            <div class="shop-cta-official">Voir sur notre boutique →</div>
+          </div>
+        </a>
+        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Folevs-9809-men-watch-original-brand-waterproof-quartz-watch-stainless-steel-strap-automatic-date-sports-watch-mens-gifts-box%3Fvariant%3D55040791806291" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav9" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
+            <span class="shop-badge-official">⌚ Boutique officielle</span>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre quartz strass, bracelet acier inoxydable', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp9" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Montre quartz strass, bracelet acier inoxydable')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S2de7a1363782460692939689117044e19.webp?v=1790192623&width=500" alt="Montre à quartz strass, bracelet en acier inoxydable" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
+          </div>
+          <div class="shop-card-body">
+            <h3>Montre quartz strass — bracelet acier inoxydable</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">53,33 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div style="font-size:0.74rem; color:var(--gold-soft);">🔒 Paiement sécurisé</div>
+            <div class="shop-cta-official">Voir sur notre boutique →</div>
+          </div>
+        </a>
+        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Folevs-5657-mens-watch-original-stainless-steel-date-quartz-watch-waterproof-luminous-sports-watches-for-man-box-gifts-reloj%3Fvariant%3D54864946561363" target="_blank" rel="noopener">
+          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav10" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
+            <span class="shop-badge-official">⌚ Boutique officielle</span>
+            <button class="shop-share" onclick="event.preventDefault(); shareProduct('OLEVS 5657 — montre quartz acier, date, sport', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp10" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'OLEVS 5657 — montre quartz acier, date, sport')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S9981f9f4a6664e188e051a5728dd04a5l.webp?v=1788615353&width=500" alt="OLEVS 5657, montre homme quartz acier, date, sport" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
+          </div>
+          <div class="shop-card-body">
+            <h3>OLEVS 5657 — montre quartz acier, date, sport</h3>
+            <div class="shop-price-row">
+              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">63,59 €</span>
+            </div>
+            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
+            <div style="font-size:0.74rem; color:var(--gold-soft);">🔒 Paiement sécurisé</div>
+            <div class="shop-cta-official">Voir sur notre boutique →</div>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -6080,181 +6294,6 @@ body.data-saver .data-saver-banner { display:flex }
     </div>
   </section>
 
-  <div class="wrap" id="recentlyViewedSection">
-    <div class="section-head reveal" style="text-align:left; max-width:none; margin-bottom:16px;">
-      <div class="eyebrow"><span class="dot"></span>Historique</div>
-      <h2 style="font-size:1.3rem;">Vu récemment</h2>
-    </div>
-    <div class="recent-track" id="recentTrack"></div>
-  </div>
-
-  <section id="boutique">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <div class="eyebrow"><span class="dot"></span>Sélection épinglée</div>
-        <h2>Nos coups de cœur du moment</h2>
-        <p>Une poignée d'articles neufs, repérés et testés — le prix affiché inclut déjà la réduction du code.</p>
-        <div style="margin-top:18px;">
-          <a class="btn-primary" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex-shrink:0;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-            Voir notre boutique officielle de montres
-          </a>
-        </div>
-      </div>
-      <div class="catalog-search reveal">
-        <div class="search-with-mic"><input type="text" id="catalogSearchInput" placeholder="🔍 Chercher un article (Hacoo ou montres)..." oninput="filterCatalog(this.value)" style="width:100%;"><button type="button" class="mic-btn" id="catalogMicBtn" aria-label="Recherche vocale" title="Recherche vocale"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4"/></svg></button></div>
-      </div>
-      <p class="catalog-no-results" id="catalogNoResults">Aucun article ne correspond à votre recherche.</p>
-      <div class="shop-grid">
-        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Fbinbond-luxury-hollow-out-quartz-wristwatch-for-men-luminous-waterproof-mens-watch-business-sport-fashion-reloj-hommes%3Fvariant%3D54834620662099" target="_blank" rel="noopener">
-          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav1" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
-            <span class="shop-badge-official">⌚ Boutique officielle</span>
-            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre BINBOND Luxury squelette', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp1" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Montre BINBOND Luxury squelette')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/Sdb95a4d53c5b44fab7537fe9ff477aa1Y.webp?v=1788371227&width=500" alt="Montre BINBOND Luxury, cadran squelette" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
-          </div>
-          <div class="shop-card-body">
-            <h3>Montre BINBOND Luxury — cadran squelette</h3>
-            <div class="shop-price-row">
-              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">32,99 €</span>
-            </div>
-            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
-            <div style="font-size:0.74rem; color:var(--gold-soft);">🔒 Paiement sécurisé</div>
-            <div class="shop-cta-official">Voir sur notre boutique →</div>
-          </div>
-        </a>
-        <a class="shop-card reveal" href="https://c.onlyaff.app/15arcP" target="_blank" rel="noopener">
-          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav2" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
-            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Chaussures de running, plusieurs coloris', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp2" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Chaussures de running, plusieurs coloris')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="produit-sneakers.png" alt="Chaussures de running, plusieurs coloris" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
-          </div>
-          <div class="shop-card-body">
-            <h3>Chaussures de running — plusieurs coloris</h3>
-            <div class="shop-price-row">
-              <span class="shop-price-old">35,42 €</span>
-              <span class="shop-price-new">30,46 €</span>
-            </div>
-            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
-            <div class="shop-cta">Voir sur Hacoo →</div>
-          </div>
-        </a>
-        <a class="shop-card reveal reveal-delay-1" href="https://c.onlyaff.app/aPGpP5" target="_blank" rel="noopener">
-          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav3" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
-            <button class="shop-share" onclick="event.preventDefault(); shareProduct('T-shirt oversize 100% coton', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp3" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'T-shirt oversize 100% coton')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="produit-tshirt.png" alt="T-shirt oversize 100% coton" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
-          </div>
-          <div class="shop-card-body">
-            <h3>T-shirt oversize — 100% coton</h3>
-            <div class="shop-price-row">
-              <span class="shop-price-old">8,20 €</span>
-              <span class="shop-price-new">7,05 €</span>
-            </div>
-            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
-            <div class="shop-cta">Voir sur Hacoo →</div>
-          </div>
-        </a>
-        <a class="shop-card reveal reveal-delay-2" href="https://c.onlyaff.app/aPGtEq" target="_blank" rel="noopener">
-          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav4" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
-            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Polo casual, plusieurs coloris', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp4" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Polo casual, plusieurs coloris')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="produit-polo.png" alt="Polo casual, plusieurs coloris" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
-          </div>
-          <div class="shop-card-body">
-            <h3>Polo casual — plusieurs coloris</h3>
-            <div class="shop-price-row">
-              <span class="shop-price-old">12,71 €</span>
-              <span class="shop-price-new">10,93 €</span>
-            </div>
-            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
-            <div class="shop-cta">Voir sur Hacoo →</div>
-          </div>
-        </a>
-        <a class="shop-card reveal reveal-delay-3" href="https://c.onlyaff.app/aTdSJV" target="_blank" rel="noopener">
-          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav5" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
-            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Écouteurs sans fil compatible Apple', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp5" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Écouteurs sans fil compatible Apple')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="produit-ecouteurs.jpg" alt="Écouteurs sans fil compatible Apple" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
-          </div>
-          <div class="shop-card-body">
-            <h3>Écouteurs sans fil — compatible Apple</h3>
-            <div class="shop-price-row">
-              <span class="shop-price-old">11,46 €</span>
-              <span class="shop-price-new">9,86 €</span>
-            </div>
-            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
-            <div class="shop-cta">Voir sur Hacoo →</div>
-          </div>
-        </a>
-        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Fmontre-automatique-pour-homme-elegante-de-luxe-mecanique-etanche-squelette-acier-inoxydable-montre-pour-homme-cadeau-pour-petit-ami" target="_blank" rel="noopener">
-          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav6" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
-            <span class="shop-badge-official">⌚ Boutique officielle</span>
-            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre automatique squelette acier inoxydable', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp6" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Montre automatique squelette acier inoxydable')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S26b32faadb0a44abb145a26a635849a4W.webp?v=1788556371&width=500" alt="Montre automatique squelette en acier inoxydable" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
-          </div>
-          <div class="shop-card-body">
-            <h3>Montre automatique squelette — acier inoxydable</h3>
-            <div class="shop-price-row">
-              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">89,99 €</span>
-            </div>
-            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
-            <div style="font-size:0.74rem; color:var(--gold-soft);">🔒 Paiement sécurisé</div>
-            <div class="shop-cta-official">Voir sur notre boutique →</div>
-          </div>
-        </a>
-        <a class="shop-card shop-card-official reveal reveal-delay-1" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Fbinbond-orginal-brand-quartz-watches-for-men-luxury-luminous-stainless-steel-chronograph-mens-watch-hombre-elegante-reloj" target="_blank" rel="noopener">
-          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav7" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
-            <span class="shop-badge-official">⌚ Boutique officielle</span>
-            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre BINBOND chronographe', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp7" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Montre BINBOND chronographe')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S5768258e9db04a9ba8d74c3e9c58717e3.webp?v=1788555448&width=500" alt="Montre BINBOND chronographe cadran luminescent" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
-          </div>
-          <div class="shop-card-body">
-            <h3>Montre BINBOND — chronographe luminescent</h3>
-            <div class="shop-price-row">
-              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">64,99 €</span>
-            </div>
-            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
-            <div style="font-size:0.74rem; color:var(--gold-soft);">🔒 Paiement sécurisé</div>
-            <div class="shop-cta-official">Voir sur notre boutique →</div>
-          </div>
-        </a>
-        <a class="shop-card shop-card-official reveal reveal-delay-2" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Fpoedagar-luxury-military-man-watch-square-waterproof-luminous-date-week-men-watch-stainless-steel-quartz-mens-watches-reloj-box" target="_blank" rel="noopener">
-          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav8" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
-            <span class="shop-badge-official">⌚ Boutique officielle</span>
-            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre POEDAGAR carrée', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp8" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Montre POEDAGAR carrée')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S69a867ac68cf48808359d02d4f3f93b7J.webp?v=1788292824&width=500" alt="Montre POEDAGAR design carré militaire" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
-          </div>
-          <div class="shop-card-body">
-            <h3>Montre POEDAGAR — design carré militaire</h3>
-            <div class="shop-price-row">
-              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">42,99 €</span>
-            </div>
-            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
-            <div style="font-size:0.74rem; color:var(--gold-soft);">🔒 Paiement sécurisé</div>
-            <div class="shop-cta-official">Voir sur notre boutique →</div>
-          </div>
-        </a>
-        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Folevs-9809-men-watch-original-brand-waterproof-quartz-watch-stainless-steel-strap-automatic-date-sports-watch-mens-gifts-box%3Fvariant%3D55040791806291" target="_blank" rel="noopener">
-          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav9" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
-            <span class="shop-badge-official">⌚ Boutique officielle</span>
-            <button class="shop-share" onclick="event.preventDefault(); shareProduct('Montre quartz strass, bracelet acier inoxydable', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp9" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'Montre quartz strass, bracelet acier inoxydable')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S2de7a1363782460692939689117044e19.webp?v=1790192623&width=500" alt="Montre à quartz strass, bracelet en acier inoxydable" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
-          </div>
-          <div class="shop-card-body">
-            <h3>Montre quartz strass — bracelet acier inoxydable</h3>
-            <div class="shop-price-row">
-              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">53,33 €</span>
-            </div>
-            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
-            <div style="font-size:0.74rem; color:var(--gold-soft);">🔒 Paiement sécurisé</div>
-            <div class="shop-cta-official">Voir sur notre boutique →</div>
-          </div>
-        </a>
-        <a class="shop-card shop-card-official reveal" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2Fproducts%2Folevs-5657-mens-watch-original-stainless-steel-date-quartz-watch-waterproof-luminous-sports-watches-for-man-box-gifts-reloj%3Fvariant%3D54864946561363" target="_blank" rel="noopener">
-          <div class="shop-card-img"><button class="shop-fav" data-fav-id="fav10" onclick="event.preventDefault(); event.stopPropagation(); toggleFav(this)" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l8.8-8.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
-            <span class="shop-badge-official">⌚ Boutique officielle</span>
-            <button class="shop-share" onclick="event.preventDefault(); shareProduct('OLEVS 5657 — montre quartz acier, date, sport', this)" aria-label="Partager cet article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9"/></svg></button><button class="shop-compare" data-cmp-id="cmp10" onclick="event.preventDefault(); event.stopPropagation(); toggleCompare(this, 'OLEVS 5657 — montre quartz acier, date, sport')" aria-label="Ajouter au comparateur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></button><img src="https://frbonplan.myshopify.com/cdn/shop/files/S9981f9f4a6664e188e051a5728dd04a5l.webp?v=1788615353&width=500" alt="OLEVS 5657, montre homme quartz acier, date, sport" loading="lazy" decoding="async" onclick="event.preventDefault(); event.stopPropagation(); openZoom(this.src, this.alt)">
-          </div>
-          <div class="shop-card-body">
-            <h3>OLEVS 5657 — montre quartz acier, date, sport</h3>
-            <div class="shop-price-row">
-              <span class="shop-price-new" style="background:linear-gradient(135deg, var(--gold-soft), var(--gold)); color:#1a0f00;">63,59 €</span>
-            </div>
-            <div style="font-size:0.74rem; color:var(--text-dim);">🚚 Livraison estimée 7-14 jours</div>
-            <div style="font-size:0.74rem; color:var(--gold-soft);">🔒 Paiement sécurisé</div>
-            <div class="shop-cta-official">Voir sur notre boutique →</div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
 
   <div class="wrap" style="margin:56px auto;">
     <div class="section-head reveal">
@@ -7161,9 +7200,19 @@ body.data-saver .data-saver-banner { display:flex }
 
   // Back to top visibility
   const backTop = document.getElementById('backTop');
+  const fabWrapEl = document.getElementById('fabWrap');
+  const prefsToggleEl = document.getElementById('prefsToggle');
+  const loyaltyPillEl = document.getElementById('loyaltyPill');
   window.addEventListener('scroll', () => {
     backTop.classList.toggle('show', window.scrollY > 600);
+    const nearTop = window.scrollY < 420;
+    if(fabWrapEl) fabWrapEl.classList.toggle('hero-hidden', nearTop);
+    if(prefsToggleEl) prefsToggleEl.classList.toggle('hero-hidden', nearTop);
+    if(loyaltyPillEl) loyaltyPillEl.classList.toggle('hero-hidden', nearTop);
   }, { passive:true });
+  if(fabWrapEl && window.scrollY < 420) fabWrapEl.classList.add('hero-hidden');
+  if(prefsToggleEl && window.scrollY < 420) prefsToggleEl.classList.add('hero-hidden');
+  if(loyaltyPillEl && window.scrollY < 420) loyaltyPillEl.classList.add('hero-hidden');
 
   // Active nav + scrollspy dots
   const sectionIds = ['accueil','montres','mission','quiz','boutique','offres','codes','avis','faq'];
