@@ -4967,6 +4967,9 @@ header.shrink ~ .compare-bar {
   pointer-events:none;
 }
 body.app-standalone .loyalty-pill {
+  bottom:calc(136px + env(safe-area-inset-bottom,0px))
+}
+body.app-standalone .back-top {
   bottom:calc(78px + env(safe-area-inset-bottom,0px))
 }
 .profile-sheet-head {
@@ -5582,6 +5585,14 @@ body.app-standalone .jump-articles-link { display:none }
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Frbonplan est une sélection indépendante : nous ne fabriquons, ne stockons et ne vendons aucun article. Chaque achat est conclu directement avec Hacoo, qui reste seul responsable de la conformité, de la qualité et du service après-vente du produit. Pour un retour, un remboursement ou une réclamation, le contact est le support Hacoo, pas Frbonplan."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le lien vers Hacoo ne s'ouvre pas, c'est normal ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, c'est normal si l'application Hacoo n'est pas encore installée : ces liens sont conçus pour s'ouvrir directement dans l'app. Installez Hacoo depuis l'App Store ou le Play Store, puis réessayez le lien."
       }
     }
   ]
@@ -6516,7 +6527,7 @@ body.app-standalone .jump-articles-link { display:none }
       <div class="install-section-card reveal">
         <div>
           <h3>Installation en 10 secondes</h3>
-          <p>Ouverture immédiate, navigation plein écran, et les codes du jour restent consultables même sans réseau. Compatible Android et iPhone, y compris les dernières versions.</p>
+          <p>Ça ajoute une icône Frbonplan sur votre écran d'accueil, comme une vraie application — un seul geste et vous êtes sur le site, sans passer par un navigateur ni taper d'adresse. Les codes du jour restent même lisibles sans connexion. Compatible Android et iPhone, y compris les dernières versions.</p>
           <div class="install-section-list">
             <span>✓ Aucun compte requis</span>
             <span>✓ Aucune autorisation demandée</span>
@@ -6622,6 +6633,10 @@ body.app-standalone .jump-articles-link { display:none }
       <div class="faq-item reveal" data-q="montre retour remboursement garantie échange">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-montres">⌚ Montres</span>Puis-je retourner ou échanger une montre ?</span><span class="plus">+</span></button>
         <div class="faq-a"><p>Les conditions de retour, d'échange et de garantie de notre boutique de montres sont précisées sur le site au moment de la commande et dans l'email de confirmation. En cas de question, contactez-nous directement via Telegram avec votre numéro de commande.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr13',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr13',false)">👎 Pas clair</button></div></div>
+      </div>
+      <div class="faq-item reveal" data-q="lien hacoo ne souvre pas marche pas application app installée">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-q-text"><span class="faq-tag faq-tag-hacoo">🛍️ Hacoo</span>Le lien vers Hacoo ne s'ouvre pas, c'est normal ?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Oui, c'est normal si l'application Hacoo n'est pas encore installée sur votre téléphone : ces liens sont conçus pour s'ouvrir directement dans l'app. Installez d'abord Hacoo depuis l'App Store ou le Play Store, puis réessayez — le lien s'ouvrira normalement. Si vous préférez, vous pouvez aussi chercher l'article manuellement dans l'app une fois installée.</p><div class="faq-reactions"><button class="faq-react-btn" onclick="faqReact(this,'faqr14',true)">👍 Utile</button><button class="faq-react-btn" onclick="faqReact(this,'faqr14',false)">👎 Pas clair</button></div></div>
       </div>
       <p id="faqEmpty" style="display:none; color:var(--text-dim); text-align:center; padding:20px 0;">Aucune question ne correspond à votre recherche.</p>
     </div>
