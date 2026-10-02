@@ -836,9 +836,7 @@ section {
   padding:56px 0;
   position:relative;
   z-index:2;
-  scroll-margin-top:78px;
-  content-visibility:auto;
-  contain-intrinsic-size:1px 700px
+  scroll-margin-top:var(--header-offset, 78px);
 }
 main > section:nth-of-type(even):not(#accueil):not(#installer) {
   background:linear-gradient(180deg, rgba(217,164,65,0.045), rgba(217,164,65,0.012) 45%, transparent);
@@ -5212,11 +5210,15 @@ body.high-contrast .shop-card, body.high-contrast .card {
   font-size:0.82rem;
   color:var(--text-soft);
   box-shadow:0 12px 30px rgba(0,0,0,0.4);
-  transition:transform 0.4s cubic-bezier(.2,.9,.25,1);
-  white-space:nowrap
+  transition:transform 0.4s cubic-bezier(.2,.9,.25,1), opacity 0.4s;
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
 }
 .welcome-back-chip.show {
-  transform:translate(-50%,0)
+  transform:translate(-50%,0);
+  opacity:1;
+  pointer-events:auto;
 }
 .welcome-back-chip b {
   color:var(--gold-soft)
@@ -5772,7 +5774,7 @@ body.app-standalone .jump-articles-link { display:none }
         <div class="app-dash-grid">
           <a class="app-dash-btn" href="#codes"><span class="app-dash-ico">🎟️</span>Codes promo</a>
           <a class="app-dash-btn" href="#boutique"><span class="app-dash-ico">🛍️</span>Boutique</a>
-          <a class="app-dash-btn" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener"><span class="app-dash-ico">⌚</span>Montres</a>
+          <a class="app-dash-btn" href="https://frbonplan.myshopify.com/discount/FRBONPLAN?redirect=%2F" target="_blank" rel="noopener"><span class="app-dash-ico">⌚</span>Montres<span class="app-dash-badge">+20 pts</span></a>
           <button type="button" class="app-dash-btn" onclick="openFavSheet()"><span class="app-dash-ico">❤️</span>Favoris</button>
           <a class="app-dash-btn" href="#offres"><span class="app-dash-ico">🔥</span>Offre du jour</a>
           <a class="app-dash-btn" href="#faq"><span class="app-dash-ico">💬</span>Aide</a>
@@ -5890,7 +5892,7 @@ body.app-standalone .jump-articles-link { display:none }
           <p>Notre propre boutique, que nous gérons de A à Z : sélection, stock, expédition et service client. Son propre code <b style="color:var(--gold-soft);">-40%</b> et ses propres conditions.</p>
         </div>
       </div>
-      <p style="text-align:center; font-size:0.82rem; color:var(--text-dim); margin-top:20px; max-width:56ch; margin-left:auto; margin-right:auto;">💡 Le code <b style="color:var(--text-soft);">FRBONPLAN</b> existe sur les deux boutiques, mais son avantage n'est pas le même selon où vous l'utilisez : -14% sur Hacoo, -40% chez nous.</p>
+      <p style="text-align:center; font-size:0.82rem; color:var(--text-dim); margin-top:20px; max-width:56ch; margin-left:auto; margin-right:auto;">Le code <b style="color:var(--text-soft);">FRBONPLAN</b> existe sur les deux boutiques, mais son avantage n'est pas le même selon où vous l'utilisez : -14% sur Hacoo, -40% chez nous.</p>
     </div>
   </section>
 
@@ -5898,11 +5900,6 @@ body.app-standalone .jump-articles-link { display:none }
     <div class="wrap">
       <div class="montre-spotlight reveal">
         <div class="montre-shine-sweep" aria-hidden="true"></div>
-        <span class="montre-twinkle" aria-hidden="true" style="top:14%; left:10%; font-size:0.9rem; animation-delay:0s;">✦</span>
-        <span class="montre-twinkle" aria-hidden="true" style="top:22%; right:12%; font-size:1.3rem; animation-delay:0.9s;">✦</span>
-        <span class="montre-twinkle" aria-hidden="true" style="bottom:20%; left:16%; font-size:1.1rem; animation-delay:1.7s;">✦</span>
-        <span class="montre-twinkle" aria-hidden="true" style="bottom:28%; right:18%; font-size:0.8rem; animation-delay:2.4s;">✦</span>
-        <span class="montre-twinkle" aria-hidden="true" style="top:48%; left:6%; font-size:0.7rem; animation-delay:1.2s;">✦</span>
         <div class="montre-ring">⌚</div>
         <div class="montre-eyebrow">✦ Boutique officielle Frbonplan</div>
         <h2>Nos montres ne restent pas <em>longtemps en ligne.</em></h2>
@@ -5917,6 +5914,7 @@ body.app-standalone .jump-articles-link { display:none }
           Découvrir la collection →
         </a>
         <div class="montre-note">Nouvelle sélection ajoutée régulièrement — jetez-y un œil avant qu'un modèle ne disparaisse.</div>
+        <div class="montre-note" style="color:var(--gold-soft); font-weight:700;">🏆 +20 points de fidélité à la première visite, et +5 à chaque fois que vous revenez voir la collection</div>
         <div class="montre-coupon">
           <div class="montre-coupon-label"><b>-40% sur votre 1ère commande</b> — déjà appliqué automatiquement en cliquant "Découvrir la collection"</div>
           <div class="montre-coupon-row">
@@ -6439,8 +6437,8 @@ body.app-standalone .jump-articles-link { display:none }
         <p style="color:var(--text-soft); font-size:0.88rem; margin:0 0 16px;">Basé sur le montant total de votre panier, pas sur un article isolé.</p>
         <div class="calc-box reveal">
           <div class="calc-store-toggle" role="group" aria-label="Choisir la boutique">
-            <button type="button" class="calc-store-btn active" data-rate="0.14" onclick="setCalcStore(this)">Hacoo · -14%</button>
-            <button type="button" class="calc-store-btn" data-rate="0.40" onclick="setCalcStore(this)">Boutique montres · -40%</button>
+            <button type="button" class="calc-store-btn" data-rate="0.14" onclick="setCalcStore(this)">Hacoo · -14%</button>
+            <button type="button" class="calc-store-btn active" data-rate="0.40" onclick="setCalcStore(this)">⌚ Boutique montres · -40%</button>
           </div>
           <div class="calc-input-group">
             <label for="calcPrice">Montant total de votre commande (€)</label>
@@ -6451,7 +6449,7 @@ body.app-standalone .jump-articles-link { display:none }
           </div>
           <div class="calc-result">
             <div class="save-amount" id="calcSave">0,00 €</div>
-            <div class="final-price">économisés avec <span class="mono" id="calcRateLabel">-14%</span> sur le total du panier — montant final : <b id="calcFinal">0,00 €</b></div>
+            <div class="final-price">économisés avec <span class="mono" id="calcRateLabel">-40%</span> sur le total du panier — montant final : <b id="calcFinal">0,00 €</b></div>
           </div>
         </div>
       </div>
@@ -7105,6 +7103,7 @@ body.app-standalone .jump-articles-link { display:none }
       showToast('Code "' + text + '" copié');
       trackEvent('copy_code', { code: text, location: 'hero' });
       sessionStats.copies++; updateSessionRecap();
+      addLoyaltyPoints(2, 'copier');
       if('vibrate' in navigator){ try{ navigator.vibrate(18); }catch(e){} }
       setTimeout(() => { btn.textContent = 'Copier'; btn.classList.remove('copied'); }, 1800);
     });
@@ -7120,6 +7119,7 @@ body.app-standalone .jump-articles-link { display:none }
       trackEvent('copy_code', { code: text, location: 'codes_section' });
       sessionStats.copies++; updateSessionRecap();
       logCodeHistory(text);
+      addLoyaltyPoints(2, 'copier');
       if('vibrate' in navigator){ try{ navigator.vibrate(18); }catch(e){} }
       setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1800);
     });
@@ -7356,21 +7356,30 @@ body.app-standalone .jump-articles-link { display:none }
       url: window.location.href
     };
     if(navigator.share){
-      navigator.share(shareData).catch(() => {});
+      navigator.share(shareData).then(() => addLoyaltyPoints(3, 'partage')).catch(() => {});
     } else {
-      navigator.clipboard.writeText(shareData.url).then(() => showToast('Lien du site copié !'));
+      navigator.clipboard.writeText(shareData.url).then(() => { showToast('Lien du site copié !'); addLoyaltyPoints(3, 'partage'); });
     }
     document.getElementById('fabWrap').classList.remove('open');
   }
 
   // Header shrink on scroll
   const headerEl = document.querySelector('header');
+  function syncHeaderOffset(){
+    const h = headerEl.getBoundingClientRect().bottom;
+    document.documentElement.style.setProperty('--header-offset', Math.max(50, Math.round(h) + 10) + 'px');
+  }
   window.addEventListener('scroll', () => {
     headerEl.classList.toggle('shrink', window.scrollY > 80);
+    syncHeaderOffset();
   }, { passive:true });
+  window.addEventListener('resize', syncHeaderOffset, { passive:true });
+  syncHeaderOffset();
+  const announceCloseBtnForOffset = document.getElementById('announceClose');
+  if(announceCloseBtnForOffset) announceCloseBtnForOffset.addEventListener('click', () => setTimeout(syncHeaderOffset, 50));
 
   // Savings calculator
-  let calcRate = 0.14;
+  let calcRate = 0.40;
   function setCalcStore(btn){
     document.querySelectorAll('.calc-store-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -7538,6 +7547,7 @@ body.app-standalone .jump-articles-link { display:none }
       document.getElementById('quizStep2').classList.remove('active');
       document.getElementById('quizResult').classList.add('active');
       trackEvent('quiz_completed', { result: outcome.title });
+      addLoyaltyPoints(5, 'quiz');
     }
   }
   function quizRestart(){
@@ -7796,9 +7806,9 @@ body.app-standalone .jump-articles-link { display:none }
       url: btn.closest('.shop-card').href
     };
     if(navigator.share){
-      navigator.share(shareData).catch(() => {});
+      navigator.share(shareData).then(() => addLoyaltyPoints(3, 'partage')).catch(() => {});
     } else {
-      navigator.clipboard.writeText(shareData.url).then(() => showToast("Lien de l'article copié"));
+      navigator.clipboard.writeText(shareData.url).then(() => { showToast("Lien de l'article copié"); addLoyaltyPoints(3, 'partage'); });
     }
   }
 
@@ -8210,6 +8220,7 @@ body.app-standalone .jump-articles-link { display:none }
       if(entry.isIntersecting && recapSections.includes(entry.target.id)){
         sessionStats.sectionsSeen.add(entry.target.id);
         updateSessionRecap();
+        if(sessionStats.sectionsSeen.size >= recapSections.length) addLoyaltyPoints(5, 'explorateur');
       }
     });
   }, { threshold:0.4 });
@@ -8254,6 +8265,7 @@ body.app-standalone .jump-articles-link { display:none }
     if(installBtn) installBtn.classList.remove('show');
     if(installSectionBtn) installSectionBtn.style.display = 'none';
     if(installAlready) installAlready.classList.add('show');
+    setTimeout(() => addLoyaltyPoints(5, 'install'), 0);
   }
   if(isStandalone) markAsInstalled();
 
@@ -9135,17 +9147,21 @@ body.app-standalone .jump-articles-link { display:none }
     { min:0,   name:'Découvreur',           icon:'🌱' },
     { min:15,  name:'Chasseur de bons plans', icon:'🔍' },
     { min:40,  name:'Expert Frbonplan',      icon:'⭐' },
-    { min:80,  name:'Légende Frbonplan',     icon:'👑' }
+    { min:80,  name:'Légende Frbonplan',     icon:'👑' },
+    { min:150, name:'Ambassadeur Frbonplan', icon:'🏆' }
   ];
   const BADGES = [
-    { id:'first_fav',   icon:'❤️', label:'Premier favori' },
-    { id:'copier',      icon:'📋', label:'Code copié' },
-    { id:'comparateur', icon:'⚖️', label:'A comparé' },
-    { id:'partage',     icon:'📤', label:'A partagé' },
-    { id:'install',     icon:'📲', label:'App installée' },
-    { id:'quiz',        icon:'🧩', label:'Quiz complété' },
-    { id:'fidele',      icon:'🔥', label:'3 jours de suite' },
-    { id:'explorateur', icon:'🧭', label:'Tout exploré' }
+    { id:'first_fav',    icon:'❤️', label:'Premier favori' },
+    { id:'copier',       icon:'📋', label:'Code copié' },
+    { id:'comparateur',  icon:'⚖️', label:'A comparé' },
+    { id:'partage',      icon:'📤', label:'A partagé' },
+    { id:'install',      icon:'📲', label:'App installée' },
+    { id:'quiz',         icon:'🧩', label:'Quiz complété' },
+    { id:'fidele',       icon:'🔥', label:'3 jours de suite' },
+    { id:'explorateur',  icon:'🧭', label:'Tout exploré' },
+    { id:'chanceux',     icon:'🎡', label:'A tourné la roue' },
+    { id:'calculateur',  icon:'🧮', label:'A calculé ses gains' },
+    { id:'montres',      icon:'⌚', label:'Boutique montres visitée' }
   ];
   function getLoyaltyPts(){ try { return parseInt(localStorage.getItem(LOYALTY_KEY) || '0', 10); } catch(e){ return 0; } }
   function getLoyaltyActions(){ try { return JSON.parse(localStorage.getItem(LOYALTY_ACTIONS_KEY) || '[]'); } catch(e){ return []; } }
@@ -9208,15 +9224,26 @@ body.app-standalone .jump-articles-link { display:none }
   // Points gagnés sur des actions déjà suivies ailleurs sur le site
   document.addEventListener('DOMContentLoaded', () => { paintLoyaltyPill(getLoyaltyPts()); });
   paintLoyaltyPill(getLoyaltyPts());
-  // Visite du jour (+1 pt, une fois par jour)
+  // Visite du jour (+1 pt, une fois par jour) + série de jours consécutifs
   (function(){
     const key = 'frbonplan_loyalty_last_visit';
-    let last = 0;
-    try { last = Number(localStorage.getItem(key) || 0); } catch(e){}
-    const today = new Date().toDateString();
-    if(last !== today){
-      try { localStorage.setItem(key, today); } catch(e){}
+    const streakKey = 'frbonplan_loyalty_streak';
+    let lastTimestamp = 0;
+    try { lastTimestamp = Number(localStorage.getItem(key) || 0); } catch(e){}
+    const now = new Date();
+    const todayStr = now.toDateString();
+    const lastStr = lastTimestamp ? new Date(lastTimestamp).toDateString() : '';
+    if(lastStr !== todayStr){
+      try { localStorage.setItem(key, String(now.getTime())); } catch(e){}
       addLoyaltyPoints(1);
+      const oneDayMs = 86400000;
+      const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+      const lastMidnight = lastTimestamp ? new Date(new Date(lastTimestamp).getFullYear(), new Date(lastTimestamp).getMonth(), new Date(lastTimestamp).getDate()).getTime() : 0;
+      let streak = 1;
+      try { streak = parseInt(localStorage.getItem(streakKey) || '0', 10); } catch(e){}
+      streak = (lastMidnight && todayMidnight - lastMidnight === oneDayMs) ? streak + 1 : 1;
+      try { localStorage.setItem(streakKey, String(streak)); } catch(e){}
+      if(streak >= 3) addLoyaltyPoints(5, 'fidele');
     }
   })();
 
@@ -9798,6 +9825,16 @@ body.app-standalone .jump-articles-link { display:none }
     }, { rootMargin:'-45% 0px -50% 0px', threshold:0 });
     sections.forEach(s => obs.observe(s));
   })();
+
+  // ---------- La boutique de montres rapporte bien plus que le reste ----------
+  // C'est la seule vraie vente (vs. l'affiliation Hacoo) : on la pousse clairement.
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href*="myshopify.com"]');
+    if(!link) return;
+    addLoyaltyPoints(30, 'montres');   // gros bonus unique à la première visite (le plus gros du site)
+    addLoyaltyPoints(10);              // + bonus à chaque visite suivante, largement au-dessus des autres actions
+    trackEvent('watch_shop_visit_bonus', {});
+  }, true);
 </script>
 
 </body>
