@@ -9894,6 +9894,97 @@ body.app-standalone .jump-articles-link { display:none }
     trackEvent('watch_shop_visit_bonus', {});
   }, true);
 </script>
+<script>
+(async function loadFrbonplanProducts(){
+
+  try {
+    const response = await fetch('products.json?'+Date.now());
+    if (!response.ok) return;
+
+    const products = await response.json();
+    const grid = document.querySelector('.shop-grid');
+
+    if (!grid || !Array.isArray(products)) return;
+
+    products
+      .filter(p => p.status !== 'hidden')
+      .forEach((p, index) => {
+
+        const card = document.createElement('a');
+        card.className = 'shop-card reveal';
+        card.href = p.url || '#';
+        card.target = '_blank';
+        card.rel = 'noopener';
+
+        const oldPrice = p.oldPrice
+          ? `<span class="shop-price-old">${Number(p.oldPrice).toFixed(2).replace('.',',')} €</span>`
+          : '';
+
+        const price = p.price
+          ? `${Number(p.price).toFixed(2).replace('.',',')} €`
+          : '';
+
+        card.innerHTML = `
+          <div class="shop-card-img">
+
+            <button class="shop-fav"
+              data-fav-id="dynamic-${p.id}"
+              onclick="event.preventDefault();event.stopPropagation();toggleFav(this)"
+              aria-label="Ajouter aux favoris">
+              ♡
+            </button>
+
+            <button class="shop-share"
+              onclick="event.preventDefault();event.stopPropagation();shareProduct(${JSON.stringify(p.name)},this)"
+              aria-label="Partager cet article">
+              ↗
+            </button>
+
+            <img
+              src="${p.image}"
+              alt="${p.name}"
+              loading="lazy"
+              decoding="async"
+              onclick="event.preventDefault();event.stopPropagation();openZoom(this.src,this.alt)"
+            >
+
+          </div>
+
+          <div class="shop-card-body">
+
+            <h3>${p.name}</h3>
+
+            <div class="shop-price-row">
+              ${oldPrice}
+              <span class="shop-price-new">${price}</span>
+            </div>
+
+            ${p.code ? `
+              <div style="font-size:.74rem;color:var(--gold-soft);">
+                🎟️ Code : <b>${p.code}</b>
+              </div>
+            ` : ''}
+
+            <div style="font-size:.74rem;color:var(--text-dim);">
+              🛍️ Hacoo
+            </div>
+
+            <div class="shop-cta">
+              Voir sur Hacoo →
+            </div>
+
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+
+  } catch(error) {
+    console.error('Frbonplan products:', error);
+  }
+
+})();
+</script>
 
 </body>
 </html>
